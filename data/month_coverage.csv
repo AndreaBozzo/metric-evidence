@@ -1,7 +1,7 @@
 snapshot_id,month_key,month_label,trend_label,expected_start,expected_end,expected_days,observed_through,covered_days,coverage_status,comparison_end_day,prior_month_key,comparison_label,orders_in_snapshot,orders_after_cutoff,cutoff_check,evidence_source
 snap-2026-09-20,202604,Apr 2026,Apr,2026-04-01,2026-04-30,30,2026-04-30,30,complete,30,,No prior month in this snapshot,3344,0,pass,generation manifest + Python check
-snap-2026-09-20,202605,May 2026,May,2026-05-01,2026-05-31,31,2026-05-31,31,complete,31,202604,May vs Apr (full months),3476,0,pass,generation manifest + Python check
-snap-2026-09-20,202606,Jun 2026,Jun,2026-06-01,2026-06-30,30,2026-06-30,30,complete,30,202605,Jun vs May (full months),3495,0,pass,generation manifest + Python check
-snap-2026-09-20,202607,Jul 2026,Jul,2026-07-01,2026-07-31,31,2026-07-31,31,complete,31,202606,Jul vs Jun (full months),3540,0,pass,generation manifest + Python check
-snap-2026-09-20,202608,Aug 2026,Aug,2026-08-01,2026-08-31,31,2026-08-31,31,complete,31,202607,Aug vs Jul (full months),3670,0,pass,generation manifest + Python check
+snap-2026-09-20,202605,May 2026,May,2026-05-01,2026-05-31,31,2026-05-31,31,complete,31,202604,"May vs Apr, full months",3476,0,pass,generation manifest + Python check
+snap-2026-09-20,202606,Jun 2026,Jun,2026-06-01,2026-06-30,30,2026-06-30,30,complete,30,202605,"Jun vs May, full months",3495,0,pass,generation manifest + Python check
+snap-2026-09-20,202607,Jul 2026,Jul,2026-07-01,2026-07-31,31,2026-07-31,31,complete,31,202606,"Jul vs Jun, full months",3540,0,pass,generation manifest + Python check
+snap-2026-09-20,202608,Aug 2026,Aug,2026-08-01,2026-08-31,31,2026-08-31,31,complete,31,202607,"Aug vs Jul, full months",3670,0,pass,generation manifest + Python check
 snap-2026-09-20,202609,Sep 2026,Sep (1–20),2026-09-01,2026-09-30,30,2026-09-20,20,partial,20,202608,Sep 1–20 vs Aug 1–20,2268,0,pass,generation manifest + Python check

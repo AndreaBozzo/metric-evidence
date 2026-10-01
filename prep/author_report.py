@@ -352,10 +352,18 @@ def page_what_changed(region: str | None = None) -> tuple[dict, list[dict]]:
         alt="Monthly revenue from April to September 2026; the September bar covers 1 to 20 September only. Data labels show values.",
         visual=trend("Revenue", units=1000.0)))
     v.append(container(
-        "barRegionContribution", 24, 520, 752, 184, z=next(z),
+        "barRegionContribution", 24, 520, 544, 184, z=next(z),
         title=mexpr(ORD, "Bridge Title"), subtitle=mexpr(ORD, "Contribution Subtitle"),
         alt="Revenue bridge from the comparison period to the selected period, one step per region. Data labels show values.",
         visual=waterfall(F["trend_label"], F["region_name"], m("Bridge Revenue"), units=1000.0)))
+    # Waterfall breakdown points offer no drillthrough, so the ranked % bars are the
+    # right-click handle for the segment page (Region is their category).
+    v.append(container(
+        "barRegionChange", 584, 520, 192, 184, z=next(z),
+        title="Change by region, %", subtitle="Right-click a region → Drill through for detail.",
+        alt="Revenue change percentage by region, ranked. Right-click a region to drill through to its detail page.",
+        visual=hbar(F["region_name"], m("Revenue Change %"), fill=mexpr(ORD, "Change Direction Color")["expr"],
+                    sort=(m("Revenue Change %"), "Ascending"), units=1.0)))
     # Evidence panel: contiguous tinted visuals from y 128 to 704.
     v.append(container("txtEvidenceHeading", 792, 124, 464, 44, z=next(z), background=PANEL, visual=textbox([
         [("Data limitations for this view", "semibold", 11, TEXT)],
@@ -381,6 +389,7 @@ def page_what_changed(region: str | None = None) -> tuple[dict, list[dict]]:
     interactions = [{"source": "colTrend", "target": t, "type": "NoFilter"} for t in names if t != "colTrend"]
     # The contribution chart always ranks all three regions.
     interactions.append({"source": "slcRegion", "target": "barRegionContribution", "type": "NoFilter"})
+    interactions.append({"source": "slcRegion", "target": "barRegionChange", "type": "NoFilter"})
     interactions.append({"source": "barRegionContribution", "target": "colTrend", "type": "DataFilter"})
     page = {"$schema": SCHEMA + "page/2.1.0/schema.json", "name": "what-changed", "displayName": "What changed?",
             "displayOption": "FitToPage", "height": 720, "width": 1280, "visualInteractions": interactions}
@@ -464,14 +473,13 @@ def page_segment_detail() -> tuple[dict, list[dict]]:
     page = {
         "$schema": SCHEMA + "page/2.1.0/schema.json", "name": "segment-detail", "displayName": "Segment detail",
         "displayOption": "FitToPage", "height": 720, "width": 1280,
+        # No saved drill value: opened directly the page shows all regions, so a broken
+        # drillthrough cannot hide behind a preset region.
         "filterConfig": {"filters": [{"name": drill_filter, "field": F["region_name"], "type": "Categorical",
-                                      "howCreated": "Drillthrough", "filter": {
-                                          "Version": 2, "From": [{"Name": "r", "Entity": "Region", "Type": 0}],
-                                          "Where": [{"Condition": {"In": {
-                                              "Expressions": [{"Column": {"Expression": {"SourceRef": {"Source": "r"}},
-                                                                          "Property": "region_name"}}],
-                                              "Values": [[{"Literal": {"Value": "'North'"}}]]}}}]}}]},
-        "pageBinding": {"name": "drillRegionBinding", "type": "Drillthrough", "acceptsFilterContext": "Default",
+                                      "howCreated": "Drillthrough"}]},
+        # Drillthrough carries only the region. The month travels through the synced month
+        # slicer, so it stays changeable here; "keep all filters" would pin it to one value.
+        "pageBinding": {"name": "drillRegionBinding", "type": "Drillthrough", "acceptsFilterContext": "None",
                         "parameters": [{"name": "drillRegionParam", "boundFilter": drill_filter,
                                         "fieldExpr": F["region_name"]}]},
         "type": "Drillthrough",

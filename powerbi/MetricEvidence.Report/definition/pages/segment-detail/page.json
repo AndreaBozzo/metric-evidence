@@ -20,53 +20,14 @@
           }
         },
         "type": "Categorical",
-        "howCreated": "Drillthrough",
-        "filter": {
-          "Version": 2,
-          "From": [
-            {
-              "Name": "r",
-              "Entity": "Region",
-              "Type": 0
-            }
-          ],
-          "Where": [
-            {
-              "Condition": {
-                "In": {
-                  "Expressions": [
-                    {
-                      "Column": {
-                        "Expression": {
-                          "SourceRef": {
-                            "Source": "r"
-                          }
-                        },
-                        "Property": "region_name"
-                      }
-                    }
-                  ],
-                  "Values": [
-                    [
-                      {
-                        "Literal": {
-                          "Value": "'North'"
-                        }
-                      }
-                    ]
-                  ]
-                }
-              }
-            }
-          ]
-        }
+        "howCreated": "Drillthrough"
       }
     ]
   },
   "pageBinding": {
     "name": "drillRegionBinding",
     "type": "Drillthrough",
-    "acceptsFilterContext": "Default",
+    "acceptsFilterContext": "None",
     "parameters": [
       {
         "name": "drillRegionParam",

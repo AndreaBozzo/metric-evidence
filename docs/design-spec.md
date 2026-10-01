@@ -2,6 +2,8 @@
 
 > **As built (differs from the spec below):**
 > * The region contribution bars became a waterfall bridge (prior window → one step per region → current window).
+> * A compact **Change by region, %** bar chart sits beside the bridge. It ranks the regions and is the right-click drillthrough handle, because waterfall steps cannot drill through.
+> * The drillthrough carries only the region. The month syncs through the slicer, and the page stores no preset region.
 > * The KPI card shows four callouts (selected period, comparison period, revenue change, orders change) and has no reference labels.
 > * The trend uses four static-colour series instead of a colour measure. Desktop offers no measure colour once a chart has several series.
 > * Sentences use legacy cards, which centre their text, because the new card does not wrap measure text.

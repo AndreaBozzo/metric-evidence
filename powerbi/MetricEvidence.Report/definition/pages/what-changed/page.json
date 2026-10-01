@@ -53,6 +53,11 @@
     },
     {
       "source": "colTrend",
+      "target": "barRegionChange",
+      "type": "NoFilter"
+    },
+    {
+      "source": "colTrend",
       "target": "txtEvidenceHeading",
       "type": "NoFilter"
     },
@@ -79,6 +84,11 @@
     {
       "source": "slcRegion",
       "target": "barRegionContribution",
+      "type": "NoFilter"
+    },
+    {
+      "source": "slcRegion",
+      "target": "barRegionChange",
       "type": "NoFilter"
     },
     {

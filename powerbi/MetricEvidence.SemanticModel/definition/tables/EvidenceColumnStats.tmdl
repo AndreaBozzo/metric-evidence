@@ -115,7 +115,7 @@ table 'Evidence Column Stats'
 				)
 		displayFolder: 5 Evidence
 
-	/// Confirms the evidence describes the loaded orders: one snapshot id across all evidence tables, equal to the Snapshot table's, and dataprof's whole-snapshot row count equal to the orders loaded in the model.
+	/// Checks that the loaded orders are the rows dataprof profiled: one snapshot id across all evidence tables, and the row count, revenue total and four order-weighted checksums (revenue, date, category, region) recomputed from the loaded orders equal the values written when the snapshot was profiled. Any single changed value or missing row changes at least one checksum. Not cryptographic.
 	measure 'Snapshot Consistency' =
 			VAR snap = [Snapshot Id]
 			VAR evidenceSnaps =
@@ -133,17 +133,29 @@ table 'Evidence Column Stats'
 					'Evidence Column Stats'[scope_id] = "dataset",
 					'Evidence Column Stats'[column_name] = "order_id"
 				)
-			VAR loadedRows = COUNTROWS ( ALL ( Orders ) )
-			VAR consistent =
-				COUNTROWS ( evidenceSnaps ) = 1
-					&& MAXX ( evidenceSnaps, [snapshot_id] ) = snap
-					&& profiledRows = loadedRows
-					&& SELECTEDVALUE ( Snapshot[orders_rows] ) = loadedRows
+			VAR loaded = ALL ( Orders )
+			VAR loadedRows = COUNTROWS ( loaded )
+			VAR cents = SUMX ( loaded, ROUND ( Orders[revenue_amount] * 100, 0 ) )
+			VAR sumRevenue = SUMX ( loaded, VALUE ( MID ( Orders[order_id], 5, 6 ) ) * ROUND ( Orders[revenue_amount] * 100, 0 ) )
+			VAR sumDate = SUMX ( loaded, VALUE ( MID ( Orders[order_id], 5, 6 ) ) * INT ( Orders[order_date] - DATE ( 2026, 1, 1 ) ) )
+			VAR sumCategory = SUMX ( loaded, VALUE ( MID ( Orders[order_id], 5, 6 ) ) * RELATED ( Category[sort_order] ) )
+			VAR sumRegion = SUMX ( loaded, VALUE ( MID ( Orders[order_id], 5, 6 ) ) * RELATED ( Region[sort_order] ) )
+			VAR idsAgree = COUNTROWS ( evidenceSnaps ) = 1 && MAXX ( evidenceSnaps, [snapshot_id] ) = snap
+			VAR rowsAgree = profiledRows = loadedRows && SELECTEDVALUE ( Snapshot[orders_rows] ) = loadedRows
+			VAR contentAgrees =
+				cents = SELECTEDVALUE ( Snapshot[revenue_cents_total] )
+					&& sumRevenue = SELECTEDVALUE ( Snapshot[checksum_revenue] )
+					&& sumDate = SELECTEDVALUE ( Snapshot[checksum_date] )
+					&& sumCategory = SELECTEDVALUE ( Snapshot[checksum_category] )
+					&& sumRegion = SELECTEDVALUE ( Snapshot[checksum_region] )
 			RETURN
-				IF (
-					consistent,
-					"Same snapshot: " & snap & ", " & FORMAT ( loadedRows, "#,0" ) & " orders profiled and loaded",
-					"Mismatch: the evidence does not describe the loaded orders"
+				SWITCH (
+					TRUE (),
+					NOT idsAgree, "Mismatch: evidence tables come from different snapshots",
+					NOT rowsAgree, "Mismatch: loaded order count differs from the profiled snapshot",
+					NOT contentAgrees, "Mismatch: loaded orders differ in content from the profiled snapshot",
+					"Loaded orders match the profiled snapshot " & snap & ": " & FORMAT ( loadedRows, "#,0" )
+						& " rows, revenue total and per-column checksums agree"
 				)
 		displayFolder: 5 Evidence
 

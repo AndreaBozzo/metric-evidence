@@ -247,6 +247,19 @@ table Orders
 	measure 'KPI Title' = "Revenue, like-for-like · " & [Comparison Note] & " · simple demo comparison, not seasonally adjusted"
 		displayFolder: 8 Presentation
 
+	/// Bar fill for a change: blue for an increase, orange for a decrease. These two hues mean direction only.
+	measure 'Change Direction Color' =
+			VAR change = [Revenue Change]
+			RETURN
+				SWITCH (
+					TRUE (),
+					ISBLANK ( change ), "#C4C2BA",
+					change < 0, "#EB6834",
+					"#2A78D6"
+				)
+		isHidden
+		displayFolder: 8 Presentation
+
 	/// Fixed identity color per category, keyed on category_key; Unknown is a neutral gray so it never reads as a fifth category.
 	measure 'Category Color' =
 			SWITCH (
@@ -351,7 +364,7 @@ table Orders
 					ISBLANK ( total ),
 					[Comparison Note] & ". No change to break down.",
 					"Each step is one region's change; together they make the total change ("
-						& FORMAT ( total / 1000, "+$#,0.0\K;−$#,0.0\K" ) & "). Right-click a region for detail."
+						& FORMAT ( total / 1000, "+$#,0.0\K;−$#,0.0\K" ) & ")."
 				)
 		displayFolder: 8 Presentation
 
@@ -371,7 +384,7 @@ table Orders
 		displayFolder: 8 Presentation
 
 	/// Title of the revenue bridge, naming the two windows.
-	measure 'Bridge Title' = "Revenue bridge by region · " & [Comparison Note]
+	measure 'Bridge Title' = "All-region revenue bridge · " & [Comparison Note]
 		displayFolder: 8 Presentation
 
 	/// Subtitle for the category chart on the segment page.

@@ -47,11 +47,46 @@ table Snapshot
 		summarizeBy: none
 		sourceColumn: dataprof_version
 
+	/// Sum of revenue in cents over the profiled orders.
+	column revenue_cents_total
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: revenue_cents_total
+
+	/// Sum of order number x revenue in cents.
+	column checksum_revenue
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: checksum_revenue
+
+	/// Sum of order number x days since 1 Jan 2026.
+	column checksum_date
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: checksum_date
+
+	/// Sum of order number x Category sort_order (Unknown included).
+	column checksum_category
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: checksum_category
+
+	/// Sum of order number x Region sort_order.
+	column checksum_region
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: checksum_region
+
 	partition Snapshot = m
 		mode: import
 		source =
 				let
-					Source = fnReadCsv("snapshot.csv", {{"snapshot_id", type text}, {"snapshot_cutoff", type date}, {"intended_coverage_start", type date}, {"intended_coverage_end", type date}, {"orders_rows", Int64.Type}, {"orders_sha256", type text}, {"generator_seed", Int64.Type}, {"dataprof_version", type text}})
+					Source = fnReadCsv("snapshot.csv", {{"snapshot_id", type text}, {"snapshot_cutoff", type date}, {"intended_coverage_start", type date}, {"intended_coverage_end", type date}, {"orders_rows", Int64.Type}, {"orders_sha256", type text}, {"generator_seed", Int64.Type}, {"dataprof_version", type text}, {"revenue_cents_total", Int64.Type}, {"checksum_revenue", Int64.Type}, {"checksum_date", Int64.Type}, {"checksum_category", Int64.Type}, {"checksum_region", Int64.Type}})
 				in
 					Source
 

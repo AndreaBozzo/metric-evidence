@@ -79,6 +79,15 @@ noticed in practice, not a wish list.
    * Cards print BLANK as "(Blank)"; text measures return `""` instead.
    * `LOOKUPVALUE` ignores filters on the table it searches, so lookups into
      the disconnected `Month Coverage` table are safe under month-axis clicks.
+   * Waterfall breakdown steps offer no Drill through in their context menu;
+     a visual whose category is the drillthrough field is needed (here the
+     ranked % bars).
+   * A drillthrough with "keep all filters" pins a synced slicer on the target
+     page to the passed value. Carrying only the drill field and letting the
+     slicer sync the rest keeps the month changeable.
+   * `PrintWindow` cannot capture a window larger than the screen; Desktop
+     clamps it. Collapsing the side panes raises canvas zoom from 73% to 104%,
+     which is what made the phone-sized panels readable.
 7. **Automate the visual check.** The reload, refresh, screenshot and crop loop
    (PowerShell `PrintWindow` plus a 16:9 crop) caught every layout defect
    above. Packaging it as a script with a pixel-diff against approved images

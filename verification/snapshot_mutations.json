@@ -1,0 +1,32 @@
+[
+ {
+  "mutation": "amount",
+  "message": "Mismatch: loaded orders differ in content from the profiled snapshot",
+  "ok": true
+ },
+ {
+  "mutation": "date",
+  "message": "Mismatch: loaded orders differ in content from the profiled snapshot",
+  "ok": true
+ },
+ {
+  "mutation": "category label",
+  "message": "Mismatch: loaded orders differ in content from the profiled snapshot",
+  "ok": true
+ },
+ {
+  "mutation": "region",
+  "message": "Mismatch: loaded orders differ in content from the profiled snapshot",
+  "ok": true
+ },
+ {
+  "mutation": "missing row",
+  "message": "Mismatch: loaded order count differs from the profiled snapshot",
+  "ok": true
+ },
+ {
+  "mutation": "none (restored)",
+  "message": "Loaded orders match the profiled snapshot snap-2026-09-20: 19,793 rows, revenue total and per-column checksums agree",
+  "ok": true
+ }
+]

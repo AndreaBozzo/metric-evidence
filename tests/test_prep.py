@@ -24,6 +24,7 @@ def built(tmp_path_factory):
     out = tmp_path_factory.mktemp("data")
     rows, manifest = generate_orders.generate()
     generate_orders.write_orders(rows, out / "orders.csv")
+    generate_orders.write_dimensions(out)
     manifest["orders_file"] = "orders.csv"
     manifest["orders_sha256"] = hashlib.sha256((out / "orders.csv").read_bytes()).hexdigest()
     (out / "manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
@@ -142,3 +143,23 @@ def test_evidence_refuses_a_snapshot_that_does_not_match_its_manifest(built, tmp
         f.write("ORD-999999,2026-09-20,North,Hardware,1.00\n")
     with pytest.raises(SystemExit):
         build_evidence.build(tmp_path)
+
+
+def test_snapshot_fingerprint_changes_with_any_single_value(built):
+    """The report compares these sums with the orders it loaded, so a changed amount,
+    date, label or region, or a missing row, must move at least one of them."""
+    header, rows = build_evidence.load_columns(built["dir"] / "orders.csv")
+    base = build_evidence.fingerprint(built["dir"], header, rows)
+    assert base["revenue_cents_total"] == built["ref"]["totals"]["revenue_cents"]
+    i = {name: header.index(name) for name in header}
+    mutations = {
+        "amount": lambda r: r.__setitem__(i["revenue_amount"], "1.00"),
+        "date": lambda r: r.__setitem__(i["order_date"], "2026-04-02"),
+        "label": lambda r: r.__setitem__(i["category"], "Software" if r[i["category"]] != "Software" else "Hardware"),
+        "region": lambda r: r.__setitem__(i["region"], "South" if r[i["region"]] != "South" else "North"),
+    }
+    for name, mutate in mutations.items():
+        changed = [list(r) for r in rows]
+        mutate(changed[1234])
+        assert build_evidence.fingerprint(built["dir"], header, changed) != base, name
+    assert build_evidence.fingerprint(built["dir"], header, rows[:-1]) != base, "missing row"

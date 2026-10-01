@@ -158,7 +158,7 @@ def run(model: Model, data: Path) -> Results:
     res.check("unknown retained", "Unknown category revenue",
               cents(ref["totals"]["unknown_category_revenue_cents"]), t["unknown"])
     res.check("unknown retained", "sum over categories incl. Unknown = total", t["rev"], t["bycat"])
-    res.check("snapshot", "Snapshot Consistency", True, str(t["snap"]).startswith("Same snapshot"))
+    res.check("snapshot", "Snapshot Consistency", True, str(t["snap"]).startswith("Loaded orders match"))
 
     # 2-5. Every month x (all regions | one region).
     slices = {(s["month_key"], s["region"]): s for s in ref["slices"]}

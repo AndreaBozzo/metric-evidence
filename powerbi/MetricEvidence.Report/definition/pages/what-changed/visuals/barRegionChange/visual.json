@@ -1,37 +1,19 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
-  "name": "barRegionContribution",
+  "name": "barRegionChange",
   "position": {
-    "x": 24,
+    "x": 584,
     "y": 520,
-    "z": 9000,
-    "width": 544,
+    "z": 10000,
+    "width": 192,
     "height": 184,
-    "tabOrder": 9000
+    "tabOrder": 10000
   },
   "visual": {
-    "visualType": "waterfallChart",
+    "visualType": "clusteredBarChart",
     "query": {
       "queryState": {
         "Category": {
-          "projections": [
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Month Coverage"
-                    }
-                  },
-                  "Property": "trend_label"
-                }
-              },
-              "queryRef": "Month Coverage.trend_label",
-              "nativeQueryRef": "trend_label"
-            }
-          ]
-        },
-        "Breakdown": {
           "projections": [
             {
               "field": {
@@ -59,11 +41,11 @@
                       "Entity": "Orders"
                     }
                   },
-                  "Property": "Bridge Revenue"
+                  "Property": "Revenue Change %"
                 }
               },
-              "queryRef": "Orders.Bridge Revenue",
-              "nativeQueryRef": "Bridge Revenue"
+              "queryRef": "Orders.Revenue Change %",
+              "nativeQueryRef": "Revenue Change %"
             }
           ]
         }
@@ -72,82 +54,53 @@
         "sort": [
           {
             "field": {
-              "Column": {
+              "Measure": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "Month Coverage"
+                    "Entity": "Orders"
                   }
                 },
-                "Property": "trend_label"
+                "Property": "Revenue Change %"
               }
             },
             "direction": "Ascending"
           }
         ],
-        "isDefaultSort": true
+        "isDefaultSort": false
       }
     },
     "objects": {
-      "sentimentColors": [
+      "dataPoint": [
+        {
+          "properties": {}
+        },
         {
           "properties": {
-            "increaseFill": {
+            "fill": {
               "solid": {
                 "color": {
                   "expr": {
-                    "Literal": {
-                      "Value": "'#2A78D6'"
-                    }
-                  }
-                }
-              }
-            },
-            "decreaseFill": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#EB6834'"
-                    }
-                  }
-                }
-              }
-            },
-            "totalFill": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#8A8882'"
-                    }
-                  }
-                }
-              }
-            },
-            "otherFill": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#C4C2BA'"
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Orders"
+                        }
+                      },
+                      "Property": "Change Direction Color"
                     }
                   }
                 }
               }
             }
-          }
-        }
-      ],
-      "breakdown": [
-        {
-          "properties": {
-            "maxBreakdowns": {
-              "expr": {
-                "Literal": {
-                  "Value": "5L"
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 1
                 }
               }
-            }
+            ]
           }
         }
       ],
@@ -182,7 +135,7 @@
             "labelDisplayUnits": {
               "expr": {
                 "Literal": {
-                  "Value": "1000D"
+                  "Value": "1D"
                 }
               }
             },
@@ -281,13 +234,8 @@
             },
             "text": {
               "expr": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Orders"
-                    }
-                  },
-                  "Property": "Bridge Title"
+                "Literal": {
+                  "Value": "'Change by region, %'"
                 }
               }
             }
@@ -306,13 +254,8 @@
             },
             "text": {
               "expr": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Orders"
-                    }
-                  },
-                  "Property": "Contribution Subtitle"
+                "Literal": {
+                  "Value": "'Right-click a region → Drill through for detail.'"
                 }
               }
             }
@@ -325,7 +268,7 @@
             "altText": {
               "expr": {
                 "Literal": {
-                  "Value": "'Revenue bridge from the comparison period to the selected period, one step per region. Data labels show values.'"
+                  "Value": "'Revenue change percentage by region, ranked. Right-click a region to drill through to its detail page.'"
                 }
               }
             }

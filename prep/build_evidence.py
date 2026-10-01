@@ -27,6 +27,7 @@ import hashlib
 import json
 from collections import defaultdict
 from datetime import date, timedelta
+from decimal import Decimal
 from pathlib import Path
 
 import dataprof as dp
@@ -194,7 +195,7 @@ def coverage_rows(manifest: dict, header: list[str], rows: list[list[str | None]
         elif status == "partial":
             label = f"{name} 1–{covered} vs {prev_name} 1–{covered}"
         else:
-            label = f"{name} vs {prev_name} (full months)"
+            label = f"{name} vs {prev_name}, full months"
         out.append({
             "snapshot_id": manifest["snapshot_id"],
             "month_key": mk,
@@ -225,6 +226,37 @@ def write_csv(path: Path, fields: list[str], rows: list[dict]) -> None:
         w.writeheader()
         for r in rows:
             w.writerow({k: _blank(r[k]) for k in fields})
+
+
+FINGERPRINT_EPOCH = date(2026, 1, 1)
+
+
+def fingerprint(data: Path, header: list[str], rows: list[list[str | None]]) -> dict:
+    """Content fingerprint the report recomputes from the orders it loaded.
+
+    Each checksum weights a column by the order number (ORD-000123 -> 123), so
+    changing any single value, or adding or removing a row, changes at least one
+    of them. They are not cryptographic: they detect accidental divergence, not
+    deliberate tampering. Codes come from the dimension files Power BI loads.
+    """
+    def codes(name: str, key: str) -> dict[str, int]:
+        with (data / name).open(newline="", encoding="utf-8") as f:
+            return {r[key]: int(r["sort_order"]) for r in csv.DictReader(f)}
+
+    region_code = codes("dim_region.csv", "region_key")
+    category_code = codes("dim_category.csv", "category_key")
+    col = {name: header.index(name) for name in header}
+    out = {"revenue_cents_total": 0, "checksum_revenue": 0, "checksum_date": 0,
+           "checksum_category": 0, "checksum_region": 0}
+    for r in rows:
+        n = int(r[col["order_id"]][4:])
+        cents = int(Decimal(r[col["revenue_amount"]]) * 100)
+        out["revenue_cents_total"] += cents
+        out["checksum_revenue"] += n * cents
+        out["checksum_date"] += n * (date.fromisoformat(r[col["order_date"]]) - FINGERPRINT_EPOCH).days
+        out["checksum_category"] += n * category_code[r[col["category"]] or "UNKNOWN"]
+        out["checksum_region"] += n * region_code[r[col["region"]]]
+    return out
 
 
 def build(data: Path) -> dict:
@@ -275,6 +307,7 @@ def build(data: Path) -> dict:
         "orders_sha256": sha,
         "generator_seed": manifest["seed"],
         "dataprof_version": dp.__version__,
+        **fingerprint(data, header, rows),
     }
     write_csv(data / "snapshot.csv", list(snapshot), [snapshot])
     return {"stats": stats, "checks": checks, "coverage": coverage, "snapshot": snapshot}
