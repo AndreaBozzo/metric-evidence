@@ -9,6 +9,10 @@ orders Power BI loaded are the rows dataprof profiled. Data observations describ
 presented as reasons revenue moved. Synthetic data, no Power BI Service, no
 Fabric, no paid licence.
 
+[![15-second walkthrough: the comparison trap, a regional check hidden by the aggregate, and a category that grows because labels went missing](docs/media/metric-evidence-15s.gif)](docs/media/metric-evidence-15s.mp4)
+
+<sub>15-second walkthrough ([MP4, 1080p](docs/media/metric-evidence-15s.mp4)), animated in Figma from the report captures.</sub>
+
 ![What changed? — all regions](docs/img/what-changed.png)
 
 | North selected: the failed check sits beside the decline, in its own colour | Right-click North → Drill through: volume, categories, evidence history |
@@ -92,7 +96,7 @@ checksums detect divergence, not deliberate tampering.
 | `powerbi/` | the PBIP: TMDL model (8 tables, every measure described) and PBIR report, theme |
 | `data/` | generated inputs and `reference_results.json` |
 | `verification/` | what was verified and how ([record](verification/README.md)) |
-| `docs/` | [design spec](docs/design-spec.md), [enhancement notes](docs/enhancement-notes.md), phone-sized panels in `docs/img/social/` |
+| `docs/` | [design spec](docs/design-spec.md), [enhancement notes](docs/enhancement-notes.md), phone-sized panels in `docs/img/social/`, the walkthrough clip in `docs/media/` |
 
 `prep/author_report.py` generated the report pages. After editing in Desktop,
 the PBIR files are the source of truth and the script refuses to overwrite

@@ -5,6 +5,7 @@ description = "Synthetic orders + dataprof evidence tables for a Power BI report
 requires-python = ">=3.12,<3.13"
 license = "MIT OR Apache-2.0"
 license-files = ["LICENSE", "LICENSE-APACHE"]
+keywords = ["power-bi", "data-quality", "dataprof", "pbip", "data-visualization"]
 dependencies = [
     "dataprof==0.12.0",
 ]
