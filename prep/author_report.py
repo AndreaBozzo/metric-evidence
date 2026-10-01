@@ -15,11 +15,11 @@ import shutil
 import uuid
 from pathlib import Path
 
-from paths import REPO_ROOT
+from paths import REPO_ROOT, desktop_bin
 
 REPORT = REPO_ROOT / "powerbi" / "MetricEvidence.Report"
 THEME_SRC = REPO_ROOT / "powerbi" / "theme" / "MetricEvidence.theme.json"
-DESKTOP_BASE_THEMES = Path(r"C:\Program Files\Microsoft Power BI Desktop\bin\WebView2Resources\minerva\sharedresources\BaseThemes")
+DESKTOP_BASE_THEMES = desktop_bin() / "WebView2Resources" / "minerva" / "sharedresources" / "BaseThemes"
 BASE_THEME = "Fluent2-CY26SU09"
 THEME_FILE = "MetricEvidence.theme.json"
 VERSION_AT_IMPORT = {"visual": "2.12.0", "report": "3.4.0", "page": "2.3.1"}

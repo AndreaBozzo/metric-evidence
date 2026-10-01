@@ -1,5 +1,5 @@
-/// Folder holding the prepared CSVs (orders, dimensions, evidence). The only machine path in the project: change it here, or in Transform data > Manage parameters.
-expression DataFolder = "C:\dev\pbi-dq\data\" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+/// Absolute path of this clone's data folder (orders, dimensions, evidence). Ships as a placeholder; set it with `uv run python prep/configure_report.py`, or in Transform data > Edit parameters.
+expression DataFolder = "<not set: run prep/configure_report.py>" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
 	queryGroup: Parameters
 
 	annotation PBI_ResultType = Text
@@ -8,7 +8,11 @@ expression DataFolder = "C:\dev\pbi-dq\data\" meta [IsParameterQuery=true, Type=
 expression fnReadCsv =
 		(fileName as text, columnTypes as list) as table =>
 		let
-		    Raw = Csv.Document(File.Contents(DataFolder & fileName), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+		    Folder =
+		        if Text.StartsWith(DataFolder, "<") then
+		            error Error.Record("DataFolder is not set", "Run: uv run python prep/configure_report.py (from the repository root), or set Transform data > Edit parameters > DataFolder to the repository's data folder.")
+		        else if Text.EndsWith(DataFolder, "\") then DataFolder else DataFolder & "\",
+		    Raw = Csv.Document(File.Contents(Folder & fileName), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
 		    Promoted = Table.PromoteHeaders(Raw, [PromoteAllScalars = true]),
 		    EmptyAsNull = Table.TransformColumns(Promoted, {}, each if _ = "" then null else _),
 		    Typed = Table.TransformColumnTypes(EmptyAsNull, columnTypes, "en-US")

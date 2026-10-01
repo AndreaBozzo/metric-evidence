@@ -32,11 +32,21 @@ uv run python prep/reference.py           # independent reference results (integ
 uv run pytest -q
 ```
 
+Point the report at this clone's data, then open it:
+
+```powershell
+uv run python prep/configure_report.py    # sets the DataFolder parameter to <this clone>\data\
+```
+
 Open `powerbi\MetricEvidence.pbip` in Desktop and select **Refresh** (a PBIP
-stores no data). If the repo is not at `C:\dev\pbi-dq`, change the
-`DataFolder` parameter (**Transform data → Edit parameters**); it is the only
-machine path in the project. Python steps take `--data-dir` or
-`METRIC_EVIDENCE_DATA_DIR`.
+stores no data). Power Query needs an absolute path, so the project ships a
+placeholder: until it is set, refresh stops with *DataFolder is not set* and
+these instructions. Without Python, set it by hand in **Transform data → Edit
+parameters**. The generated CSVs are committed, so the data steps above are
+only needed to regenerate them. Python steps take `--data-dir` or
+`METRIC_EVIDENCE_DATA_DIR`; `prep/configure_report.py --reset` restores the
+placeholder. If Power BI Desktop is not in the default folder, set
+`PBI_DESKTOP_BIN` for the scripts that use it.
 
 With the report open:
 

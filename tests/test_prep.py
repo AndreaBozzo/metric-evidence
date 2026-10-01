@@ -163,3 +163,24 @@ def test_snapshot_fingerprint_changes_with_any_single_value(built):
         mutate(changed[1234])
         assert build_evidence.fingerprint(built["dir"], header, changed) != base, name
     assert build_evidence.fingerprint(built["dir"], header, rows[:-1]) != base, "missing row"
+
+
+def test_configure_report_rewrites_only_the_data_folder(tmp_path):
+    import configure_report
+
+    # Work on a copy normalised to the placeholder, so the test does not depend on
+    # whether this clone has already been configured.
+    copy = tmp_path / "expressions.tmdl"
+    copy.write_text(configure_report.EXPRESSIONS.read_text(encoding="utf-8"), encoding="utf-8")
+    configure_report.set_data_folder(configure_report.PLACEHOLDER, copy)
+    shipped = copy.read_text(encoding="utf-8")
+
+    target = r"D:\clones\metric-evidence\data" + "\\"
+    old, new = configure_report.set_data_folder(target, copy)
+    assert (old, new) == (configure_report.PLACEHOLDER, target)
+    changed = copy.read_text(encoding="utf-8")
+    assert f'expression DataFolder = "{target}" meta' in changed
+    assert [line for line in changed.splitlines() if "DataFolder =" not in line] == \
+        [line for line in shipped.splitlines() if "DataFolder =" not in line]
+    configure_report.set_data_folder(configure_report.PLACEHOLDER, copy)
+    assert copy.read_text(encoding="utf-8") == shipped

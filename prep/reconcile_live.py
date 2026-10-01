@@ -21,9 +21,9 @@ from dataclasses import dataclass, field
 from decimal import Decimal
 from pathlib import Path
 
-from paths import REPO_ROOT, data_dir_from_args
+from paths import REPO_ROOT, data_dir_from_args, desktop_bin
 
-DESKTOP_BIN = Path(os.environ.get("PBI_DESKTOP_BIN", r"C:\Program Files\Microsoft Power BI Desktop\bin"))
+DESKTOP_BIN = desktop_bin()
 WORKSPACES = Path(os.environ["LOCALAPPDATA"]) / "Microsoft" / "Power BI Desktop" / "AnalysisServicesWorkspaces"
 REGIONS = ("North", "Central", "South")
 UNAVAILABLE = "Evidence unavailable for this selection"
