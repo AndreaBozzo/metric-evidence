@@ -1,10 +1,12 @@
 /// dataprof column statistics. Grain: one row per scope_id x column_name, where a scope is the whole snapshot (dataset), one month (month) or one month and region (month_region). Not related to other tables: evidence measures pick exactly one scope, so whole-month and region rows are never added together.
 table 'Evidence Column Stats'
+	lineageTag: ed9d0bd1-7a49-4a82-bc34-49835da86f4c
 
 	/// The snapshot the report was loaded from.
 	measure 'Snapshot Id' = SELECTEDVALUE ( Snapshot[snapshot_id] )
 		isHidden
 		displayFolder: 9 Helpers
+		lineageTag: 5988161a-65f7-4528-b2a6-131dc2c6b5e6
 
 	/// Month the evidence refers to: the row's month in a table or chart grouped by 'Month Coverage', otherwise the single selected month. Blank when no single month applies.
 	measure 'Evidence Month Key' =
@@ -16,6 +18,7 @@ table 'Evidence Column Stats'
 		formatString: 0
 		isHidden
 		displayFolder: 9 Helpers
+		lineageTag: 411a2a00-f703-4dca-b5a4-bdb9c53a9b4a
 
 	/// ALL when every region is in context, the region key when exactly one is, blank for any other combination (unsupported in v1). Category filters never reach Region, so they cannot change this.
 	measure 'Evidence Region Key' =
@@ -29,6 +32,7 @@ table 'Evidence Column Stats'
 				)
 		isHidden
 		displayFolder: 9 Helpers
+		lineageTag: 13785f5e-633f-4158-b051-1901577d6a81
 
 	/// The one evidence scope matching the selection: the month scope (e.g. 202609) for all regions, or the month x region scope (e.g. 202609-North). Blank for unsupported selections.
 	measure 'Evidence Scope Id' =
@@ -41,6 +45,7 @@ table 'Evidence Column Stats'
 				)
 		isHidden
 		displayFolder: 9 Helpers
+		lineageTag: 9d5d9f08-bee6-4169-8e9c-c0f171dcd017
 
 	/// Rows dataprof profiled in the evidence scope (category column). Blank when the selection has no evidence scope.
 	measure 'Evidence Rows Profiled' =
@@ -59,6 +64,7 @@ table 'Evidence Column Stats'
 				)
 		formatString: #,0
 		displayFolder: 5 Evidence
+		lineageTag: abc8fab7-7f2b-48b5-b900-b583c8ceb94d
 
 	/// Rows with a missing category label in the evidence scope, as counted by dataprof.
 	measure 'Evidence Category Nulls' =
@@ -77,6 +83,7 @@ table 'Evidence Column Stats'
 				)
 		formatString: #,0
 		displayFolder: 5 Evidence
+		lineageTag: cecf6555-999d-4e4e-9983-3a9da512c2a0
 
 	/// Share of profiled rows with a category label, from dataprof's counts: 1 - null_count / observed_rows. Counts are taken before dividing; percentages are never averaged.
 	measure 'Evidence Category Completeness' =
@@ -84,6 +91,7 @@ table 'Evidence Column Stats'
 			RETURN IF ( rowsProfiled > 0, 1 - DIVIDE ( [Evidence Category Nulls], rowsProfiled ) )
 		formatString: 0.0%
 		displayFolder: 5 Evidence
+		lineageTag: 218cfb83-fb22-4655-9689-f0a7e264afbb
 
 	/// dataprof's outcome for the category null-share check in the evidence scope: Passed, Failed or Not evaluated. Blank when the selection has no evidence scope.
 	measure 'Evidence Category Check' =
@@ -100,6 +108,7 @@ table 'Evidence Column Stats'
 				)
 			RETURN SWITCH ( checkStatus, "passed", "Passed", "failed", "Failed", "not_evaluated", "Not evaluated" )
 		displayFolder: 5 Evidence
+		lineageTag: 2e10a6ca-f4df-4138-9d5e-82bd01ff9e5c
 
 	/// Where and when the evidence applies, e.g. "Sep 2026 · North · through 20 Sep 2026", or "Evidence unavailable for this selection" when no single evidence scope matches (Check Means says why).
 	measure 'Evidence Scope Label' =
@@ -114,6 +123,7 @@ table 'Evidence Column Stats'
 					monthName & " · " & IF ( regionKey = "ALL", "All regions", regionKey ) & " · through " & cutoff
 				)
 		displayFolder: 5 Evidence
+		lineageTag: 02eea7ec-b9ba-4bab-8c8a-ab8497770bf3
 
 	/// Checks that the loaded orders are the rows dataprof profiled: one snapshot id across all evidence tables, and the row count, revenue total and four order-weighted checksums (revenue, date, category, region) recomputed from the loaded orders equal the values written when the snapshot was profiled. Any single changed value or missing row changes at least one checksum. Not cryptographic.
 	measure 'Snapshot Consistency' =
@@ -158,6 +168,7 @@ table 'Evidence Column Stats'
 						& " rows, revenue total and per-column checksums agree"
 				)
 		displayFolder: 5 Evidence
+		lineageTag: c0c123dd-4d00-4bab-87f9-ad5542c2ad1b
 
 	/// Coverage of the evidence month in a few words, with a status glyph.
 	measure 'Coverage Short' =
@@ -174,6 +185,7 @@ table 'Evidence Column Stats'
 					"Select a single month"
 				)
 		displayFolder: 8 Presentation
+		lineageTag: 221b69bc-731b-4de9-a24b-5135f5edfcf1
 
 	/// What the coverage observation means, in one sentence.
 	measure 'Coverage Means' =
@@ -192,6 +204,7 @@ table 'Evidence Column Stats'
 					""
 				)
 		displayFolder: 8 Presentation
+		lineageTag: 8509f916-577f-49e5-acd5-c585cd6cf0cc
 
 	/// What the coverage observation does not mean, in one sentence.
 	measure 'Coverage Not Means' =
@@ -209,6 +222,7 @@ table 'Evidence Column Stats'
 					""
 				)
 		displayFolder: 8 Presentation
+		lineageTag: a569203e-639b-4ba6-89d1-69a6958bd0ac
 
 	/// What the category completeness observation means.
 	measure 'Completeness Means' =
@@ -220,6 +234,7 @@ table 'Evidence Column Stats'
 					"Evidence unavailable for this selection."
 				)
 		displayFolder: 8 Presentation
+		lineageTag: c5d79010-6ce4-4387-9abf-40ee360979c1
 
 	/// What the category completeness observation does not mean.
 	measure 'Completeness Not Means' =
@@ -229,6 +244,7 @@ table 'Evidence Column Stats'
 				""
 			)
 		displayFolder: 8 Presentation
+		lineageTag: 7a287390-f1b0-484e-91b7-da27c5b44a87
 
 	/// dataprof check outcome with a glyph, so status is never carried by color alone.
 	measure 'Check Status Text' =
@@ -240,6 +256,7 @@ table 'Evidence Column Stats'
 				"Evidence unavailable"
 			)
 		displayFolder: 8 Presentation
+		lineageTag: e5d23689-095f-4b54-821e-6a92ca47d2a8
 
 	/// Text color for the check outcome: violet for failed (never used for revenue), neutral inks otherwise.
 	measure 'Check Status Color' =
@@ -251,6 +268,7 @@ table 'Evidence Column Stats'
 			)
 		isHidden
 		displayFolder: 8 Presentation
+		lineageTag: 6686a23e-5878-4e9e-8f2b-2ea985335cb6
 
 	/// What the check outcome means. When all regions pass together but a region fails on its own, says so.
 	measure 'Check Means' =
@@ -295,10 +313,12 @@ table 'Evidence Column Stats'
 					"Select a single month, and all regions or one region."
 				)
 		displayFolder: 8 Presentation
+		lineageTag: 1422e245-9127-46a4-87cd-7e8a03a36563
 
 	/// Coverage and check outcome on one line, for compact headers.
 	measure 'Evidence Summary' = [Coverage Short] & "   " & [Check Status Text]
 		displayFolder: 8 Presentation
+		lineageTag: 145ef079-1da8-4c81-b398-079a2b579995
 
 	/// What the check outcome does not mean.
 	measure 'Check Not Means' =
@@ -310,106 +330,126 @@ table 'Evidence Column Stats'
 				""
 			)
 		displayFolder: 8 Presentation
+		lineageTag: c3819b03-6c33-44f0-a228-79215b36a52d
 
 	column snapshot_id
 		dataType: string
 		isHidden
+		lineageTag: 8ffa7c4b-f9ce-47a5-8d00-785ae4638c8e
 		summarizeBy: none
 		sourceColumn: snapshot_id
 
 	column scope_id
 		dataType: string
+		lineageTag: 732ceb1d-824e-426a-8a41-ed99625bf63f
 		summarizeBy: none
 		sourceColumn: scope_id
 
 	/// dataset, month or month_region. Month and month_region rows overlap: never add them together.
 	column scope_kind
 		dataType: string
+		lineageTag: 35c3c2e2-c868-41b3-b880-6935c5a2776e
 		summarizeBy: none
 		sourceColumn: scope_kind
 
 	column month_key
 		dataType: int64
 		formatString: 0
+		lineageTag: a520050b-f239-4ec3-ac07-fdc03079ff53
 		summarizeBy: none
 		sourceColumn: month_key
 
 	column region_key
 		dataType: string
+		lineageTag: 798b63da-718d-4e9a-8819-3c2489dbed20
 		summarizeBy: none
 		sourceColumn: region_key
 
 	column column_name
 		dataType: string
+		lineageTag: 22ab66e9-573f-4326-9035-71a5c657750d
 		summarizeBy: none
 		sourceColumn: column_name
 
 	column dataprof_data_type
 		dataType: string
+		lineageTag: c428cabe-ab4d-4807-a152-4e1dbc16a306
 		summarizeBy: none
 		sourceColumn: dataprof_data_type
 
 	column observed_rows
 		dataType: int64
 		formatString: #,0
+		lineageTag: 5cf586a6-cf19-4ae8-96f1-0c802cbfb10e
 		summarizeBy: none
 		sourceColumn: observed_rows
 
 	column null_count
 		dataType: int64
 		formatString: #,0
+		lineageTag: 9f603969-2a94-4c5d-9191-4d9148b1e82a
 		summarizeBy: none
 		sourceColumn: null_count
 
 	column null_percentage
 		dataType: double
+		lineageTag: 84691cc2-8aef-45ad-8ba2-48d9647bd979
 		summarizeBy: none
 		sourceColumn: null_percentage
 
 	column unique_count
 		dataType: int64
 		formatString: #,0
+		lineageTag: aa3c68e4-dff6-4fd6-98be-795581273abb
 		summarizeBy: none
 		sourceColumn: unique_count
 
 	column unique_count_is_approximate
 		dataType: boolean
+		lineageTag: 2f05e5d7-5506-4a13-9ee5-1687c54823f5
 		summarizeBy: none
 		sourceColumn: unique_count_is_approximate
 
 	column min_value
 		dataType: double
+		lineageTag: f571e12c-d18d-4ac8-99a0-d8ce7bef1b07
 		summarizeBy: none
 		sourceColumn: min_value
 
 	column max_value
 		dataType: double
+		lineageTag: e5de1fb9-2705-48d2-a445-745ba35c2941
 		summarizeBy: none
 		sourceColumn: max_value
 
 	column mean_value
 		dataType: double
+		lineageTag: 49ba1029-ae45-4b75-a139-80080d6078cd
 		summarizeBy: none
 		sourceColumn: mean_value
 
 	/// dataprof key uniqueness for the identifier column (order_id); null for other columns.
 	column key_uniqueness_pct
 		dataType: double
+		lineageTag: 0010123f-1080-4d5e-914c-77c127684962
 		summarizeBy: none
 		sourceColumn: key_uniqueness_pct
 
 	column sampling_applied
 		dataType: boolean
+		lineageTag: 6abd3273-ab7c-471b-b560-451651deb729
 		summarizeBy: none
 		sourceColumn: sampling_applied
 
 	column source_exhausted
 		dataType: boolean
+		lineageTag: 65f62ed6-487c-4e20-ae57-76f9df4c40a0
 		summarizeBy: none
 		sourceColumn: source_exhausted
 
 	column evidence_source
 		dataType: string
+		lineageTag: e0a98428-e7a6-4c96-8986-45adfcf08183
 		summarizeBy: none
 		sourceColumn: evidence_source
 

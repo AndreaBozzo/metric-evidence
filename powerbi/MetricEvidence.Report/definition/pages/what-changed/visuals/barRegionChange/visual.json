@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
   "name": "barRegionChange",
   "position": {
     "x": 584,
     "y": 520,
     "z": 10000,
-    "width": 192,
     "height": 184,
+    "width": 192,
     "tabOrder": 10000
   },
   "visual": {
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "Region.region_name",
-              "nativeQueryRef": "region_name"
+              "nativeQueryRef": "region_name",
+              "active": true
             }
           ]
         },
@@ -65,8 +66,7 @@
             },
             "direction": "Ascending"
           }
-        ],
-        "isDefaultSort": false
+        ]
       }
     },
     "objects": {

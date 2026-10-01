@@ -1,92 +1,110 @@
 /// dataprof check() outcomes. Grain: one row per scope_id x check_code x column_name. check_status is passed, failed or not_evaluated; gate_verdict is pass, fail or inconclusive. Not related to other tables.
 table 'Evidence Checks'
+	lineageTag: 98c7426d-3d6c-49f3-aaf7-6fe725a82248
 
 	column snapshot_id
 		dataType: string
 		isHidden
+		lineageTag: 48793ee7-e768-4a59-9356-58f94880df37
 		summarizeBy: none
 		sourceColumn: snapshot_id
 
 	column scope_id
 		dataType: string
+		lineageTag: b40177ea-2214-4d43-9442-b3c664799d31
 		summarizeBy: none
 		sourceColumn: scope_id
 
 	/// dataset, month or month_region. Month and month_region rows overlap: never add them together.
 	column scope_kind
 		dataType: string
+		lineageTag: 658668ca-0d1d-472b-b321-9c37f3d96a28
 		summarizeBy: none
 		sourceColumn: scope_kind
 
 	column month_key
 		dataType: int64
 		formatString: 0
+		lineageTag: b70b8246-1c03-4695-9cbd-f980d9a0e7ed
 		summarizeBy: none
 		sourceColumn: month_key
 
 	column region_key
 		dataType: string
+		lineageTag: 9568384f-e556-4f2d-a149-252cf297dc59
 		summarizeBy: none
 		sourceColumn: region_key
 
 	column check_code
 		dataType: string
+		lineageTag: 23b61925-fc49-428d-8a06-e639837285f0
 		summarizeBy: none
 		sourceColumn: check_code
 
 	column column_name
 		dataType: string
+		lineageTag: a7edbc29-7591-4b87-b1e4-9f5b21da143c
 		summarizeBy: none
 		sourceColumn: column_name
 
 	column dimension
 		dataType: string
+		lineageTag: 15c2cb75-555a-488a-853c-ac3e37a32206
 		summarizeBy: none
 		sourceColumn: dimension
 
 	column comparison
 		dataType: string
+		lineageTag: bab4bd89-21e1-4328-a5ca-5525d226bbce
 		summarizeBy: none
 		sourceColumn: comparison
 
 	column threshold
 		dataType: double
+		lineageTag: 5d449ccb-84c0-4c69-8dc8-555fffd0ae94
 		summarizeBy: none
 		sourceColumn: threshold
 
 	/// Value dataprof compared with the threshold; null when not evaluated.
 	column observed_value
 		dataType: double
+		lineageTag: 30b61f15-71d0-4b36-8f6d-efeb8b9d383e
 		summarizeBy: none
 		sourceColumn: observed_value
 
 	column check_status
 		dataType: string
+		lineageTag: 7448d708-126f-47b2-95fa-58db930ee3f4
 		summarizeBy: none
 		sourceColumn: check_status
 
 	column gate_verdict
 		dataType: string
+		lineageTag: c3c5e0c3-15e4-4a63-8b95-47b79553798f
 		summarizeBy: none
 		sourceColumn: gate_verdict
 
 	column evidence_coverage
 		dataType: string
+		lineageTag: 9e0f9a0e-d8c5-4fa6-9f85-0b7d8db83ad8
 		summarizeBy: none
 		sourceColumn: evidence_coverage
 
 	column not_evaluated_reason
 		dataType: string
+		lineageTag: e56baa4f-0771-4431-827c-157b6d0c3752
 		summarizeBy: none
 		sourceColumn: not_evaluated_reason
 
 	column message
 		dataType: string
+		lineageTag: 51d5b09a-de36-4ffc-9ccd-a9a654c70ebf
 		summarizeBy: none
 		sourceColumn: message
 
 	column evidence_source
 		dataType: string
+		lineageTag: 6e7765d3-8c4c-4095-a934-4b744098882d
 		summarizeBy: none
 		sourceColumn: evidence_source
 

@@ -1,31 +1,36 @@
 /// One row per day of the intended coverage (1 Apr - 30 Sep 2026). Days after the snapshot cutoff exist with in_snapshot = false and have no orders.
-table 'Date'
+table Date
+	lineageTag: 58ea6026-a7dc-4dea-99b0-81f3f0796664
 	dataCategory: Time
 
 	column date
 		dataType: dateTime
 		isKey
 		formatString: d mmm yyyy
+		lineageTag: fde8f1af-5e7b-4762-bafe-5e824c8385e9
 		summarizeBy: none
 		sourceColumn: date
 
 	column month_key
 		dataType: int64
-		formatString: 0
 		isHidden
+		formatString: 0
+		lineageTag: efb3e0a2-6c8e-42bb-83c2-add88e0fec33
 		summarizeBy: none
 		sourceColumn: month_key
 
 	column month_start
 		dataType: dateTime
-		formatString: mmm yyyy
 		isHidden
+		formatString: mmm yyyy
+		lineageTag: d83034c4-ddfc-4e8e-950a-9daeed30fbe7
 		summarizeBy: none
 		sourceColumn: month_start
 
 	/// Month name for slicers, e.g. Sep 2026.
 	column month_label
 		dataType: string
+		lineageTag: 2d146f94-0ed0-47b0-a4fa-2e10ebff395f
 		summarizeBy: none
 		sourceColumn: month_label
 		sortByColumn: month_key
@@ -33,24 +38,27 @@ table 'Date'
 	column month_short
 		dataType: string
 		isHidden
+		lineageTag: ceb0f17c-1c58-41e2-a3f2-84927e1e2b0e
 		summarizeBy: none
 		sourceColumn: month_short
 		sortByColumn: month_key
 
 	column day_of_month
 		dataType: int64
-		formatString: 0
 		isHidden
+		formatString: 0
+		lineageTag: b53ae840-de49-4468-8167-e0da58b4292f
 		summarizeBy: none
 		sourceColumn: day_of_month
 
 	/// False for days after the snapshot cutoff.
 	column in_snapshot
 		dataType: boolean
+		lineageTag: 6fd14dfd-6dea-4d85-b4f5-7a30c881ee62
 		summarizeBy: none
 		sourceColumn: in_snapshot
 
-	partition 'Date' = m
+	partition Date = m
 		mode: import
 		source =
 				let

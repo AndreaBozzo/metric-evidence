@@ -1,36 +1,18 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
   "name": "barRegionContribution",
   "position": {
     "x": 24,
     "y": 520,
     "z": 9000,
-    "width": 544,
     "height": 184,
+    "width": 544,
     "tabOrder": 9000
   },
   "visual": {
     "visualType": "waterfallChart",
     "query": {
       "queryState": {
-        "Category": {
-          "projections": [
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Month Coverage"
-                    }
-                  },
-                  "Property": "trend_label"
-                }
-              },
-              "queryRef": "Month Coverage.trend_label",
-              "nativeQueryRef": "trend_label"
-            }
-          ]
-        },
         "Breakdown": {
           "projections": [
             {
@@ -46,6 +28,25 @@
               },
               "queryRef": "Region.region_name",
               "nativeQueryRef": "region_name"
+            }
+          ]
+        },
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Month Coverage"
+                    }
+                  },
+                  "Property": "trend_label"
+                }
+              },
+              "queryRef": "Month Coverage.trend_label",
+              "nativeQueryRef": "trend_label",
+              "active": true
             }
           ]
         },

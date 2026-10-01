@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
   "name": "colTrend",
   "position": {
     "x": 24,
     "y": 264,
     "z": 8000,
-    "width": 752,
     "height": 240,
+    "width": 752,
     "tabOrder": 8000
   },
   "visual": {
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "Month Coverage.trend_label",
-              "nativeQueryRef": "trend_label"
+              "nativeQueryRef": "trend_label",
+              "active": true
             }
           ]
         },

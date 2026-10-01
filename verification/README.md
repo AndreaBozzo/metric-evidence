@@ -25,7 +25,7 @@ Python 3.12.10, dataprof 0.12.0, Power BI Authoring MCP `@microsoft/powerbi-mode
 | Headlines name the window and contain no causal or data-quality wording | `reconcile_live.py` | pass |
 | Loaded orders match the profiled snapshot: ids, row count, revenue total and four per-column checksums | `reconcile_live.py`, MCP DAX query | pass |
 | One changed amount, date, category label or region, or one missing row, makes the report say "Mismatch"; restoring the file makes it match again | `snapshot_mutation_check.py` (`snapshot_mutations.json`) | 6/6 |
-| All PBIR/PBIP JSON files valid against Microsoft's published schemas | `validate_pbip.py` | 40 files, 0 errors |
+| All PBIR/PBIP JSON and `.platform` files valid against Microsoft's published schemas (6 visuals declare visualContainer 2.13.0, which Desktop 2.158 writes but Microsoft has not published; they are validated against 2.12.0 and listed as notes) | `validate_pbip.py` | 42 files, 0 errors |
 | All 61 measures parse and have a description | `$SYSTEM.TMSCHEMA_MEASURES`, MCP `measure_operations List` | pass |
 | Relationships: 3, all many-to-one, single direction, fact to dimension | MCP `relationship_operations List` | pass |
 

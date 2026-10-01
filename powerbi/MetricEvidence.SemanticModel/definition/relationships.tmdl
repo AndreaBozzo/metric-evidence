@@ -1,6 +1,6 @@
 relationship 490c6c1d-9482-42ab-acc6-b9cbcb222350
 	fromColumn: Orders.order_date
-	toColumn: 'Date'.date
+	toColumn: Date.date
 
 relationship ca080a9a-1caf-41b9-ac04-92874d2cf12e
 	fromColumn: Orders.region

@@ -1,21 +1,25 @@
 /// Coverage per month of the intended period, from the generation manifest plus a Python check of the data against it (evidence_source). Grain: one row per month. Not related to other tables: measures look rows up by month_key, and charts use it as a month axis that the month slicer does not filter.
 table 'Month Coverage'
+	lineageTag: c76c536b-b1e1-4397-9b8c-af24be89fe67
 
 	column snapshot_id
 		dataType: string
 		isHidden
+		lineageTag: b0646e7a-3a82-4ece-897f-12e512908e23
 		summarizeBy: none
 		sourceColumn: snapshot_id
 
 	column month_key
 		dataType: int64
-		formatString: 0
 		isHidden
+		formatString: 0
+		lineageTag: e21c224e-ba38-4291-a448-b8863cf05062
 		summarizeBy: none
 		sourceColumn: month_key
 
 	column month_label
 		dataType: string
+		lineageTag: d2ede538-f6f9-48a5-a5e3-328106de49f8
 		summarizeBy: none
 		sourceColumn: month_label
 		sortByColumn: month_key
@@ -23,6 +27,7 @@ table 'Month Coverage'
 	/// Axis label; the partial month reads e.g. Sep (1–20).
 	column trend_label
 		dataType: string
+		lineageTag: a28f2853-cf92-43d1-ba21-95913a3febda
 		summarizeBy: none
 		sourceColumn: trend_label
 		sortByColumn: month_key
@@ -30,18 +35,21 @@ table 'Month Coverage'
 	column expected_start
 		dataType: dateTime
 		formatString: d mmm yyyy
+		lineageTag: 64ad6baf-4dcb-407a-acf4-468798881518
 		summarizeBy: none
 		sourceColumn: expected_start
 
 	column expected_end
 		dataType: dateTime
 		formatString: d mmm yyyy
+		lineageTag: eb23011b-ecf3-4a08-ba87-12afc8564032
 		summarizeBy: none
 		sourceColumn: expected_end
 
 	column expected_days
 		dataType: int64
 		formatString: 0
+		lineageTag: d9ae2c89-38d8-4482-9899-e88adabc3461
 		summarizeBy: none
 		sourceColumn: expected_days
 
@@ -49,43 +57,50 @@ table 'Month Coverage'
 	column observed_through
 		dataType: dateTime
 		formatString: d mmm yyyy
+		lineageTag: e7b548f2-9c3a-4ff2-a5c9-f1f04edc8675
 		summarizeBy: none
 		sourceColumn: observed_through
 
 	column covered_days
 		dataType: int64
 		formatString: 0
+		lineageTag: e5eae560-c498-4097-8e77-cd16ec48b439
 		summarizeBy: none
 		sourceColumn: covered_days
 
 	/// complete, partial or not_in_snapshot.
 	column coverage_status
 		dataType: string
+		lineageTag: a2f71609-c20e-476b-9390-cb19790c0c99
 		summarizeBy: none
 		sourceColumn: coverage_status
 
 	column comparison_end_day
 		dataType: int64
-		formatString: 0
 		isHidden
+		formatString: 0
+		lineageTag: d9aa4f81-d1b2-4078-bd89-6631d566f204
 		summarizeBy: none
 		sourceColumn: comparison_end_day
 
 	column prior_month_key
 		dataType: int64
-		formatString: 0
 		isHidden
+		formatString: 0
+		lineageTag: c1aa2f62-78cc-4444-ba4c-ee99060e2e33
 		summarizeBy: none
 		sourceColumn: prior_month_key
 
 	column comparison_label
 		dataType: string
+		lineageTag: e006f4db-9e13-4c99-83d6-aaa4d5fda57d
 		summarizeBy: none
 		sourceColumn: comparison_label
 
 	column orders_in_snapshot
 		dataType: int64
 		formatString: #,0
+		lineageTag: 0a973799-b4c6-4e1c-905d-a2fe2e7f1067
 		summarizeBy: none
 		sourceColumn: orders_in_snapshot
 
@@ -93,16 +108,19 @@ table 'Month Coverage'
 	column orders_after_cutoff
 		dataType: int64
 		formatString: 0
+		lineageTag: 3a8f25ad-0274-4664-9dfb-bd003f4c2ff9
 		summarizeBy: none
 		sourceColumn: orders_after_cutoff
 
 	column cutoff_check
 		dataType: string
+		lineageTag: 8bf91a60-1a6a-4f41-8155-84278d366787
 		summarizeBy: none
 		sourceColumn: cutoff_check
 
 	column evidence_source
 		dataType: string
+		lineageTag: ac5bac5b-2f14-4944-86ba-7d215178dbd8
 		summarizeBy: none
 		sourceColumn: evidence_source
 

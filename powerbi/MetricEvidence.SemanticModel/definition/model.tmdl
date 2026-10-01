@@ -6,10 +6,6 @@ model Model
 		legacyRedirects
 		returnErrorValuesAsNull
 
-	annotation __PBI_TimeIntelligenceEnabled = 0
-
-	annotation PBI_ProTooling = ["DevMode"]
-
 queryGroup Parameters
 
 	annotation PBI_QueryGroupOrder = 0
@@ -17,4 +13,19 @@ queryGroup Parameters
 queryGroup Helpers
 
 	annotation PBI_QueryGroupOrder = 1
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table Category
+ref table Date
+ref table 'Evidence Checks'
+ref table 'Evidence Column Stats'
+ref table 'Month Coverage'
+ref table Orders
+ref table Region
+ref table Snapshot
+
+ref cultureInfo en-US
 

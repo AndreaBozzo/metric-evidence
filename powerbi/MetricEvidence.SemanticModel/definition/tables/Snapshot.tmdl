@@ -1,8 +1,10 @@
 /// One row describing the snapshot that both the orders and the evidence were built from.
 table Snapshot
+	lineageTag: b1195e76-0b33-4851-aa18-ca8efa8991a4
 
 	column snapshot_id
 		dataType: string
+		lineageTag: a8564f13-2b53-4c6d-acfc-0440c3033fdb
 		summarizeBy: none
 		sourceColumn: snapshot_id
 
@@ -10,40 +12,47 @@ table Snapshot
 	column snapshot_cutoff
 		dataType: dateTime
 		formatString: d mmm yyyy
+		lineageTag: 89413630-ba03-4b48-8433-0701e7de4efa
 		summarizeBy: none
 		sourceColumn: snapshot_cutoff
 
 	column intended_coverage_start
 		dataType: dateTime
 		formatString: d mmm yyyy
+		lineageTag: fff31a27-bf24-4260-aad4-6a9311345eb1
 		summarizeBy: none
 		sourceColumn: intended_coverage_start
 
 	column intended_coverage_end
 		dataType: dateTime
 		formatString: d mmm yyyy
+		lineageTag: 143c6248-2aac-44fa-acdb-48c3da3104d4
 		summarizeBy: none
 		sourceColumn: intended_coverage_end
 
 	column orders_rows
 		dataType: int64
 		formatString: #,0
+		lineageTag: 8e5b9965-6a7a-472c-8df4-5de059255bfb
 		summarizeBy: none
 		sourceColumn: orders_rows
 
 	column orders_sha256
 		dataType: string
+		lineageTag: 99ccb817-f240-4ea9-ab40-4a162b6c10b5
 		summarizeBy: none
 		sourceColumn: orders_sha256
 
 	column generator_seed
 		dataType: int64
 		formatString: 0
+		lineageTag: 7354ae21-4de6-4821-81d6-ed5b36a08fc0
 		summarizeBy: none
 		sourceColumn: generator_seed
 
 	column dataprof_version
 		dataType: string
+		lineageTag: 82776579-807e-45c4-aecd-171152ed0f52
 		summarizeBy: none
 		sourceColumn: dataprof_version
 
@@ -51,6 +60,7 @@ table Snapshot
 	column revenue_cents_total
 		dataType: int64
 		formatString: 0
+		lineageTag: 452a174a-3f32-439c-9ce3-59ff5f53f18a
 		summarizeBy: none
 		sourceColumn: revenue_cents_total
 
@@ -58,6 +68,7 @@ table Snapshot
 	column checksum_revenue
 		dataType: int64
 		formatString: 0
+		lineageTag: da10fd71-cc08-4ddc-9252-d39e4fa3f04c
 		summarizeBy: none
 		sourceColumn: checksum_revenue
 
@@ -65,6 +76,7 @@ table Snapshot
 	column checksum_date
 		dataType: int64
 		formatString: 0
+		lineageTag: 1efcb8e9-a6a7-4c30-a3ae-0847427cf8e2
 		summarizeBy: none
 		sourceColumn: checksum_date
 
@@ -72,6 +84,7 @@ table Snapshot
 	column checksum_category
 		dataType: int64
 		formatString: 0
+		lineageTag: 7b611d85-c20e-4693-aaae-610e8f79af4b
 		summarizeBy: none
 		sourceColumn: checksum_category
 
@@ -79,6 +92,7 @@ table Snapshot
 	column checksum_region
 		dataType: int64
 		formatString: 0
+		lineageTag: 35ef9e7c-d060-48ea-b8b7-6c540b6e5464
 		summarizeBy: none
 		sourceColumn: checksum_region
 

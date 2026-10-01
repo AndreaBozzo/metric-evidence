@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "MetricEvidence"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "7258c87e-7a08-4d62-8cab-a3214d8db778"
+  }
+}

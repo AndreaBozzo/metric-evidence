@@ -1,5 +1,6 @@
 /// Absolute path of this clone's data folder (orders, dimensions, evidence). Ships as a placeholder; set it with `uv run python prep/configure_report.py`, or in Transform data > Edit parameters.
 expression DataFolder = "<not set: run prep/configure_report.py>" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: a3523784-ace8-4c7e-a8b2-d2645d1ecfea
 	queryGroup: Parameters
 
 	annotation PBI_ResultType = Text
@@ -18,6 +19,7 @@ expression fnReadCsv =
 		    Typed = Table.TransformColumnTypes(EmptyAsNull, columnTypes, "en-US")
 		in
 		    Typed
+	lineageTag: 32cfc307-a782-457b-85e6-f822a51bc7ea
 	queryGroup: Helpers
 
 	annotation PBI_ResultType = Function

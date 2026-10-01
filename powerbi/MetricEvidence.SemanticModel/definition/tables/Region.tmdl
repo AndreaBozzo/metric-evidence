@@ -1,22 +1,26 @@
 /// The three sales regions.
 table Region
+	lineageTag: 52f21ea6-8146-4c00-bd6f-44f4dd4e0844
 
 	column region_key
 		dataType: string
 		isHidden
+		lineageTag: 5d72d92d-b7fe-45dd-9bf2-6ee23a31c3b3
 		summarizeBy: none
 		sourceColumn: region_key
 
 	column region_name
 		dataType: string
+		lineageTag: da4892ba-39e7-4dcb-9274-4be031808622
 		summarizeBy: none
 		sourceColumn: region_name
 		sortByColumn: sort_order
 
 	column sort_order
 		dataType: int64
-		formatString: 0
 		isHidden
+		formatString: 0
+		lineageTag: 1ea72e45-cdfe-459d-beae-2bdc3e5ceddb
 		summarizeBy: none
 		sourceColumn: sort_order
 

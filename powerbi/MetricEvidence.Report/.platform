@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "MetricEvidence"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "a7572c54-6047-45e1-acaf-192019e3927a"
+  }
+}

@@ -1,28 +1,33 @@
 /// Product categories plus an explicit Unknown row for orders whose label is missing.
 table Category
+	lineageTag: 771878ea-f1ab-48b0-909e-1279c1840151
 
 	column category_key
 		dataType: string
 		isHidden
+		lineageTag: e453cc4c-ce53-476b-bf92-72f122ff0045
 		summarizeBy: none
 		sourceColumn: category_key
 
 	column category_name
 		dataType: string
+		lineageTag: 47a5668d-0263-4eec-9a0b-f079df5d7360
 		summarizeBy: none
 		sourceColumn: category_name
 		sortByColumn: sort_order
 
 	column sort_order
 		dataType: int64
-		formatString: 0
 		isHidden
+		formatString: 0
+		lineageTag: 4c0b5fd5-404e-40a9-b240-ca0acb55c544
 		summarizeBy: none
 		sourceColumn: sort_order
 
 	/// True for the Unknown (label missing) row.
 	column is_unknown
 		dataType: boolean
+		lineageTag: 1dcd7691-279f-4285-85b4-15a44c2b8dac
 		summarizeBy: none
 		sourceColumn: is_unknown
 
