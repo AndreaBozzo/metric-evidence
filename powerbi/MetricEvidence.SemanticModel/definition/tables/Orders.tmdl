@@ -1,0 +1,427 @@
+/// Fact table, one row per order in the snapshot. category is the raw label and stays null when the label is missing; category_key maps a missing label to UNKNOWN so its revenue is never dropped.
+table Orders
+
+	/// Sum of order revenue in the current filter context. Orders with a missing category label are included (they appear under Unknown).
+	measure Revenue = SUM ( Orders[revenue_amount] )
+		formatString: \$#,0
+		displayFolder: 1 Business
+
+	/// Number of orders (one row per order).
+	measure 'Order Count' = COUNTROWS ( Orders )
+		formatString: #,0
+		displayFolder: 1 Business
+
+	/// Revenue divided by order count.
+	measure 'Average Order Value' = DIVIDE ( [Revenue], [Order Count] )
+		formatString: \$#,0.00
+		displayFolder: 1 Business
+
+	/// Revenue from orders whose category label is missing. Kept in every total.
+	measure 'Unknown Category Revenue' = CALCULATE ( [Revenue], KEEPFILTERS ( Category[is_unknown] = TRUE () ) )
+		formatString: \$#,0
+		displayFolder: 1 Business
+
+	/// The month_key of the selected month, or blank unless exactly one month is selected.
+	measure 'Selected Month Key' = IF ( HASONEVALUE ( 'Date'[month_key] ), VALUES ( 'Date'[month_key] ) )
+		formatString: 0
+		isHidden
+		displayFolder: 9 Helpers
+
+	/// Last day of the selected month included in the comparison: the snapshot's last observed day for a partial month, the month's last day otherwise.
+	measure 'Comparison End Day' = LOOKUPVALUE ( 'Month Coverage'[comparison_end_day], 'Month Coverage'[month_key], [Selected Month Key] )
+		formatString: 0
+		isHidden
+		displayFolder: 9 Helpers
+
+	/// Revenue of the selected month inside the comparison window (days 1..Comparison End Day). Blank unless exactly one month is selected.
+	measure 'Revenue (Comparable)' =
+			VAR monthKey = [Selected Month Key]
+			VAR endDay = [Comparison End Day]
+			RETURN
+				IF (
+					NOT ISBLANK ( monthKey ),
+					CALCULATE ( [Revenue], KEEPFILTERS ( 'Date'[day_of_month] <= endDay ) ) + 0
+				)
+		formatString: \$#,0
+		displayFolder: 2 Comparison
+
+	/// Revenue of the previous month over the comparable window. Complete month: the full previous month. Partial month: days 1..N of the previous month, N being the last observed day. Blank when the snapshot has no previous month.
+	measure 'Revenue (Prior Comparable)' =
+			VAR monthKey = [Selected Month Key]
+			VAR priorKey = LOOKUPVALUE ( 'Month Coverage'[prior_month_key], 'Month Coverage'[month_key], monthKey )
+			VAR isPartial = LOOKUPVALUE ( 'Month Coverage'[coverage_status], 'Month Coverage'[month_key], monthKey ) = "partial"
+			VAR priorEndDay = IF ( isPartial, [Comparison End Day], 31 )
+			RETURN
+				IF (
+					NOT ISBLANK ( priorKey ),
+					CALCULATE (
+						[Revenue],
+						REMOVEFILTERS ( 'Date' ),
+						'Date'[month_key] = priorKey,
+						'Date'[day_of_month] <= priorEndDay
+					) + 0
+				)
+		formatString: \$#,0
+		displayFolder: 2 Comparison
+
+	/// Comparable revenue minus prior comparable revenue. Blank when there is no comparable prior period.
+	measure 'Revenue Change' =
+			VAR prior = [Revenue (Prior Comparable)]
+			RETURN IF ( NOT ISBLANK ( prior ), [Revenue (Comparable)] - prior )
+		formatString: +\$#,0;-\$#,0;\$0
+		displayFolder: 2 Comparison
+
+	/// Revenue Change as a share of prior comparable revenue. Blank, not zero, when the prior period is absent or has no revenue.
+	measure 'Revenue Change %' =
+			VAR prior = [Revenue (Prior Comparable)]
+			RETURN IF ( prior > 0, DIVIDE ( [Revenue Change], prior ) )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: 2 Comparison
+
+	/// Plain-language description of what is being compared, or why no comparison is shown.
+	measure 'Comparison Note' =
+			VAR monthKey = [Selected Month Key]
+			VAR priorKey = LOOKUPVALUE ( 'Month Coverage'[prior_month_key], 'Month Coverage'[month_key], monthKey )
+			RETURN
+				SWITCH (
+					TRUE (),
+					ISBLANK ( monthKey ), "Select a single month to compare",
+					ISBLANK ( priorKey ), "No comparable prior period in this snapshot",
+					[Revenue (Prior Comparable)] = 0, "Prior period has no revenue, so % change is not defined",
+					LOOKUPVALUE ( 'Month Coverage'[comparison_label], 'Month Coverage'[month_key], monthKey )
+				)
+		displayFolder: 2 Comparison
+
+	/// Share of orders in the current month and region selection that carry a category label, computed from the loaded orders. Category filters are ignored, so selecting a category cannot make labels look complete.
+	measure 'Category Completeness' =
+			VAR allOrders = CALCULATE ( [Order Count], REMOVEFILTERS ( Category ) )
+			VAR labelled = CALCULATE ( [Order Count], REMOVEFILTERS ( Category ), NOT ISBLANK ( Orders[category] ) )
+			RETURN DIVIDE ( labelled, allOrders )
+		formatString: 0.0%
+		displayFolder: 3 Coverage
+
+	/// Last date with data for the selected month, from the generation manifest (not inferred from order dates).
+	measure 'Observed Through' = LOOKUPVALUE ( 'Month Coverage'[observed_through], 'Month Coverage'[month_key], [Selected Month Key] )
+		formatString: d mmm yyyy
+		displayFolder: 3 Coverage
+
+	/// Whether the selected month is complete or partial in this snapshot, in words.
+	measure 'Coverage Label' =
+			VAR monthKey = [Selected Month Key]
+			VAR coverageStatus = LOOKUPVALUE ( 'Month Coverage'[coverage_status], 'Month Coverage'[month_key], monthKey )
+			VAR through = FORMAT ( [Observed Through], "d mmm yyyy" )
+			RETURN
+				SWITCH (
+					TRUE (),
+					ISBLANK ( monthKey ), "Select a single month to see coverage",
+					coverageStatus = "partial", "Partial month: data through " & through & " (snapshot cutoff)",
+					coverageStatus = "complete", "Complete month: data through " & through,
+					"Month not in this snapshot"
+				)
+		displayFolder: 3 Coverage
+
+	/// Revenue per month for charts whose axis is 'Month Coverage'. Ignores the month slicer so the whole trend stays visible; region and category filters still apply.
+	measure 'Revenue by Month' =
+			CALCULATE (
+				[Revenue],
+				REMOVEFILTERS ( 'Date' ),
+				TREATAS ( VALUES ( 'Month Coverage'[month_key] ), 'Date'[month_key] )
+			)
+		formatString: \$#,0
+		displayFolder: 4 Trend
+
+	/// Order count per month for charts whose axis is 'Month Coverage'. Ignores the month slicer.
+	measure 'Order Count by Month' =
+			CALCULATE (
+				[Order Count],
+				REMOVEFILTERS ( 'Date' ),
+				TREATAS ( VALUES ( 'Month Coverage'[month_key] ), 'Date'[month_key] )
+			)
+		formatString: #,0
+		displayFolder: 4 Trend
+
+	/// Category Completeness per month for tables and charts whose rows are 'Month Coverage'. Ignores the month slicer.
+	measure 'Category Completeness by Month' =
+			CALCULATE (
+				[Category Completeness],
+				REMOVEFILTERS ( 'Date' ),
+				TREATAS ( VALUES ( 'Month Coverage'[month_key] ), 'Date'[month_key] )
+			)
+		formatString: 0.0%
+		displayFolder: 4 Trend
+
+	/// Orders of the selected month inside the comparison window. Blank unless exactly one month is selected.
+	measure 'Order Count (Comparable)' =
+			VAR monthKey = [Selected Month Key]
+			VAR endDay = [Comparison End Day]
+			RETURN
+				IF (
+					NOT ISBLANK ( monthKey ),
+					CALCULATE ( [Order Count], KEEPFILTERS ( 'Date'[day_of_month] <= endDay ) ) + 0
+				)
+		formatString: #,0
+		displayFolder: 2 Comparison
+
+	/// Orders of the previous month over the comparable window (same policy as Revenue (Prior Comparable)).
+	measure 'Order Count (Prior Comparable)' =
+			VAR monthKey = [Selected Month Key]
+			VAR priorKey = LOOKUPVALUE ( 'Month Coverage'[prior_month_key], 'Month Coverage'[month_key], monthKey )
+			VAR isPartial = LOOKUPVALUE ( 'Month Coverage'[coverage_status], 'Month Coverage'[month_key], monthKey ) = "partial"
+			VAR priorEndDay = IF ( isPartial, [Comparison End Day], 31 )
+			RETURN
+				IF (
+					NOT ISBLANK ( priorKey ),
+					CALCULATE (
+						[Order Count],
+						REMOVEFILTERS ( 'Date' ),
+						'Date'[month_key] = priorKey,
+						'Date'[day_of_month] <= priorEndDay
+					) + 0
+				)
+		formatString: #,0
+		displayFolder: 2 Comparison
+
+	/// Change in order count as a share of the prior comparable count. Blank when there is no comparable prior period.
+	measure 'Order Change %' =
+			VAR prior = [Order Count (Prior Comparable)]
+			RETURN IF ( prior > 0, DIVIDE ( [Order Count (Comparable)] - prior, prior ) )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: 2 Comparison
+
+	/// Which trend series a month belongs to: selected or context, complete or partial. Each month is in exactly one series, so the stacked trend shows one bar per month.
+	measure 'Trend Series' =
+			VAR isSelected = SELECTEDVALUE ( 'Month Coverage'[month_key] ) = [Selected Month Key]
+			VAR isPartial = SELECTEDVALUE ( 'Month Coverage'[coverage_status] ) = "partial"
+			RETURN
+				SWITCH (
+					TRUE (),
+					isSelected && isPartial, "selected partial",
+					isSelected, "selected",
+					isPartial, "partial",
+					"context"
+				)
+		isHidden
+		displayFolder: 8 Presentation
+
+	/// Revenue by Month for the selected month when it is complete; blank for other months.
+	measure 'Revenue, selected month' = IF ( [Trend Series] = "selected", [Revenue by Month] )
+		formatString: \$#,0
+		displayFolder: 8 Presentation
+
+	/// Revenue by Month for complete months other than the selected one.
+	measure 'Revenue, other months' = IF ( [Trend Series] = "context", [Revenue by Month] )
+		formatString: \$#,0
+		displayFolder: 8 Presentation
+
+	/// Revenue by Month for the selected month when it is partial.
+	measure 'Revenue, selected partial month' = IF ( [Trend Series] = "selected partial", [Revenue by Month] )
+		formatString: \$#,0
+		displayFolder: 8 Presentation
+
+	/// Revenue by Month for a partial month that is not selected.
+	measure 'Revenue, partial month' = IF ( [Trend Series] = "partial", [Revenue by Month] )
+		formatString: \$#,0
+		displayFolder: 8 Presentation
+
+	/// Order Count by Month for the selected month when it is complete.
+	measure 'Orders, selected month' = IF ( [Trend Series] = "selected", [Order Count by Month] )
+		formatString: #,0
+		displayFolder: 8 Presentation
+
+	/// Order Count by Month for complete months other than the selected one.
+	measure 'Orders, other months' = IF ( [Trend Series] = "context", [Order Count by Month] )
+		formatString: #,0
+		displayFolder: 8 Presentation
+
+	/// Order Count by Month for the selected month when it is partial.
+	measure 'Orders, selected partial month' = IF ( [Trend Series] = "selected partial", [Order Count by Month] )
+		formatString: #,0
+		displayFolder: 8 Presentation
+
+	/// Order Count by Month for a partial month that is not selected.
+	measure 'Orders, partial month' = IF ( [Trend Series] = "partial", [Order Count by Month] )
+		formatString: #,0
+		displayFolder: 8 Presentation
+
+	/// Title of the KPI card, naming the comparison window and that the comparison is a simple demo policy.
+	measure 'KPI Title' = "Revenue, like-for-like · " & [Comparison Note] & " · simple demo comparison, not seasonally adjusted"
+		displayFolder: 8 Presentation
+
+	/// Fixed identity color per category, keyed on category_key; Unknown is a neutral gray so it never reads as a fifth category.
+	measure 'Category Color' =
+			SWITCH (
+				SELECTEDVALUE ( Category[category_key] ),
+				"Hardware", "#0E8A73",
+				"Software", "#B07800",
+				"Services", "#C2477F",
+				"Accessories", "#853E19",
+				"UNKNOWN", "#A3A19A",
+				"#6B6A65"
+			)
+		isHidden
+		displayFolder: 8 Presentation
+
+	/// Muted text for the Unknown row in category tables.
+	measure 'Category Row Font Color' = IF ( SELECTEDVALUE ( Category[is_unknown] ) = TRUE (), "#6B6A65", "#1E1E1C" )
+		isHidden
+		displayFolder: 8 Presentation
+
+	/// Tint for the selected month's row in month-by-month tables.
+	measure 'Selected Month Background' = IF ( SELECTEDVALUE ( 'Month Coverage'[month_key] ) = [Selected Month Key], "#F5F4F0", "#FFFFFF" )
+		isHidden
+		displayFolder: 8 Presentation
+
+	/// First headline line: the like-for-like change. States the change, never a cause, and never mentions data quality.
+	measure 'Headline What Changed' =
+			VAR monthKey = [Selected Month Key]
+			VAR prior = [Revenue (Prior Comparable)]
+			VAR pct = [Revenue Change %]
+			VAR regionKey = [Evidence Region Key]
+			VAR subject =
+				SWITCH (
+					TRUE (),
+					regionKey = "ALL", "Revenue",
+					ISBLANK ( regionKey ), "Revenue for the selected regions",
+					regionKey & " revenue"
+				)
+			RETURN
+				SWITCH (
+					TRUE (),
+					ISBLANK ( monthKey ), "Select a single month to see what changed.",
+					ISBLANK ( prior ), subject & " this month: " & FORMAT ( [Revenue], "$#,0" ) & ". There is no earlier month in this snapshot to compare with.",
+					ISBLANK ( pct ), subject & ": the comparison period has no revenue, so a percentage change is not defined.",
+					subject & " is " & IF ( pct < 0, "down ", "up " ) & FORMAT ( ABS ( pct ), "0.0%" )
+						& " like-for-like (" & [Comparison Note] & ")."
+				)
+		displayFolder: 8 Presentation
+
+	/// Second headline line. All regions: the largest regional contribution and whether the others offset it. One region: its step in the all-region bridge. Returns an empty string, not BLANK, when there is nothing to say (cards print BLANK as "(Blank)").
+	measure 'Headline Contribution' =
+			VAR regionKey = [Evidence Region Key]
+			VAR changes = ADDCOLUMNS ( ALL ( Region[region_name] ), "@change", [Revenue Change] )
+			VAR largest = TOPN ( 1, changes, ABS ( [@change] ), DESC )
+			VAR largestName = MAXX ( largest, Region[region_name] )
+			VAR largestChange = MAXX ( largest, [@change] )
+			VAR total = CALCULATE ( [Revenue Change], REMOVEFILTERS ( Region ) )
+			VAR others = total - largestChange
+			VAR money = "+$#,0.0\K;−$#,0.0\K"
+			RETURN
+				SWITCH (
+					TRUE (),
+					ISBLANK ( largestChange ), "",
+					regionKey = "ALL",
+						"Largest contribution: " & largestName & " (" & FORMAT ( largestChange / 1000, money ) & ")."
+							& IF (
+								SIGN ( others ) <> 0 && SIGN ( others ) <> SIGN ( largestChange ),
+								" The other regions together moved the other way (" & FORMAT ( others / 1000, money ) & ").",
+								""
+							),
+					ISBLANK ( regionKey ), "Select all regions or one region to see contributions.",
+					regionKey & "'s step in the bridge: " & FORMAT ( [Revenue Change] / 1000, money )
+						& " of the " & FORMAT ( total / 1000, money ) & " total change across all regions."
+				)
+		displayFolder: 8 Presentation
+
+	/// Headline for the segment page: revenue and order change for the drilled region. Facts only.
+	measure 'Segment Headline' =
+			VAR regionKey = [Evidence Region Key]
+			VAR subject =
+				SWITCH (
+					TRUE (),
+					regionKey = "ALL", "All regions",
+					ISBLANK ( regionKey ), "Selected regions",
+					regionKey
+				)
+			VAR revenuePct = [Revenue Change %]
+			RETURN
+				SWITCH (
+					TRUE (),
+					ISBLANK ( [Selected Month Key] ), subject & ": select a single month on the first page, then drill through.",
+					ISBLANK ( revenuePct ), subject & ": " & [Comparison Note] & ".",
+					subject & ": revenue " & FORMAT ( revenuePct, "+0.0%;−0.0%;0.0%" ) & " and orders "
+						& FORMAT ( [Order Change %], "+0.0%;−0.0%;0.0%" ) & " like-for-like (" & [Comparison Note] & ")."
+				)
+		displayFolder: 8 Presentation
+
+	/// Subtitle for the revenue bridge: what each step is and the total the steps add up to.
+	measure 'Contribution Subtitle' =
+			VAR total = CALCULATE ( [Revenue Change], REMOVEFILTERS ( Region ) )
+			RETURN
+				IF (
+					ISBLANK ( total ),
+					[Comparison Note] & ". No change to break down.",
+					"Each step is one region's change; together they make the total change ("
+						& FORMAT ( total / 1000, "+$#,0.0\K;−$#,0.0\K" ) & "). Right-click a region for detail."
+				)
+		displayFolder: 8 Presentation
+
+	/// Waterfall values: the prior comparable window on the prior month's axis point and the comparable window on the selected month's point; blank elsewhere, so only the two compared periods appear. Region breakdown steps add up exactly to Revenue Change.
+	measure 'Bridge Revenue' =
+			VAR axisMonth = SELECTEDVALUE ( 'Month Coverage'[month_key] )
+			VAR selectedMonth = [Selected Month Key]
+			VAR priorMonth = LOOKUPVALUE ( 'Month Coverage'[prior_month_key], 'Month Coverage'[month_key], selectedMonth )
+			RETURN
+				SWITCH (
+					TRUE (),
+					ISBLANK ( priorMonth ), BLANK (),
+					axisMonth = selectedMonth, [Revenue (Comparable)],
+					axisMonth = priorMonth, [Revenue (Prior Comparable)]
+				)
+		formatString: \$#,0
+		displayFolder: 8 Presentation
+
+	/// Title of the revenue bridge, naming the two windows.
+	measure 'Bridge Title' = "Revenue bridge by region · " & [Comparison Note]
+		displayFolder: 8 Presentation
+
+	/// Subtitle for the category chart on the segment page.
+	measure 'Category Subtitle' = [Comparison Note] & " · Unknown = orders without a category label; it grows when labelling fails, not only when sales change."
+		displayFolder: 8 Presentation
+
+	column order_id
+		dataType: string
+		summarizeBy: none
+		sourceColumn: order_id
+
+	column order_date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		isHidden
+		summarizeBy: none
+		sourceColumn: order_date
+
+	column region
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: region
+
+	/// Raw category label; null when missing. Use Category[category_name] for slicing.
+	column category
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: category
+
+	column category_key
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: category_key
+
+	column revenue_amount
+		dataType: decimal
+		formatString: \$#,0.00
+		isHidden
+		summarizeBy: sum
+		sourceColumn: revenue_amount
+
+	partition Orders = m
+		mode: import
+		source =
+				let
+					Source = fnReadCsv("orders.csv", {{"order_id", type text}, {"order_date", type date}, {"region", type text}, {"category", type text}, {"revenue_amount", Currency.Type}}),
+					WithKey = Table.AddColumn(Source, "category_key", each if [category] = null then "UNKNOWN" else [category], type text)
+				in
+					WithKey
+

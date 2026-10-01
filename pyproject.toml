@@ -1,0 +1,21 @@
+[project]
+name = "metric-evidence"
+version = "0.1.0"
+description = "Synthetic orders + dataprof evidence tables for a Power BI report"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "dataprof==0.12.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8",
+    "jsonschema>=4.23",
+    "pythonnet>=3.2.0",
+]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

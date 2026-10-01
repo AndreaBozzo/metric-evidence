@@ -1,0 +1,20 @@
+/// Folder holding the prepared CSVs (orders, dimensions, evidence). The only machine path in the project: change it here, or in Transform data > Manage parameters.
+expression DataFolder = "C:\dev\pbi-dq\data\" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	queryGroup: Parameters
+
+	annotation PBI_ResultType = Text
+
+/// Reads one prepared CSV from DataFolder: UTF-8, header row, empty cells become null, types applied with the en-US culture so "123.45" parses the same on any machine locale.
+expression fnReadCsv =
+		(fileName as text, columnTypes as list) as table =>
+		let
+		    Raw = Csv.Document(File.Contents(DataFolder & fileName), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+		    Promoted = Table.PromoteHeaders(Raw, [PromoteAllScalars = true]),
+		    EmptyAsNull = Table.TransformColumns(Promoted, {}, each if _ = "" then null else _),
+		    Typed = Table.TransformColumnTypes(EmptyAsNull, columnTypes, "en-US")
+		in
+		    Typed
+	queryGroup: Helpers
+
+	annotation PBI_ResultType = Function
+

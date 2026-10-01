@@ -1,0 +1,286 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "segment-detail",
+  "displayName": "Segment detail",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "drillRegion",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Region"
+              }
+            },
+            "Property": "region_name"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "Drillthrough",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "r",
+              "Entity": "Region",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "In": {
+                  "Expressions": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "r"
+                          }
+                        },
+                        "Property": "region_name"
+                      }
+                    }
+                  ],
+                  "Values": [
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'North'"
+                        }
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "pageBinding": {
+    "name": "drillRegionBinding",
+    "type": "Drillthrough",
+    "acceptsFilterContext": "Default",
+    "parameters": [
+      {
+        "name": "drillRegionParam",
+        "boundFilter": "drillRegion",
+        "fieldExpr": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Region"
+              }
+            },
+            "Property": "region_name"
+          }
+        }
+      }
+    ]
+  },
+  "type": "Drillthrough",
+  "visibility": "HiddenInViewMode",
+  "visualInteractions": [
+    {
+      "source": "colRevenueTrend",
+      "target": "btnBack",
+      "type": "NoFilter"
+    },
+    {
+      "source": "colRevenueTrend",
+      "target": "txtTitle",
+      "type": "NoFilter"
+    },
+    {
+      "source": "colRevenueTrend",
+      "target": "slcMonth",
+      "type": "NoFilter"
+    },
+    {
+      "source": "colRevenueTrend",
+      "target": "cardHeadline",
+      "type": "NoFilter"
+    },
+    {
+      "source": "colRevenueTrend",
+      "target": "txtScopeCaption",
+      "type": "NoFilter"
+    },
+    {
+      "source": "colRevenueTrend",
+      "target": "cardScope",
+      "type": "NoFilter"
+    },
+    {
+      "source": "colRevenueTrend",
+      "target": "cardEvidenceSummary",
+      "type": "NoFilter"
+    },
+    {
+      "source": "colRevenueTrend",
+      "target": "colOrdersTrend",
+      "type": "NoFilter"
+    },
+    {
+      "source": "colRevenueTrend",
+      "target": "barCategory",
+      "type": "NoFilter"
+    },
+    {
+      "source": "colRevenueTrend",
+      "target": "tblEvidenceHistory",
+      "type": "NoFilter"
+    },
+    {
+      "source": "colRevenueTrend",
+      "target": "tblCategoryDetail",
+      "type": "NoFilter"
+    },
+    {
+      "source": "colRevenueTrend",
+      "target": "cardSnapshot",
+      "type": "NoFilter"
+    },
+    {
+      "source": "colRevenueTrend",
+      "target": "txtFootnote",
+      "type": "NoFilter"
+    },
+    {
+      "source": "colOrdersTrend",
+      "target": "btnBack",
+      "type": "NoFilter"
+    },
+    {
+      "source": "colOrdersTrend",
+      "target": "txtTitle",
+      "type": "NoFilter"
+    },
+    {
+      "source": "colOrdersTrend",
+      "target": "slcMonth",
+      "type": "NoFilter"
+    },
+    {
+      "source": "colOrdersTrend",
+      "target": "cardHeadline",
+      "type": "NoFilter"
+    },
+    {
+      "source": "colOrdersTrend",
+      "target": "txtScopeCaption",
+      "type": "NoFilter"
+    },
+    {
+      "source": "colOrdersTrend",
+      "target": "cardScope",
+      "type": "NoFilter"
+    },
+    {
+      "source": "colOrdersTrend",
+      "target": "cardEvidenceSummary",
+      "type": "NoFilter"
+    },
+    {
+      "source": "colOrdersTrend",
+      "target": "colRevenueTrend",
+      "type": "NoFilter"
+    },
+    {
+      "source": "colOrdersTrend",
+      "target": "barCategory",
+      "type": "NoFilter"
+    },
+    {
+      "source": "colOrdersTrend",
+      "target": "tblEvidenceHistory",
+      "type": "NoFilter"
+    },
+    {
+      "source": "colOrdersTrend",
+      "target": "tblCategoryDetail",
+      "type": "NoFilter"
+    },
+    {
+      "source": "colOrdersTrend",
+      "target": "cardSnapshot",
+      "type": "NoFilter"
+    },
+    {
+      "source": "colOrdersTrend",
+      "target": "txtFootnote",
+      "type": "NoFilter"
+    },
+    {
+      "source": "tblEvidenceHistory",
+      "target": "btnBack",
+      "type": "NoFilter"
+    },
+    {
+      "source": "tblEvidenceHistory",
+      "target": "txtTitle",
+      "type": "NoFilter"
+    },
+    {
+      "source": "tblEvidenceHistory",
+      "target": "slcMonth",
+      "type": "NoFilter"
+    },
+    {
+      "source": "tblEvidenceHistory",
+      "target": "cardHeadline",
+      "type": "NoFilter"
+    },
+    {
+      "source": "tblEvidenceHistory",
+      "target": "txtScopeCaption",
+      "type": "NoFilter"
+    },
+    {
+      "source": "tblEvidenceHistory",
+      "target": "cardScope",
+      "type": "NoFilter"
+    },
+    {
+      "source": "tblEvidenceHistory",
+      "target": "cardEvidenceSummary",
+      "type": "NoFilter"
+    },
+    {
+      "source": "tblEvidenceHistory",
+      "target": "colRevenueTrend",
+      "type": "NoFilter"
+    },
+    {
+      "source": "tblEvidenceHistory",
+      "target": "colOrdersTrend",
+      "type": "NoFilter"
+    },
+    {
+      "source": "tblEvidenceHistory",
+      "target": "barCategory",
+      "type": "NoFilter"
+    },
+    {
+      "source": "tblEvidenceHistory",
+      "target": "tblCategoryDetail",
+      "type": "NoFilter"
+    },
+    {
+      "source": "tblEvidenceHistory",
+      "target": "cardSnapshot",
+      "type": "NoFilter"
+    },
+    {
+      "source": "tblEvidenceHistory",
+      "target": "txtFootnote",
+      "type": "NoFilter"
+    }
+  ]
+}

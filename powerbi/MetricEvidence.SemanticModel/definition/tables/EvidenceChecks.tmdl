@@ -1,0 +1,100 @@
+/// dataprof check() outcomes. Grain: one row per scope_id x check_code x column_name. check_status is passed, failed or not_evaluated; gate_verdict is pass, fail or inconclusive. Not related to other tables.
+table 'Evidence Checks'
+
+	column snapshot_id
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: snapshot_id
+
+	column scope_id
+		dataType: string
+		summarizeBy: none
+		sourceColumn: scope_id
+
+	/// dataset, month or month_region. Month and month_region rows overlap: never add them together.
+	column scope_kind
+		dataType: string
+		summarizeBy: none
+		sourceColumn: scope_kind
+
+	column month_key
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: month_key
+
+	column region_key
+		dataType: string
+		summarizeBy: none
+		sourceColumn: region_key
+
+	column check_code
+		dataType: string
+		summarizeBy: none
+		sourceColumn: check_code
+
+	column column_name
+		dataType: string
+		summarizeBy: none
+		sourceColumn: column_name
+
+	column dimension
+		dataType: string
+		summarizeBy: none
+		sourceColumn: dimension
+
+	column comparison
+		dataType: string
+		summarizeBy: none
+		sourceColumn: comparison
+
+	column threshold
+		dataType: double
+		summarizeBy: none
+		sourceColumn: threshold
+
+	/// Value dataprof compared with the threshold; null when not evaluated.
+	column observed_value
+		dataType: double
+		summarizeBy: none
+		sourceColumn: observed_value
+
+	column check_status
+		dataType: string
+		summarizeBy: none
+		sourceColumn: check_status
+
+	column gate_verdict
+		dataType: string
+		summarizeBy: none
+		sourceColumn: gate_verdict
+
+	column evidence_coverage
+		dataType: string
+		summarizeBy: none
+		sourceColumn: evidence_coverage
+
+	column not_evaluated_reason
+		dataType: string
+		summarizeBy: none
+		sourceColumn: not_evaluated_reason
+
+	column message
+		dataType: string
+		summarizeBy: none
+		sourceColumn: message
+
+	column evidence_source
+		dataType: string
+		summarizeBy: none
+		sourceColumn: evidence_source
+
+	partition 'Evidence Checks' = m
+		mode: import
+		source =
+				let
+					Source = fnReadCsv("evidence_checks.csv", {{"snapshot_id", type text}, {"scope_id", type text}, {"scope_kind", type text}, {"month_key", Int64.Type}, {"region_key", type text}, {"check_code", type text}, {"column_name", type text}, {"dimension", type text}, {"comparison", type text}, {"threshold", type number}, {"observed_value", type number}, {"check_status", type text}, {"gate_verdict", type text}, {"evidence_coverage", type text}, {"not_evaluated_reason", type text}, {"message", type text}, {"evidence_source", type text}})
+				in
+					Source
+

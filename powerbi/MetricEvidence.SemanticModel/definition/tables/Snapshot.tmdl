@@ -1,0 +1,57 @@
+/// One row describing the snapshot that both the orders and the evidence were built from.
+table Snapshot
+
+	column snapshot_id
+		dataType: string
+		summarizeBy: none
+		sourceColumn: snapshot_id
+
+	/// Orders dated on or before this day are in the extract.
+	column snapshot_cutoff
+		dataType: dateTime
+		formatString: d mmm yyyy
+		summarizeBy: none
+		sourceColumn: snapshot_cutoff
+
+	column intended_coverage_start
+		dataType: dateTime
+		formatString: d mmm yyyy
+		summarizeBy: none
+		sourceColumn: intended_coverage_start
+
+	column intended_coverage_end
+		dataType: dateTime
+		formatString: d mmm yyyy
+		summarizeBy: none
+		sourceColumn: intended_coverage_end
+
+	column orders_rows
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: orders_rows
+
+	column orders_sha256
+		dataType: string
+		summarizeBy: none
+		sourceColumn: orders_sha256
+
+	column generator_seed
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: generator_seed
+
+	column dataprof_version
+		dataType: string
+		summarizeBy: none
+		sourceColumn: dataprof_version
+
+	partition Snapshot = m
+		mode: import
+		source =
+				let
+					Source = fnReadCsv("snapshot.csv", {{"snapshot_id", type text}, {"snapshot_cutoff", type date}, {"intended_coverage_start", type date}, {"intended_coverage_end", type date}, {"orders_rows", Int64.Type}, {"orders_sha256", type text}, {"generator_seed", Int64.Type}, {"dataprof_version", type text}})
+				in
+					Source
+

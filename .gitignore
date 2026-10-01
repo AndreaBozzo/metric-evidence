@@ -1,0 +1,18 @@
+# Python / tooling
+.venv/
+__pycache__/
+.pytest_cache/
+.cache/
+
+# Native dataprof outputs carry ids and timestamps; regenerate with prep/build_evidence.py
+data/dataprof_native/
+
+# Power BI local state and caches (never commit)
+**/.pbi/localSettings.json
+**/.pbi/cache.abf
+*.pbix.bak
+
+# Secrets, just in case
+.env
+*.pfx
+*.pem

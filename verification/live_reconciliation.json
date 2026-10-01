@@ -1,0 +1,3736 @@
+{
+ "port": 50320,
+ "checks": [
+  {
+   "group": "totals",
+   "check": "revenue",
+   "expected": "5571609.31",
+   "actual": "5571609.31",
+   "ok": true
+  },
+  {
+   "group": "totals",
+   "check": "orders",
+   "expected": "19793",
+   "actual": "19793",
+   "ok": true
+  },
+  {
+   "group": "unknown retained",
+   "check": "Unknown category revenue",
+   "expected": "114409.42",
+   "actual": "114409.42",
+   "ok": true
+  },
+  {
+   "group": "unknown retained",
+   "check": "sum over categories incl. Unknown = total",
+   "expected": "5571609.31",
+   "actual": "5571609.31",
+   "ok": true
+  },
+  {
+   "group": "snapshot",
+   "check": "Snapshot Consistency",
+   "expected": "True",
+   "actual": "True",
+   "ok": true
+  },
+  {
+   "group": "202604 ALL",
+   "check": "revenue",
+   "expected": "942062.81",
+   "actual": "942062.81",
+   "ok": true
+  },
+  {
+   "group": "202604 ALL",
+   "check": "orders",
+   "expected": "3344",
+   "actual": "3344",
+   "ok": true
+  },
+  {
+   "group": "202604 ALL",
+   "check": "comparable revenue",
+   "expected": "942062.81",
+   "actual": "942062.81",
+   "ok": true
+  },
+  {
+   "group": "202604 ALL",
+   "check": "prior comparable revenue",
+   "expected": "None",
+   "actual": "None",
+   "ok": true
+  },
+  {
+   "group": "202604 ALL",
+   "check": "revenue change",
+   "expected": "None",
+   "actual": "None",
+   "ok": true
+  },
+  {
+   "group": "202604 ALL",
+   "check": "revenue change %",
+   "expected": "None",
+   "actual": "None",
+   "ok": true
+  },
+  {
+   "group": "202604 ALL",
+   "check": "category completeness (model)",
+   "expected": "0.982955",
+   "actual": "0.9829545454545454",
+   "ok": true
+  },
+  {
+   "group": "202604 ALL",
+   "check": "unknown category revenue",
+   "expected": "11971.94",
+   "actual": "11971.94",
+   "ok": true
+  },
+  {
+   "group": "202604 ALL",
+   "check": "dataprof nulls = independent count",
+   "expected": "57",
+   "actual": "57",
+   "ok": true
+  },
+  {
+   "group": "202604 ALL",
+   "check": "dataprof rows = independent count",
+   "expected": "3344",
+   "actual": "3344",
+   "ok": true
+  },
+  {
+   "group": "202604 ALL",
+   "check": "category completeness (dataprof)",
+   "expected": "0.982955",
+   "actual": "0.9829545454545454",
+   "ok": true
+  },
+  {
+   "group": "202604 ALL",
+   "check": "check status matches evidence_checks.csv",
+   "expected": "Passed",
+   "actual": "Passed",
+   "ok": true
+  },
+  {
+   "group": "202604 ALL",
+   "check": "scope label names the region",
+   "expected": "True",
+   "actual": "True",
+   "ok": true
+  },
+  {
+   "group": "202604 ALL",
+   "check": "category filter leaves compl unchanged",
+   "expected": "0.9829545454545454",
+   "actual": "0.9829545454545454",
+   "ok": true
+  },
+  {
+   "group": "202604 ALL",
+   "check": "category filter leaves evcompl unchanged",
+   "expected": "0.9829545454545454",
+   "actual": "0.9829545454545454",
+   "ok": true
+  },
+  {
+   "group": "202604 ALL",
+   "check": "category filter leaves evnulls unchanged",
+   "expected": "57",
+   "actual": "57",
+   "ok": true
+  },
+  {
+   "group": "202604 ALL",
+   "check": "category filter leaves evrows unchanged",
+   "expected": "3344",
+   "actual": "3344",
+   "ok": true
+  },
+  {
+   "group": "202604 ALL",
+   "check": "category filter leaves evcheck unchanged",
+   "expected": "Passed",
+   "actual": "Passed",
+   "ok": true
+  },
+  {
+   "group": "202604 ALL",
+   "check": "category filter leaves scope unchanged",
+   "expected": "Apr 2026 · All regions · through 20 Sep 2026",
+   "actual": "Apr 2026 · All regions · through 20 Sep 2026",
+   "ok": true
+  },
+  {
+   "group": "202604 ALL",
+   "check": "Unknown category filter leaves completeness unchanged",
+   "expected": "0.9829545454545454",
+   "actual": "0.9829545454545454",
+   "ok": true
+  },
+  {
+   "group": "202604 Central",
+   "check": "revenue",
+   "expected": "326939.14",
+   "actual": "326939.14",
+   "ok": true
+  },
+  {
+   "group": "202604 Central",
+   "check": "orders",
+   "expected": "1196",
+   "actual": "1196",
+   "ok": true
+  },
+  {
+   "group": "202604 Central",
+   "check": "comparable revenue",
+   "expected": "326939.14",
+   "actual": "326939.14",
+   "ok": true
+  },
+  {
+   "group": "202604 Central",
+   "check": "prior comparable revenue",
+   "expected": "None",
+   "actual": "None",
+   "ok": true
+  },
+  {
+   "group": "202604 Central",
+   "check": "revenue change",
+   "expected": "None",
+   "actual": "None",
+   "ok": true
+  },
+  {
+   "group": "202604 Central",
+   "check": "revenue change %",
+   "expected": "None",
+   "actual": "None",
+   "ok": true
+  },
+  {
+   "group": "202604 Central",
+   "check": "category completeness (model)",
+   "expected": "0.984950",
+   "actual": "0.9849498327759197",
+   "ok": true
+  },
+  {
+   "group": "202604 Central",
+   "check": "unknown category revenue",
+   "expected": "2965.94",
+   "actual": "2965.94",
+   "ok": true
+  },
+  {
+   "group": "202604 Central",
+   "check": "dataprof nulls = independent count",
+   "expected": "18",
+   "actual": "18",
+   "ok": true
+  },
+  {
+   "group": "202604 Central",
+   "check": "dataprof rows = independent count",
+   "expected": "1196",
+   "actual": "1196",
+   "ok": true
+  },
+  {
+   "group": "202604 Central",
+   "check": "category completeness (dataprof)",
+   "expected": "0.984950",
+   "actual": "0.9849498327759197",
+   "ok": true
+  },
+  {
+   "group": "202604 Central",
+   "check": "check status matches evidence_checks.csv",
+   "expected": "Passed",
+   "actual": "Passed",
+   "ok": true
+  },
+  {
+   "group": "202604 Central",
+   "check": "scope label names the region",
+   "expected": "True",
+   "actual": "True",
+   "ok": true
+  },
+  {
+   "group": "202604 Central",
+   "check": "category filter leaves compl unchanged",
+   "expected": "0.9849498327759197",
+   "actual": "0.9849498327759197",
+   "ok": true
+  },
+  {
+   "group": "202604 Central",
+   "check": "category filter leaves evcompl unchanged",
+   "expected": "0.9849498327759197",
+   "actual": "0.9849498327759197",
+   "ok": true
+  },
+  {
+   "group": "202604 Central",
+   "check": "category filter leaves evnulls unchanged",
+   "expected": "18",
+   "actual": "18",
+   "ok": true
+  },
+  {
+   "group": "202604 Central",
+   "check": "category filter leaves evrows unchanged",
+   "expected": "1196",
+   "actual": "1196",
+   "ok": true
+  },
+  {
+   "group": "202604 Central",
+   "check": "category filter leaves evcheck unchanged",
+   "expected": "Passed",
+   "actual": "Passed",
+   "ok": true
+  },
+  {
+   "group": "202604 Central",
+   "check": "category filter leaves scope unchanged",
+   "expected": "Apr 2026 · Central · through 20 Sep 2026",
+   "actual": "Apr 2026 · Central · through 20 Sep 2026",
+   "ok": true
+  },
+  {
+   "group": "202604 Central",
+   "check": "Unknown category filter leaves completeness unchanged",
+   "expected": "0.9849498327759197",
+   "actual": "0.9849498327759197",
+   "ok": true
+  },
+  {
+   "group": "202604 North",
+   "check": "revenue",
+   "expected": "393471.83",
+   "actual": "393471.83",
+   "ok": true
+  },
+  {
+   "group": "202604 North",
+   "check": "orders",
+   "expected": "1333",
+   "actual": "1333",
+   "ok": true
+  },
+  {
+   "group": "202604 North",
+   "check": "comparable revenue",
+   "expected": "393471.83",
+   "actual": "393471.83",
+   "ok": true
+  },
+  {
+   "group": "202604 North",
+   "check": "prior comparable revenue",
+   "expected": "None",
+   "actual": "None",
+   "ok": true
+  },
+  {
+   "group": "202604 North",
+   "check": "revenue change",
+   "expected": "None",
+   "actual": "None",
+   "ok": true
+  },
+  {
+   "group": "202604 North",
+   "check": "revenue change %",
+   "expected": "None",
+   "actual": "None",
+   "ok": true
+  },
+  {
+   "group": "202604 North",
+   "check": "category completeness (model)",
+   "expected": "0.981995",
+   "actual": "0.9819954988747187",
+   "ok": true
+  },
+  {
+   "group": "202604 North",
+   "check": "unknown category revenue",
+   "expected": "6778.5",
+   "actual": "6778.5",
+   "ok": true
+  },
+  {
+   "group": "202604 North",
+   "check": "dataprof nulls = independent count",
+   "expected": "24",
+   "actual": "24",
+   "ok": true
+  },
+  {
+   "group": "202604 North",
+   "check": "dataprof rows = independent count",
+   "expected": "1333",
+   "actual": "1333",
+   "ok": true
+  },
+  {
+   "group": "202604 North",
+   "check": "category completeness (dataprof)",
+   "expected": "0.981995",
+   "actual": "0.9819954988747187",
+   "ok": true
+  },
+  {
+   "group": "202604 North",
+   "check": "check status matches evidence_checks.csv",
+   "expected": "Passed",
+   "actual": "Passed",
+   "ok": true
+  },
+  {
+   "group": "202604 North",
+   "check": "scope label names the region",
+   "expected": "True",
+   "actual": "True",
+   "ok": true
+  },
+  {
+   "group": "202604 North",
+   "check": "category filter leaves compl unchanged",
+   "expected": "0.9819954988747187",
+   "actual": "0.9819954988747187",
+   "ok": true
+  },
+  {
+   "group": "202604 North",
+   "check": "category filter leaves evcompl unchanged",
+   "expected": "0.9819954988747187",
+   "actual": "0.9819954988747187",
+   "ok": true
+  },
+  {
+   "group": "202604 North",
+   "check": "category filter leaves evnulls unchanged",
+   "expected": "24",
+   "actual": "24",
+   "ok": true
+  },
+  {
+   "group": "202604 North",
+   "check": "category filter leaves evrows unchanged",
+   "expected": "1333",
+   "actual": "1333",
+   "ok": true
+  },
+  {
+   "group": "202604 North",
+   "check": "category filter leaves evcheck unchanged",
+   "expected": "Passed",
+   "actual": "Passed",
+   "ok": true
+  },
+  {
+   "group": "202604 North",
+   "check": "category filter leaves scope unchanged",
+   "expected": "Apr 2026 · North · through 20 Sep 2026",
+   "actual": "Apr 2026 · North · through 20 Sep 2026",
+   "ok": true
+  },
+  {
+   "group": "202604 North",
+   "check": "Unknown category filter leaves completeness unchanged",
+   "expected": "0.9819954988747187",
+   "actual": "0.9819954988747187",
+   "ok": true
+  },
+  {
+   "group": "202604 South",
+   "check": "revenue",
+   "expected": "221651.84",
+   "actual": "221651.84",
+   "ok": true
+  },
+  {
+   "group": "202604 South",
+   "check": "orders",
+   "expected": "815",
+   "actual": "815",
+   "ok": true
+  },
+  {
+   "group": "202604 South",
+   "check": "comparable revenue",
+   "expected": "221651.84",
+   "actual": "221651.84",
+   "ok": true
+  },
+  {
+   "group": "202604 South",
+   "check": "prior comparable revenue",
+   "expected": "None",
+   "actual": "None",
+   "ok": true
+  },
+  {
+   "group": "202604 South",
+   "check": "revenue change",
+   "expected": "None",
+   "actual": "None",
+   "ok": true
+  },
+  {
+   "group": "202604 South",
+   "check": "revenue change %",
+   "expected": "None",
+   "actual": "None",
+   "ok": true
+  },
+  {
+   "group": "202604 South",
+   "check": "category completeness (model)",
+   "expected": "0.981595",
+   "actual": "0.9815950920245399",
+   "ok": true
+  },
+  {
+   "group": "202604 South",
+   "check": "unknown category revenue",
+   "expected": "2227.5",
+   "actual": "2227.5",
+   "ok": true
+  },
+  {
+   "group": "202604 South",
+   "check": "dataprof nulls = independent count",
+   "expected": "15",
+   "actual": "15",
+   "ok": true
+  },
+  {
+   "group": "202604 South",
+   "check": "dataprof rows = independent count",
+   "expected": "815",
+   "actual": "815",
+   "ok": true
+  },
+  {
+   "group": "202604 South",
+   "check": "category completeness (dataprof)",
+   "expected": "0.981595",
+   "actual": "0.9815950920245399",
+   "ok": true
+  },
+  {
+   "group": "202604 South",
+   "check": "check status matches evidence_checks.csv",
+   "expected": "Passed",
+   "actual": "Passed",
+   "ok": true
+  },
+  {
+   "group": "202604 South",
+   "check": "scope label names the region",
+   "expected": "True",
+   "actual": "True",
+   "ok": true
+  },
+  {
+   "group": "202604 South",
+   "check": "category filter leaves compl unchanged",
+   "expected": "0.9815950920245399",
+   "actual": "0.9815950920245399",
+   "ok": true
+  },
+  {
+   "group": "202604 South",
+   "check": "category filter leaves evcompl unchanged",
+   "expected": "0.9815950920245399",
+   "actual": "0.9815950920245399",
+   "ok": true
+  },
+  {
+   "group": "202604 South",
+   "check": "category filter leaves evnulls unchanged",
+   "expected": "15",
+   "actual": "15",
+   "ok": true
+  },
+  {
+   "group": "202604 South",
+   "check": "category filter leaves evrows unchanged",
+   "expected": "815",
+   "actual": "815",
+   "ok": true
+  },
+  {
+   "group": "202604 South",
+   "check": "category filter leaves evcheck unchanged",
+   "expected": "Passed",
+   "actual": "Passed",
+   "ok": true
+  },
+  {
+   "group": "202604 South",
+   "check": "category filter leaves scope unchanged",
+   "expected": "Apr 2026 · South · through 20 Sep 2026",
+   "actual": "Apr 2026 · South · through 20 Sep 2026",
+   "ok": true
+  },
+  {
+   "group": "202604 South",
+   "check": "Unknown category filter leaves completeness unchanged",
+   "expected": "0.9815950920245399",
+   "actual": "0.9815950920245399",
+   "ok": true
+  },
+  {
+   "group": "202605 ALL",
+   "check": "revenue",
+   "expected": "982026.14",
+   "actual": "982026.14",
+   "ok": true
+  },
+  {
+   "group": "202605 ALL",
+   "check": "orders",
+   "expected": "3476",
+   "actual": "3476",
+   "ok": true
+  },
+  {
+   "group": "202605 ALL",
+   "check": "comparable revenue",
+   "expected": "982026.14",
+   "actual": "982026.14",
+   "ok": true
+  },
+  {
+   "group": "202605 ALL",
+   "check": "prior comparable revenue",
+   "expected": "942062.81",
+   "actual": "942062.81",
+   "ok": true
+  },
+  {
+   "group": "202605 ALL",
+   "check": "revenue change",
+   "expected": "39963.33",
+   "actual": "39963.33",
+   "ok": true
+  },
+  {
+   "group": "202605 ALL",
+   "check": "revenue change %",
+   "expected": "0.042421",
+   "actual": "0.042421088674543896",
+   "ok": true
+  },
+  {
+   "group": "202605 ALL",
+   "check": "category completeness (model)",
+   "expected": "0.980150",
+   "actual": "0.9801495972382048",
+   "ok": true
+  },
+  {
+   "group": "202605 ALL",
+   "check": "unknown category revenue",
+   "expected": "25447.15",
+   "actual": "25447.15",
+   "ok": true
+  },
+  {
+   "group": "202605 ALL",
+   "check": "dataprof nulls = independent count",
+   "expected": "69",
+   "actual": "69",
+   "ok": true
+  },
+  {
+   "group": "202605 ALL",
+   "check": "dataprof rows = independent count",
+   "expected": "3476",
+   "actual": "3476",
+   "ok": true
+  },
+  {
+   "group": "202605 ALL",
+   "check": "category completeness (dataprof)",
+   "expected": "0.980150",
+   "actual": "0.9801495972382048",
+   "ok": true
+  },
+  {
+   "group": "202605 ALL",
+   "check": "check status matches evidence_checks.csv",
+   "expected": "Passed",
+   "actual": "Passed",
+   "ok": true
+  },
+  {
+   "group": "202605 ALL",
+   "check": "scope label names the region",
+   "expected": "True",
+   "actual": "True",
+   "ok": true
+  },
+  {
+   "group": "202605 ALL",
+   "check": "category filter leaves compl unchanged",
+   "expected": "0.9801495972382048",
+   "actual": "0.9801495972382048",
+   "ok": true
+  },
+  {
+   "group": "202605 ALL",
+   "check": "category filter leaves evcompl unchanged",
+   "expected": "0.9801495972382048",
+   "actual": "0.9801495972382048",
+   "ok": true
+  },
+  {
+   "group": "202605 ALL",
+   "check": "category filter leaves evnulls unchanged",
+   "expected": "69",
+   "actual": "69",
+   "ok": true
+  },
+  {
+   "group": "202605 ALL",
+   "check": "category filter leaves evrows unchanged",
+   "expected": "3476",
+   "actual": "3476",
+   "ok": true
+  },
+  {
+   "group": "202605 ALL",
+   "check": "category filter leaves evcheck unchanged",
+   "expected": "Passed",
+   "actual": "Passed",
+   "ok": true
+  },
+  {
+   "group": "202605 ALL",
+   "check": "category filter leaves scope unchanged",
+   "expected": "May 2026 · All regions · through 20 Sep 2026",
+   "actual": "May 2026 · All regions · through 20 Sep 2026",
+   "ok": true
+  },
+  {
+   "group": "202605 ALL",
+   "check": "Unknown category filter leaves completeness unchanged",
+   "expected": "0.9801495972382048",
+   "actual": "0.9801495972382048",
+   "ok": true
+  },
+  {
+   "group": "202605 Central",
+   "check": "revenue",
+   "expected": "349251.85",
+   "actual": "349251.85",
+   "ok": true
+  },
+  {
+   "group": "202605 Central",
+   "check": "orders",
+   "expected": "1253",
+   "actual": "1253",
+   "ok": true
+  },
+  {
+   "group": "202605 Central",
+   "check": "comparable revenue",
+   "expected": "349251.85",
+   "actual": "349251.85",
+   "ok": true
+  },
+  {
+   "group": "202605 Central",
+   "check": "prior comparable revenue",
+   "expected": "326939.14",
+   "actual": "326939.14",
+   "ok": true
+  },
+  {
+   "group": "202605 Central",
+   "check": "revenue change",
+   "expected": "22312.71",
+   "actual": "22312.71",
+   "ok": true
+  },
+  {
+   "group": "202605 Central",
+   "check": "revenue change %",
+   "expected": "0.068247",
+   "actual": "0.0682472890826103",
+   "ok": true
+  },
+  {
+   "group": "202605 Central",
+   "check": "category completeness (model)",
+   "expected": "0.979250",
+   "actual": "0.9792498004788508",
+   "ok": true
+  },
+  {
+   "group": "202605 Central",
+   "check": "unknown category revenue",
+   "expected": "7277.25",
+   "actual": "7277.25",
+   "ok": true
+  },
+  {
+   "group": "202605 Central",
+   "check": "dataprof nulls = independent count",
+   "expected": "26",
+   "actual": "26",
+   "ok": true
+  },
+  {
+   "group": "202605 Central",
+   "check": "dataprof rows = independent count",
+   "expected": "1253",
+   "actual": "1253",
+   "ok": true
+  },
+  {
+   "group": "202605 Central",
+   "check": "category completeness (dataprof)",
+   "expected": "0.979250",
+   "actual": "0.9792498004788508",
+   "ok": true
+  },
+  {
+   "group": "202605 Central",
+   "check": "check status matches evidence_checks.csv",
+   "expected": "Passed",
+   "actual": "Passed",
+   "ok": true
+  },
+  {
+   "group": "202605 Central",
+   "check": "scope label names the region",
+   "expected": "True",
+   "actual": "True",
+   "ok": true
+  },
+  {
+   "group": "202605 Central",
+   "check": "category filter leaves compl unchanged",
+   "expected": "0.9792498004788508",
+   "actual": "0.9792498004788508",
+   "ok": true
+  },
+  {
+   "group": "202605 Central",
+   "check": "category filter leaves evcompl unchanged",
+   "expected": "0.9792498004788508",
+   "actual": "0.9792498004788508",
+   "ok": true
+  },
+  {
+   "group": "202605 Central",
+   "check": "category filter leaves evnulls unchanged",
+   "expected": "26",
+   "actual": "26",
+   "ok": true
+  },
+  {
+   "group": "202605 Central",
+   "check": "category filter leaves evrows unchanged",
+   "expected": "1253",
+   "actual": "1253",
+   "ok": true
+  },
+  {
+   "group": "202605 Central",
+   "check": "category filter leaves evcheck unchanged",
+   "expected": "Passed",
+   "actual": "Passed",
+   "ok": true
+  },
+  {
+   "group": "202605 Central",
+   "check": "category filter leaves scope unchanged",
+   "expected": "May 2026 · Central · through 20 Sep 2026",
+   "actual": "May 2026 · Central · through 20 Sep 2026",
+   "ok": true
+  },
+  {
+   "group": "202605 Central",
+   "check": "Unknown category filter leaves completeness unchanged",
+   "expected": "0.9792498004788508",
+   "actual": "0.9792498004788508",
+   "ok": true
+  },
+  {
+   "group": "202605 North",
+   "check": "revenue",
+   "expected": "392241.43",
+   "actual": "392241.43",
+   "ok": true
+  },
+  {
+   "group": "202605 North",
+   "check": "orders",
+   "expected": "1346",
+   "actual": "1346",
+   "ok": true
+  },
+  {
+   "group": "202605 North",
+   "check": "comparable revenue",
+   "expected": "392241.43",
+   "actual": "392241.43",
+   "ok": true
+  },
+  {
+   "group": "202605 North",
+   "check": "prior comparable revenue",
+   "expected": "393471.83",
+   "actual": "393471.83",
+   "ok": true
+  },
+  {
+   "group": "202605 North",
+   "check": "revenue change",
+   "expected": "-1230.4",
+   "actual": "-1230.4",
+   "ok": true
+  },
+  {
+   "group": "202605 North",
+   "check": "revenue change %",
+   "expected": "-0.003127",
+   "actual": "-0.0031270345325610733",
+   "ok": true
+  },
+  {
+   "group": "202605 North",
+   "check": "category completeness (model)",
+   "expected": "0.981426",
+   "actual": "0.9814264487369985",
+   "ok": true
+  },
+  {
+   "group": "202605 North",
+   "check": "unknown category revenue",
+   "expected": "9482.33",
+   "actual": "9482.33",
+   "ok": true
+  },
+  {
+   "group": "202605 North",
+   "check": "dataprof nulls = independent count",
+   "expected": "25",
+   "actual": "25",
+   "ok": true
+  },
+  {
+   "group": "202605 North",
+   "check": "dataprof rows = independent count",
+   "expected": "1346",
+   "actual": "1346",
+   "ok": true
+  },
+  {
+   "group": "202605 North",
+   "check": "category completeness (dataprof)",
+   "expected": "0.981426",
+   "actual": "0.9814264487369985",
+   "ok": true
+  },
+  {
+   "group": "202605 North",
+   "check": "check status matches evidence_checks.csv",
+   "expected": "Passed",
+   "actual": "Passed",
+   "ok": true
+  },
+  {
+   "group": "202605 North",
+   "check": "scope label names the region",
+   "expected": "True",
+   "actual": "True",
+   "ok": true
+  },
+  {
+   "group": "202605 North",
+   "check": "category filter leaves compl unchanged",
+   "expected": "0.9814264487369985",
+   "actual": "0.9814264487369985",
+   "ok": true
+  },
+  {
+   "group": "202605 North",
+   "check": "category filter leaves evcompl unchanged",
+   "expected": "0.9814264487369985",
+   "actual": "0.9814264487369985",
+   "ok": true
+  },
+  {
+   "group": "202605 North",
+   "check": "category filter leaves evnulls unchanged",
+   "expected": "25",
+   "actual": "25",
+   "ok": true
+  },
+  {
+   "group": "202605 North",
+   "check": "category filter leaves evrows unchanged",
+   "expected": "1346",
+   "actual": "1346",
+   "ok": true
+  },
+  {
+   "group": "202605 North",
+   "check": "category filter leaves evcheck unchanged",
+   "expected": "Passed",
+   "actual": "Passed",
+   "ok": true
+  },
+  {
+   "group": "202605 North",
+   "check": "category filter leaves scope unchanged",
+   "expected": "May 2026 · North · through 20 Sep 2026",
+   "actual": "May 2026 · North · through 20 Sep 2026",
+   "ok": true
+  },
+  {
+   "group": "202605 North",
+   "check": "Unknown category filter leaves completeness unchanged",
+   "expected": "0.9814264487369985",
+   "actual": "0.9814264487369985",
+   "ok": true
+  },
+  {
+   "group": "202605 South",
+   "check": "revenue",
+   "expected": "240532.86",
+   "actual": "240532.86",
+   "ok": true
+  },
+  {
+   "group": "202605 South",
+   "check": "orders",
+   "expected": "877",
+   "actual": "877",
+   "ok": true
+  },
+  {
+   "group": "202605 South",
+   "check": "comparable revenue",
+   "expected": "240532.86",
+   "actual": "240532.86",
+   "ok": true
+  },
+  {
+   "group": "202605 South",
+   "check": "prior comparable revenue",
+   "expected": "221651.84",
+   "actual": "221651.84",
+   "ok": true
+  },
+  {
+   "group": "202605 South",
+   "check": "revenue change",
+   "expected": "18881.02",
+   "actual": "18881.02",
+   "ok": true
+  },
+  {
+   "group": "202605 South",
+   "check": "revenue change %",
+   "expected": "0.085183",
+   "actual": "0.08518323150396585",
+   "ok": true
+  },
+  {
+   "group": "202605 South",
+   "check": "category completeness (model)",
+   "expected": "0.979475",
+   "actual": "0.9794754846066135",
+   "ok": true
+  },
+  {
+   "group": "202605 South",
+   "check": "unknown category revenue",
+   "expected": "8687.57",
+   "actual": "8687.57",
+   "ok": true
+  },
+  {
+   "group": "202605 South",
+   "check": "dataprof nulls = independent count",
+   "expected": "18",
+   "actual": "18",
+   "ok": true
+  },
+  {
+   "group": "202605 South",
+   "check": "dataprof rows = independent count",
+   "expected": "877",
+   "actual": "877",
+   "ok": true
+  },
+  {
+   "group": "202605 South",
+   "check": "category completeness (dataprof)",
+   "expected": "0.979475",
+   "actual": "0.9794754846066135",
+   "ok": true
+  },
+  {
+   "group": "202605 South",
+   "check": "check status matches evidence_checks.csv",
+   "expected": "Passed",
+   "actual": "Passed",
+   "ok": true
+  },
+  {
+   "group": "202605 South",
+   "check": "scope label names the region",
+   "expected": "True",
+   "actual": "True",
+   "ok": true
+  },
+  {
+   "group": "202605 South",
+   "check": "category filter leaves compl unchanged",
+   "expected": "0.9794754846066135",
+   "actual": "0.9794754846066135",
+   "ok": true
+  },
+  {
+   "group": "202605 South",
+   "check": "category filter leaves evcompl unchanged",
+   "expected": "0.9794754846066135",
+   "actual": "0.9794754846066135",
+   "ok": true
+  },
+  {
+   "group": "202605 South",
+   "check": "category filter leaves evnulls unchanged",
+   "expected": "18",
+   "actual": "18",
+   "ok": true
+  },
+  {
+   "group": "202605 South",
+   "check": "category filter leaves evrows unchanged",
+   "expected": "877",
+   "actual": "877",
+   "ok": true
+  },
+  {
+   "group": "202605 South",
+   "check": "category filter leaves evcheck unchanged",
+   "expected": "Passed",
+   "actual": "Passed",
+   "ok": true
+  },
+  {
+   "group": "202605 South",
+   "check": "category filter leaves scope unchanged",
+   "expected": "May 2026 · South · through 20 Sep 2026",
+   "actual": "May 2026 · South · through 20 Sep 2026",
+   "ok": true
+  },
+  {
+   "group": "202605 South",
+   "check": "Unknown category filter leaves completeness unchanged",
+   "expected": "0.9794754846066135",
+   "actual": "0.9794754846066135",
+   "ok": true
+  },
+  {
+   "group": "202606 ALL",
+   "check": "revenue",
+   "expected": "996042.56",
+   "actual": "996042.56",
+   "ok": true
+  },
+  {
+   "group": "202606 ALL",
+   "check": "orders",
+   "expected": "3495",
+   "actual": "3495",
+   "ok": true
+  },
+  {
+   "group": "202606 ALL",
+   "check": "comparable revenue",
+   "expected": "996042.56",
+   "actual": "996042.56",
+   "ok": true
+  },
+  {
+   "group": "202606 ALL",
+   "check": "prior comparable revenue",
+   "expected": "982026.14",
+   "actual": "982026.14",
+   "ok": true
+  },
+  {
+   "group": "202606 ALL",
+   "check": "revenue change",
+   "expected": "14016.42",
+   "actual": "14016.42",
+   "ok": true
+  },
+  {
+   "group": "202606 ALL",
+   "check": "revenue change %",
+   "expected": "0.014273",
+   "actual": "0.014272960188208433",
+   "ok": true
+  },
+  {
+   "group": "202606 ALL",
+   "check": "category completeness (model)",
+   "expected": "0.978541",
+   "actual": "0.9785407725321889",
+   "ok": true
+  },
+  {
+   "group": "202606 ALL",
+   "check": "unknown category revenue",
+   "expected": "19510.98",
+   "actual": "19510.98",
+   "ok": true
+  },
+  {
+   "group": "202606 ALL",
+   "check": "dataprof nulls = independent count",
+   "expected": "75",
+   "actual": "75",
+   "ok": true
+  },
+  {
+   "group": "202606 ALL",
+   "check": "dataprof rows = independent count",
+   "expected": "3495",
+   "actual": "3495",
+   "ok": true
+  },
+  {
+   "group": "202606 ALL",
+   "check": "category completeness (dataprof)",
+   "expected": "0.978541",
+   "actual": "0.9785407725321889",
+   "ok": true
+  },
+  {
+   "group": "202606 ALL",
+   "check": "check status matches evidence_checks.csv",
+   "expected": "Passed",
+   "actual": "Passed",
+   "ok": true
+  },
+  {
+   "group": "202606 ALL",
+   "check": "scope label names the region",
+   "expected": "True",
+   "actual": "True",
+   "ok": true
+  },
+  {
+   "group": "202606 ALL",
+   "check": "category filter leaves compl unchanged",
+   "expected": "0.9785407725321889",
+   "actual": "0.9785407725321889",
+   "ok": true
+  },
+  {
+   "group": "202606 ALL",
+   "check": "category filter leaves evcompl unchanged",
+   "expected": "0.9785407725321889",
+   "actual": "0.9785407725321889",
+   "ok": true
+  },
+  {
+   "group": "202606 ALL",
+   "check": "category filter leaves evnulls unchanged",
+   "expected": "75",
+   "actual": "75",
+   "ok": true
+  },
+  {
+   "group": "202606 ALL",
+   "check": "category filter leaves evrows unchanged",
+   "expected": "3495",
+   "actual": "3495",
+   "ok": true
+  },
+  {
+   "group": "202606 ALL",
+   "check": "category filter leaves evcheck unchanged",
+   "expected": "Passed",
+   "actual": "Passed",
+   "ok": true
+  },
+  {
+   "group": "202606 ALL",
+   "check": "category filter leaves scope unchanged",
+   "expected": "Jun 2026 · All regions · through 20 Sep 2026",
+   "actual": "Jun 2026 · All regions · through 20 Sep 2026",
+   "ok": true
+  },
+  {
+   "group": "202606 ALL",
+   "check": "Unknown category filter leaves completeness unchanged",
+   "expected": "0.9785407725321889",
+   "actual": "0.9785407725321889",
+   "ok": true
+  },
+  {
+   "group": "202606 Central",
+   "check": "revenue",
+   "expected": "354150.81",
+   "actual": "354150.81",
+   "ok": true
+  },
+  {
+   "group": "202606 Central",
+   "check": "orders",
+   "expected": "1245",
+   "actual": "1245",
+   "ok": true
+  },
+  {
+   "group": "202606 Central",
+   "check": "comparable revenue",
+   "expected": "354150.81",
+   "actual": "354150.81",
+   "ok": true
+  },
+  {
+   "group": "202606 Central",
+   "check": "prior comparable revenue",
+   "expected": "349251.85",
+   "actual": "349251.85",
+   "ok": true
+  },
+  {
+   "group": "202606 Central",
+   "check": "revenue change",
+   "expected": "4898.96",
+   "actual": "4898.96",
+   "ok": true
+  },
+  {
+   "group": "202606 Central",
+   "check": "revenue change %",
+   "expected": "0.014027",
+   "actual": "0.014027012312175296",
+   "ok": true
+  },
+  {
+   "group": "202606 Central",
+   "check": "category completeness (model)",
+   "expected": "0.976707",
+   "actual": "0.976706827309237",
+   "ok": true
+  },
+  {
+   "group": "202606 Central",
+   "check": "unknown category revenue",
+   "expected": "8947.13",
+   "actual": "8947.13",
+   "ok": true
+  },
+  {
+   "group": "202606 Central",
+   "check": "dataprof nulls = independent count",
+   "expected": "29",
+   "actual": "29",
+   "ok": true
+  },
+  {
+   "group": "202606 Central",
+   "check": "dataprof rows = independent count",
+   "expected": "1245",
+   "actual": "1245",
+   "ok": true
+  },
+  {
+   "group": "202606 Central",
+   "check": "category completeness (dataprof)",
+   "expected": "0.976707",
+   "actual": "0.976706827309237",
+   "ok": true
+  },
+  {
+   "group": "202606 Central",
+   "check": "check status matches evidence_checks.csv",
+   "expected": "Passed",
+   "actual": "Passed",
+   "ok": true
+  },
+  {
+   "group": "202606 Central",
+   "check": "scope label names the region",
+   "expected": "True",
+   "actual": "True",
+   "ok": true
+  },
+  {
+   "group": "202606 Central",
+   "check": "category filter leaves compl unchanged",
+   "expected": "0.976706827309237",
+   "actual": "0.976706827309237",
+   "ok": true
+  },
+  {
+   "group": "202606 Central",
+   "check": "category filter leaves evcompl unchanged",
+   "expected": "0.976706827309237",
+   "actual": "0.976706827309237",
+   "ok": true
+  },
+  {
+   "group": "202606 Central",
+   "check": "category filter leaves evnulls unchanged",
+   "expected": "29",
+   "actual": "29",
+   "ok": true
+  },
+  {
+   "group": "202606 Central",
+   "check": "category filter leaves evrows unchanged",
+   "expected": "1245",
+   "actual": "1245",
+   "ok": true
+  },
+  {
+   "group": "202606 Central",
+   "check": "category filter leaves evcheck unchanged",
+   "expected": "Passed",
+   "actual": "Passed",
+   "ok": true
+  },
+  {
+   "group": "202606 Central",
+   "check": "category filter leaves scope unchanged",
+   "expected": "Jun 2026 · Central · through 20 Sep 2026",
+   "actual": "Jun 2026 · Central · through 20 Sep 2026",
+   "ok": true
+  },
+  {
+   "group": "202606 Central",
+   "check": "Unknown category filter leaves completeness unchanged",
+   "expected": "0.976706827309237",
+   "actual": "0.976706827309237",
+   "ok": true
+  },
+  {
+   "group": "202606 North",
+   "check": "revenue",
+   "expected": "401212.93",
+   "actual": "401212.93",
+   "ok": true
+  },
+  {
+   "group": "202606 North",
+   "check": "orders",
+   "expected": "1407",
+   "actual": "1407",
+   "ok": true
+  },
+  {
+   "group": "202606 North",
+   "check": "comparable revenue",
+   "expected": "401212.93",
+   "actual": "401212.93",
+   "ok": true
+  },
+  {
+   "group": "202606 North",
+   "check": "prior comparable revenue",
+   "expected": "392241.43",
+   "actual": "392241.43",
+   "ok": true
+  },
+  {
+   "group": "202606 North",
+   "check": "revenue change",
+   "expected": "8971.5",
+   "actual": "8971.5",
+   "ok": true
+  },
+  {
+   "group": "202606 North",
+   "check": "revenue change %",
+   "expected": "0.022872",
+   "actual": "0.02287239264857871",
+   "ok": true
+  },
+  {
+   "group": "202606 North",
+   "check": "category completeness (model)",
+   "expected": "0.975124",
+   "actual": "0.9751243781094527",
+   "ok": true
+  },
+  {
+   "group": "202606 North",
+   "check": "unknown category revenue",
+   "expected": "7598.14",
+   "actual": "7598.14",
+   "ok": true
+  },
+  {
+   "group": "202606 North",
+   "check": "dataprof nulls = independent count",
+   "expected": "35",
+   "actual": "35",
+   "ok": true
+  },
+  {
+   "group": "202606 North",
+   "check": "dataprof rows = independent count",
+   "expected": "1407",
+   "actual": "1407",
+   "ok": true
+  },
+  {
+   "group": "202606 North",
+   "check": "category completeness (dataprof)",
+   "expected": "0.975124",
+   "actual": "0.9751243781094527",
+   "ok": true
+  },
+  {
+   "group": "202606 North",
+   "check": "check status matches evidence_checks.csv",
+   "expected": "Passed",
+   "actual": "Passed",
+   "ok": true
+  },
+  {
+   "group": "202606 North",
+   "check": "scope label names the region",
+   "expected": "True",
+   "actual": "True",
+   "ok": true
+  },
+  {
+   "group": "202606 North",
+   "check": "category filter leaves compl unchanged",
+   "expected": "0.9751243781094527",
+   "actual": "0.9751243781094527",
+   "ok": true
+  },
+  {
+   "group": "202606 North",
+   "check": "category filter leaves evcompl unchanged",
+   "expected": "0.9751243781094527",
+   "actual": "0.9751243781094527",
+   "ok": true
+  },
+  {
+   "group": "202606 North",
+   "check": "category filter leaves evnulls unchanged",
+   "expected": "35",
+   "actual": "35",
+   "ok": true
+  },
+  {
+   "group": "202606 North",
+   "check": "category filter leaves evrows unchanged",
+   "expected": "1407",
+   "actual": "1407",
+   "ok": true
+  },
+  {
+   "group": "202606 North",
+   "check": "category filter leaves evcheck unchanged",
+   "expected": "Passed",
+   "actual": "Passed",
+   "ok": true
+  },
+  {
+   "group": "202606 North",
+   "check": "category filter leaves scope unchanged",
+   "expected": "Jun 2026 · North · through 20 Sep 2026",
+   "actual": "Jun 2026 · North · through 20 Sep 2026",
+   "ok": true
+  },
+  {
+   "group": "202606 North",
+   "check": "Unknown category filter leaves completeness unchanged",
+   "expected": "0.9751243781094527",
+   "actual": "0.9751243781094527",
+   "ok": true
+  },
+  {
+   "group": "202606 South",
+   "check": "revenue",
+   "expected": "240678.82",
+   "actual": "240678.82",
+   "ok": true
+  },
+  {
+   "group": "202606 South",
+   "check": "orders",
+   "expected": "843",
+   "actual": "843",
+   "ok": true
+  },
+  {
+   "group": "202606 South",
+   "check": "comparable revenue",
+   "expected": "240678.82",
+   "actual": "240678.82",
+   "ok": true
+  },
+  {
+   "group": "202606 South",
+   "check": "prior comparable revenue",
+   "expected": "240532.86",
+   "actual": "240532.86",
+   "ok": true
+  },
+  {
+   "group": "202606 South",
+   "check": "revenue change",
+   "expected": "145.96",
+   "actual": "145.96",
+   "ok": true
+  },
+  {
+   "group": "202606 South",
+   "check": "revenue change %",
+   "expected": "0.000607",
+   "actual": "0.0006068193759472198",
+   "ok": true
+  },
+  {
+   "group": "202606 South",
+   "check": "category completeness (model)",
+   "expected": "0.986951",
+   "actual": "0.9869513641755635",
+   "ok": true
+  },
+  {
+   "group": "202606 South",
+   "check": "unknown category revenue",
+   "expected": "2965.71",
+   "actual": "2965.71",
+   "ok": true
+  },
+  {
+   "group": "202606 South",
+   "check": "dataprof nulls = independent count",
+   "expected": "11",
+   "actual": "11",
+   "ok": true
+  },
+  {
+   "group": "202606 South",
+   "check": "dataprof rows = independent count",
+   "expected": "843",
+   "actual": "843",
+   "ok": true
+  },
+  {
+   "group": "202606 South",
+   "check": "category completeness (dataprof)",
+   "expected": "0.986951",
+   "actual": "0.9869513641755635",
+   "ok": true
+  },
+  {
+   "group": "202606 South",
+   "check": "check status matches evidence_checks.csv",
+   "expected": "Passed",
+   "actual": "Passed",
+   "ok": true
+  },
+  {
+   "group": "202606 South",
+   "check": "scope label names the region",
+   "expected": "True",
+   "actual": "True",
+   "ok": true
+  },
+  {
+   "group": "202606 South",
+   "check": "category filter leaves compl unchanged",
+   "expected": "0.9869513641755635",
+   "actual": "0.9869513641755635",
+   "ok": true
+  },
+  {
+   "group": "202606 South",
+   "check": "category filter leaves evcompl unchanged",
+   "expected": "0.9869513641755635",
+   "actual": "0.9869513641755635",
+   "ok": true
+  },
+  {
+   "group": "202606 South",
+   "check": "category filter leaves evnulls unchanged",
+   "expected": "11",
+   "actual": "11",
+   "ok": true
+  },
+  {
+   "group": "202606 South",
+   "check": "category filter leaves evrows unchanged",
+   "expected": "843",
+   "actual": "843",
+   "ok": true
+  },
+  {
+   "group": "202606 South",
+   "check": "category filter leaves evcheck unchanged",
+   "expected": "Passed",
+   "actual": "Passed",
+   "ok": true
+  },
+  {
+   "group": "202606 South",
+   "check": "category filter leaves scope unchanged",
+   "expected": "Jun 2026 · South · through 20 Sep 2026",
+   "actual": "Jun 2026 · South · through 20 Sep 2026",
+   "ok": true
+  },
+  {
+   "group": "202606 South",
+   "check": "Unknown category filter leaves completeness unchanged",
+   "expected": "0.9869513641755635",
+   "actual": "0.9869513641755635",
+   "ok": true
+  },
+  {
+   "group": "202607 ALL",
+   "check": "revenue",
+   "expected": "986697.47",
+   "actual": "986697.47",
+   "ok": true
+  },
+  {
+   "group": "202607 ALL",
+   "check": "orders",
+   "expected": "3540",
+   "actual": "3540",
+   "ok": true
+  },
+  {
+   "group": "202607 ALL",
+   "check": "comparable revenue",
+   "expected": "986697.47",
+   "actual": "986697.47",
+   "ok": true
+  },
+  {
+   "group": "202607 ALL",
+   "check": "prior comparable revenue",
+   "expected": "996042.56",
+   "actual": "996042.56",
+   "ok": true
+  },
+  {
+   "group": "202607 ALL",
+   "check": "revenue change",
+   "expected": "-9345.09",
+   "actual": "-9345.09",
+   "ok": true
+  },
+  {
+   "group": "202607 ALL",
+   "check": "revenue change %",
+   "expected": "-0.009382",
+   "actual": "-0.009382219571019134",
+   "ok": true
+  },
+  {
+   "group": "202607 ALL",
+   "check": "category completeness (model)",
+   "expected": "0.981638",
+   "actual": "0.981638418079096",
+   "ok": true
+  },
+  {
+   "group": "202607 ALL",
+   "check": "unknown category revenue",
+   "expected": "16729.19",
+   "actual": "16729.19",
+   "ok": true
+  },
+  {
+   "group": "202607 ALL",
+   "check": "dataprof nulls = independent count",
+   "expected": "65",
+   "actual": "65",
+   "ok": true
+  },
+  {
+   "group": "202607 ALL",
+   "check": "dataprof rows = independent count",
+   "expected": "3540",
+   "actual": "3540",
+   "ok": true
+  },
+  {
+   "group": "202607 ALL",
+   "check": "category completeness (dataprof)",
+   "expected": "0.981638",
+   "actual": "0.981638418079096",
+   "ok": true
+  },
+  {
+   "group": "202607 ALL",
+   "check": "check status matches evidence_checks.csv",
+   "expected": "Passed",
+   "actual": "Passed",
+   "ok": true
+  },
+  {
+   "group": "202607 ALL",
+   "check": "scope label names the region",
+   "expected": "True",
+   "actual": "True",
+   "ok": true
+  },
+  {
+   "group": "202607 ALL",
+   "check": "category filter leaves compl unchanged",
+   "expected": "0.981638418079096",
+   "actual": "0.981638418079096",
+   "ok": true
+  },
+  {
+   "group": "202607 ALL",
+   "check": "category filter leaves evcompl unchanged",
+   "expected": "0.981638418079096",
+   "actual": "0.981638418079096",
+   "ok": true
+  },
+  {
+   "group": "202607 ALL",
+   "check": "category filter leaves evnulls unchanged",
+   "expected": "65",
+   "actual": "65",
+   "ok": true
+  },
+  {
+   "group": "202607 ALL",
+   "check": "category filter leaves evrows unchanged",
+   "expected": "3540",
+   "actual": "3540",
+   "ok": true
+  },
+  {
+   "group": "202607 ALL",
+   "check": "category filter leaves evcheck unchanged",
+   "expected": "Passed",
+   "actual": "Passed",
+   "ok": true
+  },
+  {
+   "group": "202607 ALL",
+   "check": "category filter leaves scope unchanged",
+   "expected": "Jul 2026 · All regions · through 20 Sep 2026",
+   "actual": "Jul 2026 · All regions · through 20 Sep 2026",
+   "ok": true
+  },
+  {
+   "group": "202607 ALL",
+   "check": "Unknown category filter leaves completeness unchanged",
+   "expected": "0.981638418079096",
+   "actual": "0.981638418079096",
+   "ok": true
+  },
+  {
+   "group": "202607 Central",
+   "check": "revenue",
+   "expected": "350062.48",
+   "actual": "350062.48",
+   "ok": true
+  },
+  {
+   "group": "202607 Central",
+   "check": "orders",
+   "expected": "1264",
+   "actual": "1264",
+   "ok": true
+  },
+  {
+   "group": "202607 Central",
+   "check": "comparable revenue",
+   "expected": "350062.48",
+   "actual": "350062.48",
+   "ok": true
+  },
+  {
+   "group": "202607 Central",
+   "check": "prior comparable revenue",
+   "expected": "354150.81",
+   "actual": "354150.81",
+   "ok": true
+  },
+  {
+   "group": "202607 Central",
+   "check": "revenue change",
+   "expected": "-4088.33",
+   "actual": "-4088.33",
+   "ok": true
+  },
+  {
+   "group": "202607 Central",
+   "check": "revenue change %",
+   "expected": "-0.011544",
+   "actual": "-0.011544036846901466",
+   "ok": true
+  },
+  {
+   "group": "202607 Central",
+   "check": "category completeness (model)",
+   "expected": "0.984968",
+   "actual": "0.9849683544303798",
+   "ok": true
+  },
+  {
+   "group": "202607 Central",
+   "check": "unknown category revenue",
+   "expected": "4698.82",
+   "actual": "4698.82",
+   "ok": true
+  },
+  {
+   "group": "202607 Central",
+   "check": "dataprof nulls = independent count",
+   "expected": "19",
+   "actual": "19",
+   "ok": true
+  },
+  {
+   "group": "202607 Central",
+   "check": "dataprof rows = independent count",
+   "expected": "1264",
+   "actual": "1264",
+   "ok": true
+  },
+  {
+   "group": "202607 Central",
+   "check": "category completeness (dataprof)",
+   "expected": "0.984968",
+   "actual": "0.9849683544303798",
+   "ok": true
+  },
+  {
+   "group": "202607 Central",
+   "check": "check status matches evidence_checks.csv",
+   "expected": "Passed",
+   "actual": "Passed",
+   "ok": true
+  },
+  {
+   "group": "202607 Central",
+   "check": "scope label names the region",
+   "expected": "True",
+   "actual": "True",
+   "ok": true
+  },
+  {
+   "group": "202607 Central",
+   "check": "category filter leaves compl unchanged",
+   "expected": "0.9849683544303798",
+   "actual": "0.9849683544303798",
+   "ok": true
+  },
+  {
+   "group": "202607 Central",
+   "check": "category filter leaves evcompl unchanged",
+   "expected": "0.9849683544303798",
+   "actual": "0.9849683544303798",
+   "ok": true
+  },
+  {
+   "group": "202607 Central",
+   "check": "category filter leaves evnulls unchanged",
+   "expected": "19",
+   "actual": "19",
+   "ok": true
+  },
+  {
+   "group": "202607 Central",
+   "check": "category filter leaves evrows unchanged",
+   "expected": "1264",
+   "actual": "1264",
+   "ok": true
+  },
+  {
+   "group": "202607 Central",
+   "check": "category filter leaves evcheck unchanged",
+   "expected": "Passed",
+   "actual": "Passed",
+   "ok": true
+  },
+  {
+   "group": "202607 Central",
+   "check": "category filter leaves scope unchanged",
+   "expected": "Jul 2026 · Central · through 20 Sep 2026",
+   "actual": "Jul 2026 · Central · through 20 Sep 2026",
+   "ok": true
+  },
+  {
+   "group": "202607 Central",
+   "check": "Unknown category filter leaves completeness unchanged",
+   "expected": "0.9849683544303798",
+   "actual": "0.9849683544303798",
+   "ok": true
+  },
+  {
+   "group": "202607 North",
+   "check": "revenue",
+   "expected": "397095.61",
+   "actual": "397095.61",
+   "ok": true
+  },
+  {
+   "group": "202607 North",
+   "check": "orders",
+   "expected": "1415",
+   "actual": "1415",
+   "ok": true
+  },
+  {
+   "group": "202607 North",
+   "check": "comparable revenue",
+   "expected": "397095.61",
+   "actual": "397095.61",
+   "ok": true
+  },
+  {
+   "group": "202607 North",
+   "check": "prior comparable revenue",
+   "expected": "401212.93",
+   "actual": "401212.93",
+   "ok": true
+  },
+  {
+   "group": "202607 North",
+   "check": "revenue change",
+   "expected": "-4117.32",
+   "actual": "-4117.32",
+   "ok": true
+  },
+  {
+   "group": "202607 North",
+   "check": "revenue change %",
+   "expected": "-0.010262",
+   "actual": "-0.010262181729786227",
+   "ok": true
+  },
+  {
+   "group": "202607 North",
+   "check": "category completeness (model)",
+   "expected": "0.980919",
+   "actual": "0.9809187279151943",
+   "ok": true
+  },
+  {
+   "group": "202607 North",
+   "check": "unknown category revenue",
+   "expected": "6650.96",
+   "actual": "6650.96",
+   "ok": true
+  },
+  {
+   "group": "202607 North",
+   "check": "dataprof nulls = independent count",
+   "expected": "27",
+   "actual": "27",
+   "ok": true
+  },
+  {
+   "group": "202607 North",
+   "check": "dataprof rows = independent count",
+   "expected": "1415",
+   "actual": "1415",
+   "ok": true
+  },
+  {
+   "group": "202607 North",
+   "check": "category completeness (dataprof)",
+   "expected": "0.980919",
+   "actual": "0.9809187279151943",
+   "ok": true
+  },
+  {
+   "group": "202607 North",
+   "check": "check status matches evidence_checks.csv",
+   "expected": "Passed",
+   "actual": "Passed",
+   "ok": true
+  },
+  {
+   "group": "202607 North",
+   "check": "scope label names the region",
+   "expected": "True",
+   "actual": "True",
+   "ok": true
+  },
+  {
+   "group": "202607 North",
+   "check": "category filter leaves compl unchanged",
+   "expected": "0.9809187279151943",
+   "actual": "0.9809187279151943",
+   "ok": true
+  },
+  {
+   "group": "202607 North",
+   "check": "category filter leaves evcompl unchanged",
+   "expected": "0.9809187279151943",
+   "actual": "0.9809187279151943",
+   "ok": true
+  },
+  {
+   "group": "202607 North",
+   "check": "category filter leaves evnulls unchanged",
+   "expected": "27",
+   "actual": "27",
+   "ok": true
+  },
+  {
+   "group": "202607 North",
+   "check": "category filter leaves evrows unchanged",
+   "expected": "1415",
+   "actual": "1415",
+   "ok": true
+  },
+  {
+   "group": "202607 North",
+   "check": "category filter leaves evcheck unchanged",
+   "expected": "Passed",
+   "actual": "Passed",
+   "ok": true
+  },
+  {
+   "group": "202607 North",
+   "check": "category filter leaves scope unchanged",
+   "expected": "Jul 2026 · North · through 20 Sep 2026",
+   "actual": "Jul 2026 · North · through 20 Sep 2026",
+   "ok": true
+  },
+  {
+   "group": "202607 North",
+   "check": "Unknown category filter leaves completeness unchanged",
+   "expected": "0.9809187279151943",
+   "actual": "0.9809187279151943",
+   "ok": true
+  },
+  {
+   "group": "202607 South",
+   "check": "revenue",
+   "expected": "239539.38",
+   "actual": "239539.38",
+   "ok": true
+  },
+  {
+   "group": "202607 South",
+   "check": "orders",
+   "expected": "861",
+   "actual": "861",
+   "ok": true
+  },
+  {
+   "group": "202607 South",
+   "check": "comparable revenue",
+   "expected": "239539.38",
+   "actual": "239539.38",
+   "ok": true
+  },
+  {
+   "group": "202607 South",
+   "check": "prior comparable revenue",
+   "expected": "240678.82",
+   "actual": "240678.82",
+   "ok": true
+  },
+  {
+   "group": "202607 South",
+   "check": "revenue change",
+   "expected": "-1139.44",
+   "actual": "-1139.44",
+   "ok": true
+  },
+  {
+   "group": "202607 South",
+   "check": "revenue change %",
+   "expected": "-0.004734",
+   "actual": "-0.004734276161068099",
+   "ok": true
+  },
+  {
+   "group": "202607 South",
+   "check": "category completeness (model)",
+   "expected": "0.977933",
+   "actual": "0.9779326364692218",
+   "ok": true
+  },
+  {
+   "group": "202607 South",
+   "check": "unknown category revenue",
+   "expected": "5379.41",
+   "actual": "5379.41",
+   "ok": true
+  },
+  {
+   "group": "202607 South",
+   "check": "dataprof nulls = independent count",
+   "expected": "19",
+   "actual": "19",
+   "ok": true
+  },
+  {
+   "group": "202607 South",
+   "check": "dataprof rows = independent count",
+   "expected": "861",
+   "actual": "861",
+   "ok": true
+  },
+  {
+   "group": "202607 South",
+   "check": "category completeness (dataprof)",
+   "expected": "0.977933",
+   "actual": "0.9779326364692218",
+   "ok": true
+  },
+  {
+   "group": "202607 South",
+   "check": "check status matches evidence_checks.csv",
+   "expected": "Passed",
+   "actual": "Passed",
+   "ok": true
+  },
+  {
+   "group": "202607 South",
+   "check": "scope label names the region",
+   "expected": "True",
+   "actual": "True",
+   "ok": true
+  },
+  {
+   "group": "202607 South",
+   "check": "category filter leaves compl unchanged",
+   "expected": "0.9779326364692218",
+   "actual": "0.9779326364692218",
+   "ok": true
+  },
+  {
+   "group": "202607 South",
+   "check": "category filter leaves evcompl unchanged",
+   "expected": "0.9779326364692218",
+   "actual": "0.9779326364692218",
+   "ok": true
+  },
+  {
+   "group": "202607 South",
+   "check": "category filter leaves evnulls unchanged",
+   "expected": "19",
+   "actual": "19",
+   "ok": true
+  },
+  {
+   "group": "202607 South",
+   "check": "category filter leaves evrows unchanged",
+   "expected": "861",
+   "actual": "861",
+   "ok": true
+  },
+  {
+   "group": "202607 South",
+   "check": "category filter leaves evcheck unchanged",
+   "expected": "Passed",
+   "actual": "Passed",
+   "ok": true
+  },
+  {
+   "group": "202607 South",
+   "check": "category filter leaves scope unchanged",
+   "expected": "Jul 2026 · South · through 20 Sep 2026",
+   "actual": "Jul 2026 · South · through 20 Sep 2026",
+   "ok": true
+  },
+  {
+   "group": "202607 South",
+   "check": "Unknown category filter leaves completeness unchanged",
+   "expected": "0.9779326364692218",
+   "actual": "0.9779326364692218",
+   "ok": true
+  },
+  {
+   "group": "202608 ALL",
+   "check": "revenue",
+   "expected": "1038924.88",
+   "actual": "1038924.88",
+   "ok": true
+  },
+  {
+   "group": "202608 ALL",
+   "check": "orders",
+   "expected": "3670",
+   "actual": "3670",
+   "ok": true
+  },
+  {
+   "group": "202608 ALL",
+   "check": "comparable revenue",
+   "expected": "1038924.88",
+   "actual": "1038924.88",
+   "ok": true
+  },
+  {
+   "group": "202608 ALL",
+   "check": "prior comparable revenue",
+   "expected": "986697.47",
+   "actual": "986697.47",
+   "ok": true
+  },
+  {
+   "group": "202608 ALL",
+   "check": "revenue change",
+   "expected": "52227.41",
+   "actual": "52227.41",
+   "ok": true
+  },
+  {
+   "group": "202608 ALL",
+   "check": "revenue change %",
+   "expected": "0.052932",
+   "actual": "0.052931533309799605",
+   "ok": true
+  },
+  {
+   "group": "202608 ALL",
+   "check": "category completeness (model)",
+   "expected": "0.984196",
+   "actual": "0.9841961852861035",
+   "ok": true
+  },
+  {
+   "group": "202608 ALL",
+   "check": "unknown category revenue",
+   "expected": "15708.26",
+   "actual": "15708.26",
+   "ok": true
+  },
+  {
+   "group": "202608 ALL",
+   "check": "dataprof nulls = independent count",
+   "expected": "58",
+   "actual": "58",
+   "ok": true
+  },
+  {
+   "group": "202608 ALL",
+   "check": "dataprof rows = independent count",
+   "expected": "3670",
+   "actual": "3670",
+   "ok": true
+  },
+  {
+   "group": "202608 ALL",
+   "check": "category completeness (dataprof)",
+   "expected": "0.984196",
+   "actual": "0.9841961852861035",
+   "ok": true
+  },
+  {
+   "group": "202608 ALL",
+   "check": "check status matches evidence_checks.csv",
+   "expected": "Passed",
+   "actual": "Passed",
+   "ok": true
+  },
+  {
+   "group": "202608 ALL",
+   "check": "scope label names the region",
+   "expected": "True",
+   "actual": "True",
+   "ok": true
+  },
+  {
+   "group": "202608 ALL",
+   "check": "category filter leaves compl unchanged",
+   "expected": "0.9841961852861035",
+   "actual": "0.9841961852861035",
+   "ok": true
+  },
+  {
+   "group": "202608 ALL",
+   "check": "category filter leaves evcompl unchanged",
+   "expected": "0.9841961852861035",
+   "actual": "0.9841961852861035",
+   "ok": true
+  },
+  {
+   "group": "202608 ALL",
+   "check": "category filter leaves evnulls unchanged",
+   "expected": "58",
+   "actual": "58",
+   "ok": true
+  },
+  {
+   "group": "202608 ALL",
+   "check": "category filter leaves evrows unchanged",
+   "expected": "3670",
+   "actual": "3670",
+   "ok": true
+  },
+  {
+   "group": "202608 ALL",
+   "check": "category filter leaves evcheck unchanged",
+   "expected": "Passed",
+   "actual": "Passed",
+   "ok": true
+  },
+  {
+   "group": "202608 ALL",
+   "check": "category filter leaves scope unchanged",
+   "expected": "Aug 2026 · All regions · through 20 Sep 2026",
+   "actual": "Aug 2026 · All regions · through 20 Sep 2026",
+   "ok": true
+  },
+  {
+   "group": "202608 ALL",
+   "check": "Unknown category filter leaves completeness unchanged",
+   "expected": "0.9841961852861035",
+   "actual": "0.9841961852861035",
+   "ok": true
+  },
+  {
+   "group": "202608 Central",
+   "check": "revenue",
+   "expected": "365468.2",
+   "actual": "365468.2",
+   "ok": true
+  },
+  {
+   "group": "202608 Central",
+   "check": "orders",
+   "expected": "1292",
+   "actual": "1292",
+   "ok": true
+  },
+  {
+   "group": "202608 Central",
+   "check": "comparable revenue",
+   "expected": "365468.2",
+   "actual": "365468.2",
+   "ok": true
+  },
+  {
+   "group": "202608 Central",
+   "check": "prior comparable revenue",
+   "expected": "350062.48",
+   "actual": "350062.48",
+   "ok": true
+  },
+  {
+   "group": "202608 Central",
+   "check": "revenue change",
+   "expected": "15405.72",
+   "actual": "15405.72",
+   "ok": true
+  },
+  {
+   "group": "202608 Central",
+   "check": "revenue change %",
+   "expected": "0.044008",
+   "actual": "0.04400848671357182",
+   "ok": true
+  },
+  {
+   "group": "202608 Central",
+   "check": "category completeness (model)",
+   "expected": "0.982972",
+   "actual": "0.9829721362229102",
+   "ok": true
+  },
+  {
+   "group": "202608 Central",
+   "check": "unknown category revenue",
+   "expected": "5314.87",
+   "actual": "5314.87",
+   "ok": true
+  },
+  {
+   "group": "202608 Central",
+   "check": "dataprof nulls = independent count",
+   "expected": "22",
+   "actual": "22",
+   "ok": true
+  },
+  {
+   "group": "202608 Central",
+   "check": "dataprof rows = independent count",
+   "expected": "1292",
+   "actual": "1292",
+   "ok": true
+  },
+  {
+   "group": "202608 Central",
+   "check": "category completeness (dataprof)",
+   "expected": "0.982972",
+   "actual": "0.9829721362229102",
+   "ok": true
+  },
+  {
+   "group": "202608 Central",
+   "check": "check status matches evidence_checks.csv",
+   "expected": "Passed",
+   "actual": "Passed",
+   "ok": true
+  },
+  {
+   "group": "202608 Central",
+   "check": "scope label names the region",
+   "expected": "True",
+   "actual": "True",
+   "ok": true
+  },
+  {
+   "group": "202608 Central",
+   "check": "category filter leaves compl unchanged",
+   "expected": "0.9829721362229102",
+   "actual": "0.9829721362229102",
+   "ok": true
+  },
+  {
+   "group": "202608 Central",
+   "check": "category filter leaves evcompl unchanged",
+   "expected": "0.9829721362229102",
+   "actual": "0.9829721362229102",
+   "ok": true
+  },
+  {
+   "group": "202608 Central",
+   "check": "category filter leaves evnulls unchanged",
+   "expected": "22",
+   "actual": "22",
+   "ok": true
+  },
+  {
+   "group": "202608 Central",
+   "check": "category filter leaves evrows unchanged",
+   "expected": "1292",
+   "actual": "1292",
+   "ok": true
+  },
+  {
+   "group": "202608 Central",
+   "check": "category filter leaves evcheck unchanged",
+   "expected": "Passed",
+   "actual": "Passed",
+   "ok": true
+  },
+  {
+   "group": "202608 Central",
+   "check": "category filter leaves scope unchanged",
+   "expected": "Aug 2026 · Central · through 20 Sep 2026",
+   "actual": "Aug 2026 · Central · through 20 Sep 2026",
+   "ok": true
+  },
+  {
+   "group": "202608 Central",
+   "check": "Unknown category filter leaves completeness unchanged",
+   "expected": "0.9829721362229102",
+   "actual": "0.9829721362229102",
+   "ok": true
+  },
+  {
+   "group": "202608 North",
+   "check": "revenue",
+   "expected": "435207.95",
+   "actual": "435207.95",
+   "ok": true
+  },
+  {
+   "group": "202608 North",
+   "check": "orders",
+   "expected": "1485",
+   "actual": "1485",
+   "ok": true
+  },
+  {
+   "group": "202608 North",
+   "check": "comparable revenue",
+   "expected": "435207.95",
+   "actual": "435207.95",
+   "ok": true
+  },
+  {
+   "group": "202608 North",
+   "check": "prior comparable revenue",
+   "expected": "397095.61",
+   "actual": "397095.61",
+   "ok": true
+  },
+  {
+   "group": "202608 North",
+   "check": "revenue change",
+   "expected": "38112.34",
+   "actual": "38112.34",
+   "ok": true
+  },
+  {
+   "group": "202608 North",
+   "check": "revenue change %",
+   "expected": "0.095978",
+   "actual": "0.09597774198511033",
+   "ok": true
+  },
+  {
+   "group": "202608 North",
+   "check": "category completeness (model)",
+   "expected": "0.985185",
+   "actual": "0.9851851851851852",
+   "ok": true
+  },
+  {
+   "group": "202608 North",
+   "check": "unknown category revenue",
+   "expected": "6245.52",
+   "actual": "6245.52",
+   "ok": true
+  },
+  {
+   "group": "202608 North",
+   "check": "dataprof nulls = independent count",
+   "expected": "22",
+   "actual": "22",
+   "ok": true
+  },
+  {
+   "group": "202608 North",
+   "check": "dataprof rows = independent count",
+   "expected": "1485",
+   "actual": "1485",
+   "ok": true
+  },
+  {
+   "group": "202608 North",
+   "check": "category completeness (dataprof)",
+   "expected": "0.985185",
+   "actual": "0.9851851851851852",
+   "ok": true
+  },
+  {
+   "group": "202608 North",
+   "check": "check status matches evidence_checks.csv",
+   "expected": "Passed",
+   "actual": "Passed",
+   "ok": true
+  },
+  {
+   "group": "202608 North",
+   "check": "scope label names the region",
+   "expected": "True",
+   "actual": "True",
+   "ok": true
+  },
+  {
+   "group": "202608 North",
+   "check": "category filter leaves compl unchanged",
+   "expected": "0.9851851851851852",
+   "actual": "0.9851851851851852",
+   "ok": true
+  },
+  {
+   "group": "202608 North",
+   "check": "category filter leaves evcompl unchanged",
+   "expected": "0.9851851851851852",
+   "actual": "0.9851851851851852",
+   "ok": true
+  },
+  {
+   "group": "202608 North",
+   "check": "category filter leaves evnulls unchanged",
+   "expected": "22",
+   "actual": "22",
+   "ok": true
+  },
+  {
+   "group": "202608 North",
+   "check": "category filter leaves evrows unchanged",
+   "expected": "1485",
+   "actual": "1485",
+   "ok": true
+  },
+  {
+   "group": "202608 North",
+   "check": "category filter leaves evcheck unchanged",
+   "expected": "Passed",
+   "actual": "Passed",
+   "ok": true
+  },
+  {
+   "group": "202608 North",
+   "check": "category filter leaves scope unchanged",
+   "expected": "Aug 2026 · North · through 20 Sep 2026",
+   "actual": "Aug 2026 · North · through 20 Sep 2026",
+   "ok": true
+  },
+  {
+   "group": "202608 North",
+   "check": "Unknown category filter leaves completeness unchanged",
+   "expected": "0.9851851851851852",
+   "actual": "0.9851851851851852",
+   "ok": true
+  },
+  {
+   "group": "202608 South",
+   "check": "revenue",
+   "expected": "238248.73",
+   "actual": "238248.73",
+   "ok": true
+  },
+  {
+   "group": "202608 South",
+   "check": "orders",
+   "expected": "893",
+   "actual": "893",
+   "ok": true
+  },
+  {
+   "group": "202608 South",
+   "check": "comparable revenue",
+   "expected": "238248.73",
+   "actual": "238248.73",
+   "ok": true
+  },
+  {
+   "group": "202608 South",
+   "check": "prior comparable revenue",
+   "expected": "239539.38",
+   "actual": "239539.38",
+   "ok": true
+  },
+  {
+   "group": "202608 South",
+   "check": "revenue change",
+   "expected": "-1290.65",
+   "actual": "-1290.65",
+   "ok": true
+  },
+  {
+   "group": "202608 South",
+   "check": "revenue change %",
+   "expected": "-0.005388",
+   "actual": "-0.005388049347042645",
+   "ok": true
+  },
+  {
+   "group": "202608 South",
+   "check": "category completeness (model)",
+   "expected": "0.984323",
+   "actual": "0.9843225083986562",
+   "ok": true
+  },
+  {
+   "group": "202608 South",
+   "check": "unknown category revenue",
+   "expected": "4147.87",
+   "actual": "4147.87",
+   "ok": true
+  },
+  {
+   "group": "202608 South",
+   "check": "dataprof nulls = independent count",
+   "expected": "14",
+   "actual": "14",
+   "ok": true
+  },
+  {
+   "group": "202608 South",
+   "check": "dataprof rows = independent count",
+   "expected": "893",
+   "actual": "893",
+   "ok": true
+  },
+  {
+   "group": "202608 South",
+   "check": "category completeness (dataprof)",
+   "expected": "0.984323",
+   "actual": "0.9843225083986562",
+   "ok": true
+  },
+  {
+   "group": "202608 South",
+   "check": "check status matches evidence_checks.csv",
+   "expected": "Passed",
+   "actual": "Passed",
+   "ok": true
+  },
+  {
+   "group": "202608 South",
+   "check": "scope label names the region",
+   "expected": "True",
+   "actual": "True",
+   "ok": true
+  },
+  {
+   "group": "202608 South",
+   "check": "category filter leaves compl unchanged",
+   "expected": "0.9843225083986562",
+   "actual": "0.9843225083986562",
+   "ok": true
+  },
+  {
+   "group": "202608 South",
+   "check": "category filter leaves evcompl unchanged",
+   "expected": "0.9843225083986562",
+   "actual": "0.9843225083986562",
+   "ok": true
+  },
+  {
+   "group": "202608 South",
+   "check": "category filter leaves evnulls unchanged",
+   "expected": "14",
+   "actual": "14",
+   "ok": true
+  },
+  {
+   "group": "202608 South",
+   "check": "category filter leaves evrows unchanged",
+   "expected": "893",
+   "actual": "893",
+   "ok": true
+  },
+  {
+   "group": "202608 South",
+   "check": "category filter leaves evcheck unchanged",
+   "expected": "Passed",
+   "actual": "Passed",
+   "ok": true
+  },
+  {
+   "group": "202608 South",
+   "check": "category filter leaves scope unchanged",
+   "expected": "Aug 2026 · South · through 20 Sep 2026",
+   "actual": "Aug 2026 · South · through 20 Sep 2026",
+   "ok": true
+  },
+  {
+   "group": "202608 South",
+   "check": "Unknown category filter leaves completeness unchanged",
+   "expected": "0.9843225083986562",
+   "actual": "0.9843225083986562",
+   "ok": true
+  },
+  {
+   "group": "202609 ALL",
+   "check": "revenue",
+   "expected": "625855.45",
+   "actual": "625855.45",
+   "ok": true
+  },
+  {
+   "group": "202609 ALL",
+   "check": "orders",
+   "expected": "2268",
+   "actual": "2268",
+   "ok": true
+  },
+  {
+   "group": "202609 ALL",
+   "check": "comparable revenue",
+   "expected": "625855.45",
+   "actual": "625855.45",
+   "ok": true
+  },
+  {
+   "group": "202609 ALL",
+   "check": "prior comparable revenue",
+   "expected": "684157.57",
+   "actual": "684157.57",
+   "ok": true
+  },
+  {
+   "group": "202609 ALL",
+   "check": "revenue change",
+   "expected": "-58302.12",
+   "actual": "-58302.12",
+   "ok": true
+  },
+  {
+   "group": "202609 ALL",
+   "check": "revenue change %",
+   "expected": "-0.085217",
+   "actual": "-0.08521738639828248",
+   "ok": true
+  },
+  {
+   "group": "202609 ALL",
+   "check": "category completeness (model)",
+   "expected": "0.953263",
+   "actual": "0.95326278659612",
+   "ok": true
+  },
+  {
+   "group": "202609 ALL",
+   "check": "unknown category revenue",
+   "expected": "25041.9",
+   "actual": "25041.9",
+   "ok": true
+  },
+  {
+   "group": "202609 ALL",
+   "check": "dataprof nulls = independent count",
+   "expected": "106",
+   "actual": "106",
+   "ok": true
+  },
+  {
+   "group": "202609 ALL",
+   "check": "dataprof rows = independent count",
+   "expected": "2268",
+   "actual": "2268",
+   "ok": true
+  },
+  {
+   "group": "202609 ALL",
+   "check": "category completeness (dataprof)",
+   "expected": "0.953263",
+   "actual": "0.95326278659612",
+   "ok": true
+  },
+  {
+   "group": "202609 ALL",
+   "check": "check status matches evidence_checks.csv",
+   "expected": "Passed",
+   "actual": "Passed",
+   "ok": true
+  },
+  {
+   "group": "202609 ALL",
+   "check": "scope label names the region",
+   "expected": "True",
+   "actual": "True",
+   "ok": true
+  },
+  {
+   "group": "202609 ALL",
+   "check": "category filter leaves compl unchanged",
+   "expected": "0.95326278659612",
+   "actual": "0.95326278659612",
+   "ok": true
+  },
+  {
+   "group": "202609 ALL",
+   "check": "category filter leaves evcompl unchanged",
+   "expected": "0.95326278659612",
+   "actual": "0.95326278659612",
+   "ok": true
+  },
+  {
+   "group": "202609 ALL",
+   "check": "category filter leaves evnulls unchanged",
+   "expected": "106",
+   "actual": "106",
+   "ok": true
+  },
+  {
+   "group": "202609 ALL",
+   "check": "category filter leaves evrows unchanged",
+   "expected": "2268",
+   "actual": "2268",
+   "ok": true
+  },
+  {
+   "group": "202609 ALL",
+   "check": "category filter leaves evcheck unchanged",
+   "expected": "Passed",
+   "actual": "Passed",
+   "ok": true
+  },
+  {
+   "group": "202609 ALL",
+   "check": "category filter leaves scope unchanged",
+   "expected": "Sep 2026 · All regions · through 20 Sep 2026",
+   "actual": "Sep 2026 · All regions · through 20 Sep 2026",
+   "ok": true
+  },
+  {
+   "group": "202609 ALL",
+   "check": "Unknown category filter leaves completeness unchanged",
+   "expected": "0.95326278659612",
+   "actual": "0.95326278659612",
+   "ok": true
+  },
+  {
+   "group": "202609 Central",
+   "check": "revenue",
+   "expected": "242552.16",
+   "actual": "242552.16",
+   "ok": true
+  },
+  {
+   "group": "202609 Central",
+   "check": "orders",
+   "expected": "905",
+   "actual": "905",
+   "ok": true
+  },
+  {
+   "group": "202609 Central",
+   "check": "comparable revenue",
+   "expected": "242552.16",
+   "actual": "242552.16",
+   "ok": true
+  },
+  {
+   "group": "202609 Central",
+   "check": "prior comparable revenue",
+   "expected": "235308.46",
+   "actual": "235308.46",
+   "ok": true
+  },
+  {
+   "group": "202609 Central",
+   "check": "revenue change",
+   "expected": "7243.7",
+   "actual": "7243.7",
+   "ok": true
+  },
+  {
+   "group": "202609 Central",
+   "check": "revenue change %",
+   "expected": "0.030784",
+   "actual": "0.030783848570510385",
+   "ok": true
+  },
+  {
+   "group": "202609 Central",
+   "check": "category completeness (model)",
+   "expected": "0.977901",
+   "actual": "0.9779005524861878",
+   "ok": true
+  },
+  {
+   "group": "202609 Central",
+   "check": "unknown category revenue",
+   "expected": "4062.48",
+   "actual": "4062.48",
+   "ok": true
+  },
+  {
+   "group": "202609 Central",
+   "check": "dataprof nulls = independent count",
+   "expected": "20",
+   "actual": "20",
+   "ok": true
+  },
+  {
+   "group": "202609 Central",
+   "check": "dataprof rows = independent count",
+   "expected": "905",
+   "actual": "905",
+   "ok": true
+  },
+  {
+   "group": "202609 Central",
+   "check": "category completeness (dataprof)",
+   "expected": "0.977901",
+   "actual": "0.9779005524861879",
+   "ok": true
+  },
+  {
+   "group": "202609 Central",
+   "check": "check status matches evidence_checks.csv",
+   "expected": "Passed",
+   "actual": "Passed",
+   "ok": true
+  },
+  {
+   "group": "202609 Central",
+   "check": "scope label names the region",
+   "expected": "True",
+   "actual": "True",
+   "ok": true
+  },
+  {
+   "group": "202609 Central",
+   "check": "category filter leaves compl unchanged",
+   "expected": "0.9779005524861878",
+   "actual": "0.9779005524861878",
+   "ok": true
+  },
+  {
+   "group": "202609 Central",
+   "check": "category filter leaves evcompl unchanged",
+   "expected": "0.9779005524861879",
+   "actual": "0.9779005524861879",
+   "ok": true
+  },
+  {
+   "group": "202609 Central",
+   "check": "category filter leaves evnulls unchanged",
+   "expected": "20",
+   "actual": "20",
+   "ok": true
+  },
+  {
+   "group": "202609 Central",
+   "check": "category filter leaves evrows unchanged",
+   "expected": "905",
+   "actual": "905",
+   "ok": true
+  },
+  {
+   "group": "202609 Central",
+   "check": "category filter leaves evcheck unchanged",
+   "expected": "Passed",
+   "actual": "Passed",
+   "ok": true
+  },
+  {
+   "group": "202609 Central",
+   "check": "category filter leaves scope unchanged",
+   "expected": "Sep 2026 · Central · through 20 Sep 2026",
+   "actual": "Sep 2026 · Central · through 20 Sep 2026",
+   "ok": true
+  },
+  {
+   "group": "202609 Central",
+   "check": "Unknown category filter leaves completeness unchanged",
+   "expected": "0.9779005524861878",
+   "actual": "0.9779005524861878",
+   "ok": true
+  },
+  {
+   "group": "202609 North",
+   "check": "revenue",
+   "expected": "214839.81",
+   "actual": "214839.81",
+   "ok": true
+  },
+  {
+   "group": "202609 North",
+   "check": "orders",
+   "expected": "763",
+   "actual": "763",
+   "ok": true
+  },
+  {
+   "group": "202609 North",
+   "check": "comparable revenue",
+   "expected": "214839.81",
+   "actual": "214839.81",
+   "ok": true
+  },
+  {
+   "group": "202609 North",
+   "check": "prior comparable revenue",
+   "expected": "288493.95",
+   "actual": "288493.95",
+   "ok": true
+  },
+  {
+   "group": "202609 North",
+   "check": "revenue change",
+   "expected": "-73654.14",
+   "actual": "-73654.14",
+   "ok": true
+  },
+  {
+   "group": "202609 North",
+   "check": "revenue change %",
+   "expected": "-0.255306",
+   "actual": "-0.2553056658553845",
+   "ok": true
+  },
+  {
+   "group": "202609 North",
+   "check": "category completeness (model)",
+   "expected": "0.897772",
+   "actual": "0.8977719528178244",
+   "ok": true
+  },
+  {
+   "group": "202609 North",
+   "check": "unknown category revenue",
+   "expected": "19282.87",
+   "actual": "19282.87",
+   "ok": true
+  },
+  {
+   "group": "202609 North",
+   "check": "dataprof nulls = independent count",
+   "expected": "78",
+   "actual": "78",
+   "ok": true
+  },
+  {
+   "group": "202609 North",
+   "check": "dataprof rows = independent count",
+   "expected": "763",
+   "actual": "763",
+   "ok": true
+  },
+  {
+   "group": "202609 North",
+   "check": "category completeness (dataprof)",
+   "expected": "0.897772",
+   "actual": "0.8977719528178244",
+   "ok": true
+  },
+  {
+   "group": "202609 North",
+   "check": "check status matches evidence_checks.csv",
+   "expected": "Failed",
+   "actual": "Failed",
+   "ok": true
+  },
+  {
+   "group": "202609 North",
+   "check": "scope label names the region",
+   "expected": "True",
+   "actual": "True",
+   "ok": true
+  },
+  {
+   "group": "202609 North",
+   "check": "category filter leaves compl unchanged",
+   "expected": "0.8977719528178244",
+   "actual": "0.8977719528178244",
+   "ok": true
+  },
+  {
+   "group": "202609 North",
+   "check": "category filter leaves evcompl unchanged",
+   "expected": "0.8977719528178244",
+   "actual": "0.8977719528178244",
+   "ok": true
+  },
+  {
+   "group": "202609 North",
+   "check": "category filter leaves evnulls unchanged",
+   "expected": "78",
+   "actual": "78",
+   "ok": true
+  },
+  {
+   "group": "202609 North",
+   "check": "category filter leaves evrows unchanged",
+   "expected": "763",
+   "actual": "763",
+   "ok": true
+  },
+  {
+   "group": "202609 North",
+   "check": "category filter leaves evcheck unchanged",
+   "expected": "Failed",
+   "actual": "Failed",
+   "ok": true
+  },
+  {
+   "group": "202609 North",
+   "check": "category filter leaves scope unchanged",
+   "expected": "Sep 2026 · North · through 20 Sep 2026",
+   "actual": "Sep 2026 · North · through 20 Sep 2026",
+   "ok": true
+  },
+  {
+   "group": "202609 North",
+   "check": "Unknown category filter leaves completeness unchanged",
+   "expected": "0.8977719528178244",
+   "actual": "0.8977719528178244",
+   "ok": true
+  },
+  {
+   "group": "202609 South",
+   "check": "revenue",
+   "expected": "168463.48",
+   "actual": "168463.48",
+   "ok": true
+  },
+  {
+   "group": "202609 South",
+   "check": "orders",
+   "expected": "600",
+   "actual": "600",
+   "ok": true
+  },
+  {
+   "group": "202609 South",
+   "check": "comparable revenue",
+   "expected": "168463.48",
+   "actual": "168463.48",
+   "ok": true
+  },
+  {
+   "group": "202609 South",
+   "check": "prior comparable revenue",
+   "expected": "160355.16",
+   "actual": "160355.16",
+   "ok": true
+  },
+  {
+   "group": "202609 South",
+   "check": "revenue change",
+   "expected": "8108.32",
+   "actual": "8108.32",
+   "ok": true
+  },
+  {
+   "group": "202609 South",
+   "check": "revenue change %",
+   "expected": "0.050565",
+   "actual": "0.05056475887648392",
+   "ok": true
+  },
+  {
+   "group": "202609 South",
+   "check": "category completeness (model)",
+   "expected": "0.986667",
+   "actual": "0.9866666666666667",
+   "ok": true
+  },
+  {
+   "group": "202609 South",
+   "check": "unknown category revenue",
+   "expected": "1696.55",
+   "actual": "1696.55",
+   "ok": true
+  },
+  {
+   "group": "202609 South",
+   "check": "dataprof nulls = independent count",
+   "expected": "8",
+   "actual": "8",
+   "ok": true
+  },
+  {
+   "group": "202609 South",
+   "check": "dataprof rows = independent count",
+   "expected": "600",
+   "actual": "600",
+   "ok": true
+  },
+  {
+   "group": "202609 South",
+   "check": "category completeness (dataprof)",
+   "expected": "0.986667",
+   "actual": "0.9866666666666667",
+   "ok": true
+  },
+  {
+   "group": "202609 South",
+   "check": "check status matches evidence_checks.csv",
+   "expected": "Passed",
+   "actual": "Passed",
+   "ok": true
+  },
+  {
+   "group": "202609 South",
+   "check": "scope label names the region",
+   "expected": "True",
+   "actual": "True",
+   "ok": true
+  },
+  {
+   "group": "202609 South",
+   "check": "category filter leaves compl unchanged",
+   "expected": "0.9866666666666667",
+   "actual": "0.9866666666666667",
+   "ok": true
+  },
+  {
+   "group": "202609 South",
+   "check": "category filter leaves evcompl unchanged",
+   "expected": "0.9866666666666667",
+   "actual": "0.9866666666666667",
+   "ok": true
+  },
+  {
+   "group": "202609 South",
+   "check": "category filter leaves evnulls unchanged",
+   "expected": "8",
+   "actual": "8",
+   "ok": true
+  },
+  {
+   "group": "202609 South",
+   "check": "category filter leaves evrows unchanged",
+   "expected": "600",
+   "actual": "600",
+   "ok": true
+  },
+  {
+   "group": "202609 South",
+   "check": "category filter leaves evcheck unchanged",
+   "expected": "Passed",
+   "actual": "Passed",
+   "ok": true
+  },
+  {
+   "group": "202609 South",
+   "check": "category filter leaves scope unchanged",
+   "expected": "Sep 2026 · South · through 20 Sep 2026",
+   "actual": "Sep 2026 · South · through 20 Sep 2026",
+   "ok": true
+  },
+  {
+   "group": "202609 South",
+   "check": "Unknown category filter leaves completeness unchanged",
+   "expected": "0.9866666666666667",
+   "actual": "0.9866666666666667",
+   "ok": true
+  },
+  {
+   "group": "202605 contributions",
+   "check": "sum of region changes = total change",
+   "expected": "39963.33",
+   "actual": "39963.33",
+   "ok": true
+  },
+  {
+   "group": "202606 contributions",
+   "check": "sum of region changes = total change",
+   "expected": "14016.42",
+   "actual": "14016.42",
+   "ok": true
+  },
+  {
+   "group": "202607 contributions",
+   "check": "sum of region changes = total change",
+   "expected": "-9345.09",
+   "actual": "-9345.09",
+   "ok": true
+  },
+  {
+   "group": "202608 contributions",
+   "check": "sum of region changes = total change",
+   "expected": "52227.41",
+   "actual": "52227.41",
+   "ok": true
+  },
+  {
+   "group": "202609 contributions",
+   "check": "sum of region changes = total change",
+   "expected": "-58302.12",
+   "actual": "-58302.12",
+   "ok": true
+  },
+  {
+   "group": "202605 bridge",
+   "check": "only the two compared months appear",
+   "expected": "[202604, 202605]",
+   "actual": "[202604, 202605]",
+   "ok": true
+  },
+  {
+   "group": "202605 bridge",
+   "check": "start = prior comparable",
+   "expected": "942062.81",
+   "actual": "942062.81",
+   "ok": true
+  },
+  {
+   "group": "202605 bridge",
+   "check": "end = comparable",
+   "expected": "982026.14",
+   "actual": "982026.14",
+   "ok": true
+  },
+  {
+   "group": "202606 bridge",
+   "check": "only the two compared months appear",
+   "expected": "[202605, 202606]",
+   "actual": "[202605, 202606]",
+   "ok": true
+  },
+  {
+   "group": "202606 bridge",
+   "check": "start = prior comparable",
+   "expected": "982026.14",
+   "actual": "982026.14",
+   "ok": true
+  },
+  {
+   "group": "202606 bridge",
+   "check": "end = comparable",
+   "expected": "996042.56",
+   "actual": "996042.56",
+   "ok": true
+  },
+  {
+   "group": "202607 bridge",
+   "check": "only the two compared months appear",
+   "expected": "[202606, 202607]",
+   "actual": "[202606, 202607]",
+   "ok": true
+  },
+  {
+   "group": "202607 bridge",
+   "check": "start = prior comparable",
+   "expected": "996042.56",
+   "actual": "996042.56",
+   "ok": true
+  },
+  {
+   "group": "202607 bridge",
+   "check": "end = comparable",
+   "expected": "986697.47",
+   "actual": "986697.47",
+   "ok": true
+  },
+  {
+   "group": "202608 bridge",
+   "check": "only the two compared months appear",
+   "expected": "[202607, 202608]",
+   "actual": "[202607, 202608]",
+   "ok": true
+  },
+  {
+   "group": "202608 bridge",
+   "check": "start = prior comparable",
+   "expected": "986697.47",
+   "actual": "986697.47",
+   "ok": true
+  },
+  {
+   "group": "202608 bridge",
+   "check": "end = comparable",
+   "expected": "1038924.88",
+   "actual": "1038924.88",
+   "ok": true
+  },
+  {
+   "group": "202609 bridge",
+   "check": "only the two compared months appear",
+   "expected": "[202608, 202609]",
+   "actual": "[202608, 202609]",
+   "ok": true
+  },
+  {
+   "group": "202609 bridge",
+   "check": "start = prior comparable",
+   "expected": "684157.57",
+   "actual": "684157.57",
+   "ok": true
+  },
+  {
+   "group": "202609 bridge",
+   "check": "end = comparable",
+   "expected": "625855.45",
+   "actual": "625855.45",
+   "ok": true
+  },
+  {
+   "group": "headline",
+   "check": "all regions: names the window",
+   "expected": "True",
+   "actual": "True",
+   "ok": true
+  },
+  {
+   "group": "headline",
+   "check": "all regions: no causal or quality wording",
+   "expected": "True",
+   "actual": "True",
+   "ok": true
+  },
+  {
+   "group": "headline",
+   "check": "all regions: never prints (Blank)",
+   "expected": "True",
+   "actual": "True",
+   "ok": true
+  },
+  {
+   "group": "headline",
+   "check": "North: names the window",
+   "expected": "True",
+   "actual": "True",
+   "ok": true
+  },
+  {
+   "group": "headline",
+   "check": "North: no causal or quality wording",
+   "expected": "True",
+   "actual": "True",
+   "ok": true
+  },
+  {
+   "group": "headline",
+   "check": "North: never prints (Blank)",
+   "expected": "True",
+   "actual": "True",
+   "ok": true
+  },
+  {
+   "group": "comparison policy",
+   "check": "September note",
+   "expected": "Sep 1–20 vs Aug 1–20",
+   "actual": "Sep 1–20 vs Aug 1–20",
+   "ok": true
+  },
+  {
+   "group": "comparison policy",
+   "check": "April has no prior (blank, not zero)",
+   "expected": "None",
+   "actual": "None",
+   "ok": true
+  },
+  {
+   "group": "comparison policy",
+   "check": "April change % blank",
+   "expected": "None",
+   "actual": "None",
+   "ok": true
+  },
+  {
+   "group": "comparison policy",
+   "check": "April note",
+   "expected": "No comparable prior period in this snapshot",
+   "actual": "No comparable prior period in this snapshot",
+   "ok": true
+  },
+  {
+   "group": "unsupported scope",
+   "check": "two regions: rows profiled blank",
+   "expected": "None",
+   "actual": "None",
+   "ok": true
+  },
+  {
+   "group": "unsupported scope",
+   "check": "two regions: completeness blank",
+   "expected": "None",
+   "actual": "None",
+   "ok": true
+  },
+  {
+   "group": "unsupported scope",
+   "check": "two regions: label says unavailable",
+   "expected": "True",
+   "actual": "True",
+   "ok": true
+  },
+  {
+   "group": "unsupported scope",
+   "check": "no single month: completeness blank",
+   "expected": "None",
+   "actual": "None",
+   "ok": true
+  },
+  {
+   "group": "unsupported scope",
+   "check": "no single month: label says unavailable",
+   "expected": "True",
+   "actual": "True",
+   "ok": true
+  },
+  {
+   "group": "unsupported scope",
+   "check": "no single month: change blank",
+   "expected": "None",
+   "actual": "None",
+   "ok": true
+  },
+  {
+   "group": "history rows",
+   "check": "202604 North dataprof completeness",
+   "expected": "0.981995",
+   "actual": "0.9819954988747187",
+   "ok": true
+  },
+  {
+   "group": "history rows",
+   "check": "202604 North revenue ignores month slicer",
+   "expected": "393471.83",
+   "actual": "393471.83",
+   "ok": true
+  },
+  {
+   "group": "history rows",
+   "check": "202605 North dataprof completeness",
+   "expected": "0.981426",
+   "actual": "0.9814264487369985",
+   "ok": true
+  },
+  {
+   "group": "history rows",
+   "check": "202605 North revenue ignores month slicer",
+   "expected": "392241.43",
+   "actual": "392241.43",
+   "ok": true
+  },
+  {
+   "group": "history rows",
+   "check": "202606 North dataprof completeness",
+   "expected": "0.975124",
+   "actual": "0.9751243781094527",
+   "ok": true
+  },
+  {
+   "group": "history rows",
+   "check": "202606 North revenue ignores month slicer",
+   "expected": "401212.93",
+   "actual": "401212.93",
+   "ok": true
+  },
+  {
+   "group": "history rows",
+   "check": "202607 North dataprof completeness",
+   "expected": "0.980919",
+   "actual": "0.9809187279151943",
+   "ok": true
+  },
+  {
+   "group": "history rows",
+   "check": "202607 North revenue ignores month slicer",
+   "expected": "397095.61",
+   "actual": "397095.61",
+   "ok": true
+  },
+  {
+   "group": "history rows",
+   "check": "202608 North dataprof completeness",
+   "expected": "0.985185",
+   "actual": "0.9851851851851852",
+   "ok": true
+  },
+  {
+   "group": "history rows",
+   "check": "202608 North revenue ignores month slicer",
+   "expected": "435207.95",
+   "actual": "435207.95",
+   "ok": true
+  },
+  {
+   "group": "history rows",
+   "check": "202609 North dataprof completeness",
+   "expected": "0.897772",
+   "actual": "0.8977719528178244",
+   "ok": true
+  },
+  {
+   "group": "history rows",
+   "check": "202609 North revenue ignores month slicer",
+   "expected": "214839.81",
+   "actual": "214839.81",
+   "ok": true
+  }
+ ]
+}

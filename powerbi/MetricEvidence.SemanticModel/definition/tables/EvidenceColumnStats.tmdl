@@ -1,0 +1,411 @@
+/// dataprof column statistics. Grain: one row per scope_id x column_name, where a scope is the whole snapshot (dataset), one month (month) or one month and region (month_region). Not related to other tables: evidence measures pick exactly one scope, so whole-month and region rows are never added together.
+table 'Evidence Column Stats'
+
+	/// The snapshot the report was loaded from.
+	measure 'Snapshot Id' = SELECTEDVALUE ( Snapshot[snapshot_id] )
+		isHidden
+		displayFolder: 9 Helpers
+
+	/// Month the evidence refers to: the row's month in a table or chart grouped by 'Month Coverage', otherwise the single selected month. Blank when no single month applies.
+	measure 'Evidence Month Key' =
+			IF (
+				ISINSCOPE ( 'Month Coverage'[month_label] ) || ISINSCOPE ( 'Month Coverage'[trend_label] ),
+				SELECTEDVALUE ( 'Month Coverage'[month_key] ),
+				[Selected Month Key]
+			)
+		formatString: 0
+		isHidden
+		displayFolder: 9 Helpers
+
+	/// ALL when every region is in context, the region key when exactly one is, blank for any other combination (unsupported in v1). Category filters never reach Region, so they cannot change this.
+	measure 'Evidence Region Key' =
+			VAR selected = COUNTROWS ( VALUES ( Region[region_key] ) )
+			RETURN
+				SWITCH (
+					TRUE (),
+					selected = COUNTROWS ( ALL ( Region[region_key] ) ), "ALL",
+					selected = 1, SELECTEDVALUE ( Region[region_key] ),
+					BLANK ()
+				)
+		isHidden
+		displayFolder: 9 Helpers
+
+	/// The one evidence scope matching the selection: the month scope (e.g. 202609) for all regions, or the month x region scope (e.g. 202609-North). Blank for unsupported selections.
+	measure 'Evidence Scope Id' =
+			VAR monthKey = [Evidence Month Key]
+			VAR regionKey = [Evidence Region Key]
+			RETURN
+				IF (
+					NOT ISBLANK ( monthKey ) && NOT ISBLANK ( regionKey ),
+					IF ( regionKey = "ALL", FORMAT ( monthKey, "0" ), FORMAT ( monthKey, "0" ) & "-" & regionKey )
+				)
+		isHidden
+		displayFolder: 9 Helpers
+
+	/// Rows dataprof profiled in the evidence scope (category column). Blank when the selection has no evidence scope.
+	measure 'Evidence Rows Profiled' =
+			VAR scopeId = [Evidence Scope Id]
+			VAR snap = [Snapshot Id]
+			RETURN
+				IF (
+					NOT ISBLANK ( scopeId ),
+					CALCULATE (
+						SUM ( 'Evidence Column Stats'[observed_rows] ),
+						REMOVEFILTERS ( 'Evidence Column Stats' ),
+						'Evidence Column Stats'[scope_id] = scopeId,
+						'Evidence Column Stats'[column_name] = "category",
+						'Evidence Column Stats'[snapshot_id] = snap
+					)
+				)
+		formatString: #,0
+		displayFolder: 5 Evidence
+
+	/// Rows with a missing category label in the evidence scope, as counted by dataprof.
+	measure 'Evidence Category Nulls' =
+			VAR scopeId = [Evidence Scope Id]
+			VAR snap = [Snapshot Id]
+			RETURN
+				IF (
+					NOT ISBLANK ( scopeId ),
+					CALCULATE (
+						SUM ( 'Evidence Column Stats'[null_count] ),
+						REMOVEFILTERS ( 'Evidence Column Stats' ),
+						'Evidence Column Stats'[scope_id] = scopeId,
+						'Evidence Column Stats'[column_name] = "category",
+						'Evidence Column Stats'[snapshot_id] = snap
+					)
+				)
+		formatString: #,0
+		displayFolder: 5 Evidence
+
+	/// Share of profiled rows with a category label, from dataprof's counts: 1 - null_count / observed_rows. Counts are taken before dividing; percentages are never averaged.
+	measure 'Evidence Category Completeness' =
+			VAR rowsProfiled = [Evidence Rows Profiled]
+			RETURN IF ( rowsProfiled > 0, 1 - DIVIDE ( [Evidence Category Nulls], rowsProfiled ) )
+		formatString: 0.0%
+		displayFolder: 5 Evidence
+
+	/// dataprof's outcome for the category null-share check in the evidence scope: Passed, Failed or Not evaluated. Blank when the selection has no evidence scope.
+	measure 'Evidence Category Check' =
+			VAR scopeId = [Evidence Scope Id]
+			VAR snap = [Snapshot Id]
+			VAR checkStatus =
+				CALCULATE (
+					SELECTEDVALUE ( 'Evidence Checks'[check_status] ),
+					REMOVEFILTERS ( 'Evidence Checks' ),
+					'Evidence Checks'[scope_id] = scopeId,
+					'Evidence Checks'[check_code] = "max_null_percentage",
+					'Evidence Checks'[column_name] = "category",
+					'Evidence Checks'[snapshot_id] = snap
+				)
+			RETURN SWITCH ( checkStatus, "passed", "Passed", "failed", "Failed", "not_evaluated", "Not evaluated" )
+		displayFolder: 5 Evidence
+
+	/// Where and when the evidence applies, e.g. "Sep 2026 · North · through 20 Sep 2026", or "Evidence unavailable for this selection" when no single evidence scope matches (Check Means says why).
+	measure 'Evidence Scope Label' =
+			VAR monthKey = [Evidence Month Key]
+			VAR regionKey = [Evidence Region Key]
+			VAR monthName = FORMAT ( LOOKUPVALUE ( 'Month Coverage'[expected_start], 'Month Coverage'[month_key], monthKey ), "mmm yyyy" )
+			VAR cutoff = FORMAT ( SELECTEDVALUE ( Snapshot[snapshot_cutoff] ), "d mmm yyyy" )
+			RETURN
+				IF (
+					ISBLANK ( [Evidence Rows Profiled] ),
+					"Evidence unavailable for this selection",
+					monthName & " · " & IF ( regionKey = "ALL", "All regions", regionKey ) & " · through " & cutoff
+				)
+		displayFolder: 5 Evidence
+
+	/// Confirms the evidence describes the loaded orders: one snapshot id across all evidence tables, equal to the Snapshot table's, and dataprof's whole-snapshot row count equal to the orders loaded in the model.
+	measure 'Snapshot Consistency' =
+			VAR snap = [Snapshot Id]
+			VAR evidenceSnaps =
+				DISTINCT (
+					UNION (
+						ALL ( 'Evidence Column Stats'[snapshot_id] ),
+						ALL ( 'Evidence Checks'[snapshot_id] ),
+						ALL ( 'Month Coverage'[snapshot_id] )
+					)
+				)
+			VAR profiledRows =
+				CALCULATE (
+					SUM ( 'Evidence Column Stats'[observed_rows] ),
+					REMOVEFILTERS ( 'Evidence Column Stats' ),
+					'Evidence Column Stats'[scope_id] = "dataset",
+					'Evidence Column Stats'[column_name] = "order_id"
+				)
+			VAR loadedRows = COUNTROWS ( ALL ( Orders ) )
+			VAR consistent =
+				COUNTROWS ( evidenceSnaps ) = 1
+					&& MAXX ( evidenceSnaps, [snapshot_id] ) = snap
+					&& profiledRows = loadedRows
+					&& SELECTEDVALUE ( Snapshot[orders_rows] ) = loadedRows
+			RETURN
+				IF (
+					consistent,
+					"Same snapshot: " & snap & ", " & FORMAT ( loadedRows, "#,0" ) & " orders profiled and loaded",
+					"Mismatch: the evidence does not describe the loaded orders"
+				)
+		displayFolder: 5 Evidence
+
+	/// Coverage of the evidence month in a few words, with a status glyph.
+	measure 'Coverage Short' =
+			VAR monthKey = [Evidence Month Key]
+			VAR coverageStatus = LOOKUPVALUE ( 'Month Coverage'[coverage_status], 'Month Coverage'[month_key], monthKey )
+			VAR covered = LOOKUPVALUE ( 'Month Coverage'[covered_days], 'Month Coverage'[month_key], monthKey )
+			VAR expected = LOOKUPVALUE ( 'Month Coverage'[expected_days], 'Month Coverage'[month_key], monthKey )
+			RETURN
+				SWITCH (
+					coverageStatus,
+					"partial", "◐ Partial · " & covered & " of " & expected & " days",
+					"complete", "● Complete month",
+					"not_in_snapshot", "○ Not in this snapshot",
+					"Select a single month"
+				)
+		displayFolder: 8 Presentation
+
+	/// What the coverage observation means, in one sentence.
+	measure 'Coverage Means' =
+			VAR monthKey = [Evidence Month Key]
+			VAR coverageStatus = LOOKUPVALUE ( 'Month Coverage'[coverage_status], 'Month Coverage'[month_key], monthKey )
+			VAR covered = LOOKUPVALUE ( 'Month Coverage'[covered_days], 'Month Coverage'[month_key], monthKey )
+			VAR expected = LOOKUPVALUE ( 'Month Coverage'[expected_days], 'Month Coverage'[month_key], monthKey )
+			VAR monthStart = LOOKUPVALUE ( 'Month Coverage'[expected_start], 'Month Coverage'[month_key], monthKey )
+			VAR priorStart = EDATE ( monthStart, -1 )
+			RETURN
+				SWITCH (
+					coverageStatus,
+					"partial", "Covers " & FORMAT ( monthStart, "mmm" ) & " 1–" & covered & " only; compared with "
+						& FORMAT ( priorStart, "mmm" ) & " 1–" & covered & ".",
+					"complete", "All " & expected & " days are in the snapshot.",
+					""
+				)
+		displayFolder: 8 Presentation
+
+	/// What the coverage observation does not mean, in one sentence.
+	measure 'Coverage Not Means' =
+			VAR monthKey = [Evidence Month Key]
+			VAR coverageStatus = LOOKUPVALUE ( 'Month Coverage'[coverage_status], 'Month Coverage'[month_key], monthKey )
+			VAR covered = LOOKUPVALUE ( 'Month Coverage'[covered_days], 'Month Coverage'[month_key], monthKey )
+			VAR monthStart = LOOKUPVALUE ( 'Month Coverage'[expected_start], 'Month Coverage'[month_key], monthKey )
+			VAR priorStart = EDATE ( monthStart, -1 )
+			RETURN
+				SWITCH (
+					coverageStatus,
+					"partial", "Not a full month: against all of " & FORMAT ( priorStart, "mmm" ) & " it would set "
+						& covered & " days against " & DAY ( EOMONTH ( priorStart, 0 ) ) & ".",
+					"complete", "Coverage is the extract definition, not proof every order arrived.",
+					""
+				)
+		displayFolder: 8 Presentation
+
+	/// What the category completeness observation means.
+	measure 'Completeness Means' =
+			VAR completeness = [Evidence Category Completeness]
+			RETURN
+				IF (
+					NOT ISBLANK ( completeness ),
+					FORMAT ( 1 - completeness, "0.0%" ) & " of orders lack a category; they show as Unknown.",
+					"Evidence unavailable for this selection."
+				)
+		displayFolder: 8 Presentation
+
+	/// What the category completeness observation does not mean.
+	measure 'Completeness Not Means' =
+			IF (
+				NOT ISBLANK ( [Evidence Category Completeness] ),
+				"Revenue is not missing: those orders are in every total.",
+				""
+			)
+		displayFolder: 8 Presentation
+
+	/// dataprof check outcome with a glyph, so status is never carried by color alone.
+	measure 'Check Status Text' =
+			SWITCH (
+				[Evidence Category Check],
+				"Failed", "◆ Check failed",
+				"Passed", "◇ Check passed",
+				"Not evaluated", "○ Not evaluated",
+				"Evidence unavailable"
+			)
+		displayFolder: 8 Presentation
+
+	/// Text color for the check outcome: violet for failed (never used for revenue), neutral inks otherwise.
+	measure 'Check Status Color' =
+			SWITCH (
+				[Evidence Category Check],
+				"Failed", "#6A3D9A",
+				"Passed", "#52514E",
+				"#6B6A65"
+			)
+		isHidden
+		displayFolder: 8 Presentation
+
+	/// What the check outcome means. When all regions pass together but a region fails on its own, says so.
+	measure 'Check Means' =
+			VAR checkStatus = [Evidence Category Check]
+			VAR monthKey = [Evidence Month Key]
+			VAR snap = [Snapshot Id]
+			VAR allowance =
+				CALCULATE (
+					MAX ( 'Evidence Checks'[threshold] ),
+					REMOVEFILTERS ( 'Evidence Checks' ),
+					'Evidence Checks'[check_code] = "max_null_percentage",
+					'Evidence Checks'[column_name] = "category"
+				)
+			VAR allowanceText = FORMAT ( allowance / 100, "0%" )
+			VAR failingRegions =
+				CALCULATE (
+					CONCATENATEX (
+						'Evidence Checks',
+						'Evidence Checks'[region_key] & " (" & FORMAT ( 'Evidence Checks'[observed_value] / 100, "0.0%" ) & " missing)",
+						", ",
+						'Evidence Checks'[region_key]
+					),
+					REMOVEFILTERS ( 'Evidence Checks' ),
+					'Evidence Checks'[scope_kind] = "month_region",
+					'Evidence Checks'[month_key] = monthKey,
+					'Evidence Checks'[check_code] = "max_null_percentage",
+					'Evidence Checks'[column_name] = "category",
+					'Evidence Checks'[check_status] = "failed",
+					'Evidence Checks'[snapshot_id] = snap
+				)
+			RETURN
+				SWITCH (
+					checkStatus,
+					"Failed", "Missing labels exceed the " & allowanceText & " allowance; category splits are less reliable.",
+					"Passed", "Within the " & allowanceText & " allowance."
+						& IF (
+							[Evidence Region Key] = "ALL" && NOT ISBLANK ( failingRegions ),
+							" Region-level check fails: " & failingRegions & ".",
+							""
+						),
+					"Not evaluated", "dataprof has no result for this scope.",
+					"Select a single month, and all regions or one region."
+				)
+		displayFolder: 8 Presentation
+
+	/// Coverage and check outcome on one line, for compact headers.
+	measure 'Evidence Summary' = [Coverage Short] & "   " & [Check Status Text]
+		displayFolder: 8 Presentation
+
+	/// What the check outcome does not mean.
+	measure 'Check Not Means' =
+			SWITCH (
+				[Evidence Category Check],
+				"Failed", "It does not explain why revenue changed.",
+				"Passed", "Passing does not prove the labels are correct.",
+				"Not evaluated", "No result is not a pass.",
+				""
+			)
+		displayFolder: 8 Presentation
+
+	column snapshot_id
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: snapshot_id
+
+	column scope_id
+		dataType: string
+		summarizeBy: none
+		sourceColumn: scope_id
+
+	/// dataset, month or month_region. Month and month_region rows overlap: never add them together.
+	column scope_kind
+		dataType: string
+		summarizeBy: none
+		sourceColumn: scope_kind
+
+	column month_key
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: month_key
+
+	column region_key
+		dataType: string
+		summarizeBy: none
+		sourceColumn: region_key
+
+	column column_name
+		dataType: string
+		summarizeBy: none
+		sourceColumn: column_name
+
+	column dataprof_data_type
+		dataType: string
+		summarizeBy: none
+		sourceColumn: dataprof_data_type
+
+	column observed_rows
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: observed_rows
+
+	column null_count
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: null_count
+
+	column null_percentage
+		dataType: double
+		summarizeBy: none
+		sourceColumn: null_percentage
+
+	column unique_count
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: unique_count
+
+	column unique_count_is_approximate
+		dataType: boolean
+		summarizeBy: none
+		sourceColumn: unique_count_is_approximate
+
+	column min_value
+		dataType: double
+		summarizeBy: none
+		sourceColumn: min_value
+
+	column max_value
+		dataType: double
+		summarizeBy: none
+		sourceColumn: max_value
+
+	column mean_value
+		dataType: double
+		summarizeBy: none
+		sourceColumn: mean_value
+
+	/// dataprof key uniqueness for the identifier column (order_id); null for other columns.
+	column key_uniqueness_pct
+		dataType: double
+		summarizeBy: none
+		sourceColumn: key_uniqueness_pct
+
+	column sampling_applied
+		dataType: boolean
+		summarizeBy: none
+		sourceColumn: sampling_applied
+
+	column source_exhausted
+		dataType: boolean
+		summarizeBy: none
+		sourceColumn: source_exhausted
+
+	column evidence_source
+		dataType: string
+		summarizeBy: none
+		sourceColumn: evidence_source
+
+	partition 'Evidence Column Stats' = m
+		mode: import
+		source =
+				let
+					Source = fnReadCsv("evidence_column_stats.csv", {{"snapshot_id", type text}, {"scope_id", type text}, {"scope_kind", type text}, {"month_key", Int64.Type}, {"region_key", type text}, {"column_name", type text}, {"dataprof_data_type", type text}, {"observed_rows", Int64.Type}, {"null_count", Int64.Type}, {"null_percentage", type number}, {"unique_count", Int64.Type}, {"unique_count_is_approximate", type logical}, {"min_value", type number}, {"max_value", type number}, {"mean_value", type number}, {"key_uniqueness_pct", type number}, {"sampling_applied", type logical}, {"source_exhausted", type logical}, {"evidence_source", type text}})
+				in
+					Source
+

@@ -1,0 +1,6 @@
+category_key,category_name,sort_order,is_unknown
+Hardware,Hardware,1,false
+Software,Software,2,false
+Services,Services,3,false
+Accessories,Accessories,4,false
+UNKNOWN,Unknown (label missing),5,true

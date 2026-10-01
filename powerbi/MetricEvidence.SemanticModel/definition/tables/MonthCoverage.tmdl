@@ -1,0 +1,116 @@
+/// Coverage per month of the intended period, from the generation manifest plus a Python check of the data against it (evidence_source). Grain: one row per month. Not related to other tables: measures look rows up by month_key, and charts use it as a month axis that the month slicer does not filter.
+table 'Month Coverage'
+
+	column snapshot_id
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: snapshot_id
+
+	column month_key
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: month_key
+
+	column month_label
+		dataType: string
+		summarizeBy: none
+		sourceColumn: month_label
+		sortByColumn: month_key
+
+	/// Axis label; the partial month reads e.g. Sep (1–20).
+	column trend_label
+		dataType: string
+		summarizeBy: none
+		sourceColumn: trend_label
+		sortByColumn: month_key
+
+	column expected_start
+		dataType: dateTime
+		formatString: d mmm yyyy
+		summarizeBy: none
+		sourceColumn: expected_start
+
+	column expected_end
+		dataType: dateTime
+		formatString: d mmm yyyy
+		summarizeBy: none
+		sourceColumn: expected_end
+
+	column expected_days
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: expected_days
+
+	/// Last day with data in this snapshot, from the manifest cutoff.
+	column observed_through
+		dataType: dateTime
+		formatString: d mmm yyyy
+		summarizeBy: none
+		sourceColumn: observed_through
+
+	column covered_days
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: covered_days
+
+	/// complete, partial or not_in_snapshot.
+	column coverage_status
+		dataType: string
+		summarizeBy: none
+		sourceColumn: coverage_status
+
+	column comparison_end_day
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: comparison_end_day
+
+	column prior_month_key
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: prior_month_key
+
+	column comparison_label
+		dataType: string
+		summarizeBy: none
+		sourceColumn: comparison_label
+
+	column orders_in_snapshot
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: orders_in_snapshot
+
+	/// Python check: orders dated after the cutoff (expected 0).
+	column orders_after_cutoff
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: orders_after_cutoff
+
+	column cutoff_check
+		dataType: string
+		summarizeBy: none
+		sourceColumn: cutoff_check
+
+	column evidence_source
+		dataType: string
+		summarizeBy: none
+		sourceColumn: evidence_source
+
+	partition 'Month Coverage' = m
+		mode: import
+		source =
+				let
+					Source = fnReadCsv("month_coverage.csv", {{"snapshot_id", type text}, {"month_key", Int64.Type}, {"month_label", type text}, {"trend_label", type text}, {"expected_start", type date}, {"expected_end", type date}, {"expected_days", Int64.Type}, {"observed_through", type date}, {"covered_days", Int64.Type}, {"coverage_status", type text}, {"comparison_end_day", Int64.Type}, {"prior_month_key", Int64.Type}, {"comparison_label", type text}, {"orders_in_snapshot", Int64.Type}, {"orders_after_cutoff", Int64.Type}, {"cutoff_check", type text}, {"evidence_source", type text}})
+				in
+					Source
+

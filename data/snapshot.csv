@@ -1,0 +1,2 @@
+snapshot_id,snapshot_cutoff,intended_coverage_start,intended_coverage_end,orders_rows,orders_sha256,generator_seed,dataprof_version
+snap-2026-09-20,2026-09-20,2026-04-01,2026-09-30,19793,b99f374dd3a1b458efdc9390f588417a06af697aed57dc983a6d32a03d58f55b,20260401,0.12.0

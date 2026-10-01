@@ -1,0 +1,4 @@
+# Keep LF everywhere: data/orders.csv is verified by sha256 against data/manifest.json,
+# so a CRLF checkout (core.autocrlf=true) would make the evidence step refuse it.
+* text=auto eol=lf
+*.png binary

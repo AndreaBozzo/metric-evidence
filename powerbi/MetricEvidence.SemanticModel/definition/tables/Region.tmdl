@@ -1,0 +1,30 @@
+/// The three sales regions.
+table Region
+
+	column region_key
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: region_key
+
+	column region_name
+		dataType: string
+		summarizeBy: none
+		sourceColumn: region_name
+		sortByColumn: sort_order
+
+	column sort_order
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: sort_order
+
+	partition Region = m
+		mode: import
+		source =
+				let
+					Source = fnReadCsv("dim_region.csv", {{"region_key", type text}, {"region_name", type text}, {"sort_order", Int64.Type}})
+				in
+					Source
+

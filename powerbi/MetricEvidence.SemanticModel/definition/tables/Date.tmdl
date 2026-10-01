@@ -1,0 +1,60 @@
+/// One row per day of the intended coverage (1 Apr - 30 Sep 2026). Days after the snapshot cutoff exist with in_snapshot = false and have no orders.
+table 'Date'
+	dataCategory: Time
+
+	column date
+		dataType: dateTime
+		isKey
+		formatString: d mmm yyyy
+		summarizeBy: none
+		sourceColumn: date
+
+	column month_key
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: month_key
+
+	column month_start
+		dataType: dateTime
+		formatString: mmm yyyy
+		isHidden
+		summarizeBy: none
+		sourceColumn: month_start
+
+	/// Month name for slicers, e.g. Sep 2026.
+	column month_label
+		dataType: string
+		summarizeBy: none
+		sourceColumn: month_label
+		sortByColumn: month_key
+
+	column month_short
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: month_short
+		sortByColumn: month_key
+
+	column day_of_month
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: day_of_month
+
+	/// False for days after the snapshot cutoff.
+	column in_snapshot
+		dataType: boolean
+		summarizeBy: none
+		sourceColumn: in_snapshot
+
+	partition 'Date' = m
+		mode: import
+		source =
+				let
+					Source = fnReadCsv("dim_date.csv", {{"date", type date}, {"month_key", Int64.Type}, {"month_start", type date}, {"month_label", type text}, {"month_short", type text}, {"day_of_month", Int64.Type}, {"in_snapshot", type logical}})
+				in
+					Source
+

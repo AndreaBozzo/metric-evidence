@@ -1,0 +1,105 @@
+{
+  "purpose": "Demo ground truth written by the generator. Not inferred by dataprof.",
+  "generator_version": "1.0.0",
+  "seed": 20260401,
+  "snapshot_id": "snap-2026-09-20",
+  "grain": "one row per order",
+  "intended_coverage": {
+    "start": "2026-04-01",
+    "end": "2026-09-30"
+  },
+  "snapshot_cutoff": "2026-09-20",
+  "snapshot_cutoff_meaning": "orders dated on or before this date are in the extract",
+  "comparison_policy": {
+    "complete_month": "full month vs full previous month",
+    "partial_month": "days 1..N of the month vs days 1..N of the previous month, where N is the last observed day; N is capped at the previous month's length",
+    "first_month": "no comparable prior period in the snapshot",
+    "note": "A simple demo policy. It is not seasonally adjusted."
+  },
+  "regions": [
+    {
+      "region": "North",
+      "base_share": 0.4
+    },
+    {
+      "region": "Central",
+      "base_share": 0.35
+    },
+    {
+      "region": "South",
+      "base_share": 0.25
+    }
+  ],
+  "categories": [
+    {
+      "category": "Hardware",
+      "mix_share": 0.28,
+      "median_order_value": 320.0,
+      "lognormal_sigma": 0.55
+    },
+    {
+      "category": "Software",
+      "mix_share": 0.27,
+      "median_order_value": 140.0,
+      "lognormal_sigma": 0.55
+    },
+    {
+      "category": "Services",
+      "mix_share": 0.2,
+      "median_order_value": 520.0,
+      "lognormal_sigma": 0.55
+    },
+    {
+      "category": "Accessories",
+      "mix_share": 0.25,
+      "median_order_value": 38.0,
+      "lognormal_sigma": 0.55
+    }
+  ],
+  "baseline_missing_category_probability": 0.02,
+  "scenarios": [
+    {
+      "id": "S1_volume_decline",
+      "kind": "genuine_business_change",
+      "region": "North",
+      "start": "2026-09-01",
+      "end": "2026-09-30",
+      "parameter": {
+        "order_rate_multiplier": 0.8
+      },
+      "description": "North receives 20% fewer orders per day in September. Order values are unchanged. This is a real change in the business, not a data defect."
+    },
+    {
+      "id": "S2_missing_category",
+      "kind": "data_quality_degradation",
+      "region": "North",
+      "start": "2026-09-01",
+      "end": "2026-09-30",
+      "parameter": {
+        "missing_category_probability": 0.11,
+        "baseline_missing_category_probability": 0.02
+      },
+      "description": "In North during September the category label is missing for 11% of orders (baseline 2% everywhere). Missingness is random and independent of the true category; revenue is unaffected."
+    },
+    {
+      "id": "S3_partial_snapshot",
+      "kind": "coverage_limitation",
+      "region": null,
+      "start": "2026-09-21",
+      "end": "2026-09-30",
+      "parameter": {
+        "snapshot_cutoff": "2026-09-20"
+      },
+      "description": "Orders were generated for the whole of September, but the snapshot contains only orders dated up to and including 20 September. Later orders exist in the simulated business but not in this extract."
+    }
+  ],
+  "counts": {
+    "rows_generated_including_withheld": 20910,
+    "rows_in_snapshot": 19793,
+    "rows_withheld_after_cutoff": 1117,
+    "s2_rows_in_snapshot": 763,
+    "s2_rows_missing_category": 78
+  },
+  "orders_file": "orders.csv",
+  "orders_sha256": "b99f374dd3a1b458efdc9390f588417a06af697aed57dc983a6d32a03d58f55b"
+}

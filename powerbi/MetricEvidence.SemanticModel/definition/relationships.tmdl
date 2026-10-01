@@ -1,0 +1,12 @@
+relationship 490c6c1d-9482-42ab-acc6-b9cbcb222350
+	fromColumn: Orders.order_date
+	toColumn: 'Date'.date
+
+relationship ca080a9a-1caf-41b9-ac04-92874d2cf12e
+	fromColumn: Orders.region
+	toColumn: Region.region_key
+
+relationship cb5e2a72-b5c1-45a7-949b-0b64c092a931
+	fromColumn: Orders.category_key
+	toColumn: Category.category_key
+
