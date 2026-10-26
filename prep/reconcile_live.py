@@ -33,7 +33,7 @@ def _adomd():
     import clr  # pythonnet
 
     sys.path.append(str(DESKTOP_BIN))
-    clr.AddReference("Microsoft.PowerBI.AdomdClient")
+    clr.AddReference("Microsoft.PowerBI.AdomdClient")  # ty: ignore[unresolved-attribute]  # pythonnet, runtime-only
     from Microsoft.AnalysisServices.AdomdClient import AdomdConnection  # type: ignore
 
     return AdomdConnection
@@ -105,8 +105,7 @@ class Results:
             ok = abs(expected - actual) <= tol
         else:
             ok = expected == actual
-        self.checks.append({"group": group, "check": name, "expected": str(expected),
-                            "actual": str(actual), "ok": ok})
+        self.checks.append({"group": group, "check": name, "expected": str(expected), "actual": str(actual), "ok": ok})
 
     @property
     def failed(self) -> list[dict]:
@@ -145,8 +144,11 @@ def slice_query(month: int, region: str | None, category_filter: str | None = No
 def run(model: Model, data: Path) -> Results:
     ref = json.loads((data / "reference_results.json").read_text(encoding="utf-8"))
     with (data / "evidence_checks.csv").open(newline="", encoding="utf-8") as f:
-        cat_checks = {r["scope_id"]: r["check_status"] for r in csv.DictReader(f)
-                      if r["check_code"] == "max_null_percentage" and r["column_name"] == "category"}
+        cat_checks = {
+            r["scope_id"]: r["check_status"]
+            for r in csv.DictReader(f)
+            if r["check_code"] == "max_null_percentage" and r["column_name"] == "category"
+        }
     res = Results()
 
     # 1. Whole snapshot.
@@ -155,8 +157,12 @@ def run(model: Model, data: Path) -> Results:
         "bycat", SUMX ( VALUES ( Category[category_key] ), [Revenue] ) )""")[0]
     res.check("totals", "revenue", cents(ref["totals"]["revenue_cents"]), t["rev"])
     res.check("totals", "orders", ref["totals"]["orders"], t["orders"])
-    res.check("unknown retained", "Unknown category revenue",
-              cents(ref["totals"]["unknown_category_revenue_cents"]), t["unknown"])
+    res.check(
+        "unknown retained",
+        "Unknown category revenue",
+        cents(ref["totals"]["unknown_category_revenue_cents"]),
+        t["unknown"],
+    )
     res.check("unknown retained", "sum over categories incl. Unknown = total", t["rev"], t["bycat"])
     res.check("snapshot", "Snapshot Consistency", True, str(t["snap"]).startswith("Loaded orders match"))
 
@@ -172,16 +178,23 @@ def run(model: Model, data: Path) -> Results:
         res.check(g, "revenue change", cents(s["revenue_change_cents"]), v["chg"])
         res.check(g, "revenue change %", ratio(s["revenue_change_pct"]), v["chgpct"], PCT_TOL)
         res.check(g, "category completeness (model)", ratio(s["category_completeness"]), v["compl"], PCT_TOL)
-        res.check(g, "unknown category revenue", cents(s["unknown_category_revenue_cents"]),
-                  v["unknown"] or Decimal(0))
+        res.check(g, "unknown category revenue", cents(s["unknown_category_revenue_cents"]), v["unknown"] or Decimal(0))
         res.check(g, "dataprof nulls = independent count", s["unknown_category_orders"], v["evnulls"])
         res.check(g, "dataprof rows = independent count", s["orders"], v["evrows"])
         res.check(g, "category completeness (dataprof)", ratio(s["category_completeness"]), v["evcompl"], PCT_TOL)
         scope_id = str(month) if region == "ALL" else f"{month}-{region}"
-        res.check(g, "check status matches evidence_checks.csv",
-                  cat_checks[scope_id].replace("_", " ").capitalize(), v["evcheck"])
-        res.check(g, "scope label names the region",
-                  True, (" · All regions · " if region == "ALL" else f" · {region} · ") in str(v["scope"]))
+        res.check(
+            g,
+            "check status matches evidence_checks.csv",
+            cat_checks[scope_id].replace("_", " ").capitalize(),
+            v["evcheck"],
+        )
+        res.check(
+            g,
+            "scope label names the region",
+            True,
+            (" · All regions · " if region == "ALL" else f" · {region} · ") in str(v["scope"]),
+        )
 
         # Category interactions must not change the evidence or completeness.
         h = model.query(slice_query(month, None if region == "ALL" else region, "Hardware"))[0]
@@ -198,8 +211,9 @@ def run(model: Model, data: Path) -> Results:
         rows = model.query(f"""EVALUATE CALCULATETABLE (
             ADDCOLUMNS ( VALUES ( Region[region_key] ), "chg", [Revenue Change] ),
             TREATAS ( {{ {month} }}, 'Date'[month_key] ) )""")
-        res.check(f"{month} contributions", "sum of region changes = total change",
-                  cents(total), sum(r["chg"] for r in rows))
+        res.check(
+            f"{month} contributions", "sum of region changes = total change", cents(total), sum(r["chg"] for r in rows)
+        )
 
     # 3b. The bridge: two totals, region steps in between, all adding up.
     for month in sorted({m for m, _ in slices}):
@@ -210,22 +224,35 @@ def run(model: Model, data: Path) -> Results:
             SUMMARIZECOLUMNS ( 'Month Coverage'[month_key], "bridge", [Bridge Revenue] ),
             TREATAS ( {{ {month} }}, 'Date'[month_key] ) )""")
         got = {r["month_key"]: r["bridge"] for r in rows}
-        res.check(f"{month} bridge", "only the two compared months appear",
-                  sorted([cur["prior_month_key"], month]), sorted(got))
-        res.check(f"{month} bridge", "start = prior comparable", cents(cur["prior_revenue_cents"]),
-                  got.get(cur["prior_month_key"]))
+        res.check(
+            f"{month} bridge",
+            "only the two compared months appear",
+            sorted([cur["prior_month_key"], month]),
+            sorted(got),
+        )
+        res.check(
+            f"{month} bridge",
+            "start = prior comparable",
+            cents(cur["prior_revenue_cents"]),
+            got.get(cur["prior_month_key"]),
+        )
         res.check(f"{month} bridge", "end = comparable", cents(cur["comparable_revenue_cents"]), got.get(month))
 
     # Headlines state the change and contributions, never a cause or a data-quality claim.
     for region in (None, "North"):
         h = model.query(f"""EVALUATE CALCULATETABLE ( ROW ( "h1", [Headline What Changed], "h2", [Headline Contribution] ),
-            TREATAS ( {{ 202609 }}, 'Date'[month_key] ){'' if region is None else f', TREATAS ( {{ "{region}" }}, Region[region_key] )'} )""")[0]
+            TREATAS ( {{ 202609 }}, 'Date'[month_key] ){"" if region is None else f', TREATAS ( {{ "{region}" }}, Region[region_key] )'} )""")[
+            0
+        ]
         text = f"{h['h1']} {h['h2']}".lower()
         res.check("headline", f"{region or 'all regions'}: names the window", True, "sep 1–20 vs aug 1–20" in text)
-        res.check("headline", f"{region or 'all regions'}: no causal or quality wording", True,
-                  not any(w in text for w in ("because", "due to", "caused", "missing", "quality", "label")))
-        res.check("headline", f"{region or 'all regions'}: never prints (Blank)", True,
-                  h["h2"] is not None)
+        res.check(
+            "headline",
+            f"{region or 'all regions'}: no causal or quality wording",
+            True,
+            not any(w in text for w in ("because", "due to", "caused", "missing", "quality", "label")),
+        )
+        res.check("headline", f"{region or 'all regions'}: never prints (Blank)", True, h["h2"] is not None)
 
     # 4. September uses the aligned window.
     sep = model.query(slice_query(202609, None))[0]
@@ -240,10 +267,14 @@ def run(model: Model, data: Path) -> Results:
         TREATAS ( {{ 202609 }}, 'Date'[month_key] ), TREATAS ( {{ "North", "South" }}, Region[region_key] ) )""")[0]
     res.check("unsupported scope", "two regions: rows profiled blank", None, two["evrows"])
     res.check("unsupported scope", "two regions: completeness blank", None, two["evcompl"])
-    res.check("unsupported scope", "two regions: label says unavailable", True, str(two["scope"]).startswith(UNAVAILABLE))
+    res.check(
+        "unsupported scope", "two regions: label says unavailable", True, str(two["scope"]).startswith(UNAVAILABLE)
+    )
     allm = model.query(f"EVALUATE ROW ( {MEASURES} )")[0]
     res.check("unsupported scope", "no single month: completeness blank", None, allm["evcompl"])
-    res.check("unsupported scope", "no single month: label says unavailable", True, str(allm["scope"]).startswith(UNAVAILABLE))
+    res.check(
+        "unsupported scope", "no single month: label says unavailable", True, str(allm["scope"]).startswith(UNAVAILABLE)
+    )
     res.check("unsupported scope", "no single month: change blank", None, allm["chg"])
 
     # Evidence history rows (page 2) take their month from the row, not the slicer.
@@ -253,10 +284,16 @@ def run(model: Model, data: Path) -> Results:
         TREATAS ( { 202609 }, 'Date'[month_key] ), TREATAS ( { "North" }, Region[region_key] ) )""")
     for h in hist:
         s = slices[(h["month_key"], "North")]
-        res.check("history rows", f"{h['month_key']} North dataprof completeness",
-                  ratio(s["category_completeness"]), h["evcompl"], PCT_TOL)
-        res.check("history rows", f"{h['month_key']} North revenue ignores month slicer",
-                  cents(s["revenue_cents"]), h["rev"])
+        res.check(
+            "history rows",
+            f"{h['month_key']} North dataprof completeness",
+            ratio(s["category_completeness"]),
+            h["evcompl"],
+            PCT_TOL,
+        )
+        res.check(
+            "history rows", f"{h['month_key']} North revenue ignores month slicer", cents(s["revenue_cents"]), h["rev"]
+        )
     return res
 
 
@@ -268,8 +305,9 @@ def main() -> None:
     res = run(Model(port), data)
     out = REPO_ROOT / "verification" / "live_reconciliation.json"
     out.parent.mkdir(exist_ok=True)
-    out.write_text(json.dumps({"port": port, "checks": res.checks}, indent=1, ensure_ascii=False) + "\n",
-                   encoding="utf-8")
+    out.write_text(
+        json.dumps({"port": port, "checks": res.checks}, indent=1, ensure_ascii=False) + "\n", encoding="utf-8"
+    )
     for c in res.failed:
         print(f"FAIL [{c['group']}] {c['check']}: expected {c['expected']}, got {c['actual']}")
     print(f"{len(res.checks) - len(res.failed)}/{len(res.checks)} checks passed (port {port}) -> {out}")

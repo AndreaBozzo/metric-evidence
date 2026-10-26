@@ -12,16 +12,15 @@ from __future__ import annotations
 
 import json
 import re
-import urllib.error
 import sys
+import urllib.error
 import urllib.request
 from pathlib import Path
 
 from jsonschema import Draft7Validator
+from paths import REPO_ROOT
 from referencing import Registry, Resource
 from referencing.jsonschema import DRAFT7
-
-from paths import REPO_ROOT
 
 PREFIX = "https://developer.microsoft.com/json-schemas/"
 RAW = "https://raw.githubusercontent.com/microsoft/json-schemas/main/"
@@ -32,7 +31,7 @@ CACHE = REPO_ROOT / ".cache" / "schemas" / "by-url"
 
 def fetch(url: str) -> dict:
     if url.startswith(PREFIX):
-        rel, source = url[len(PREFIX):], RAW + url[len(PREFIX):]
+        rel, source = url[len(PREFIX) :], RAW + url[len(PREFIX) :]
     elif url.startswith(THEME_PREFIX):
         rel, source = "themes/" + url.rsplit("/", 1)[-1].replace("%20", " "), url
     else:
@@ -82,8 +81,10 @@ def validate(path: Path, registry: Registry) -> list[str]:
     used, schema = fetch_published(url)
     if used != url:
         shown = path.relative_to(REPO_ROOT) if path.is_relative_to(REPO_ROOT) else path
-        NOTES.append(f"{shown}: {url.rsplit('/', 3)[-3]} {url.rsplit('/', 2)[-2]} "
-                     f"is not published yet; validated against {used.rsplit('/', 2)[-2]}")
+        NOTES.append(
+            f"{shown}: {url.rsplit('/', 3)[-3]} {url.rsplit('/', 2)[-2]} "
+            f"is not published yet; validated against {used.rsplit('/', 2)[-2]}"
+        )
     schema.setdefault("$id", used)
     validator = Draft7Validator(schema, registry=registry)
     errors = sorted(validator.iter_errors(doc), key=lambda e: list(map(str, e.absolute_path)))
@@ -96,10 +97,20 @@ def validate(path: Path, registry: Registry) -> list[str]:
 def main() -> int:
     roots = [Path(p) for p in sys.argv[1:]] or [REPO_ROOT / "powerbi"]
     # SharedResources holds Desktop's own base theme, copied verbatim; .pbi holds local state.
-    files = [p for r in roots for p in sorted(r.rglob("*.json"))
-             if ".pbi" not in p.parts and "SharedResources" not in p.parts]
-    files += [p for r in roots for p in sorted(r.rglob("*.pbir")) + sorted(r.rglob("*.pbism"))
-              + sorted(r.rglob("*.pbip")) + sorted(r.rglob(".platform"))]
+    files = [
+        p
+        for r in roots
+        for p in sorted(r.rglob("*.json"))
+        if ".pbi" not in p.parts and "SharedResources" not in p.parts
+    ]
+    files += [
+        p
+        for r in roots
+        for p in sorted(r.rglob("*.pbir"))
+        + sorted(r.rglob("*.pbism"))
+        + sorted(r.rglob("*.pbip"))
+        + sorted(r.rglob(".platform"))
+    ]
     registry = Registry(retrieve=retrieve)
     errors = []
     for f in files:
@@ -108,8 +119,10 @@ def main() -> int:
         print(e)
     for n in NOTES:
         print("note:", n)
-    print(f"{len(files)} files checked, {len(errors)} schema errors"
-          + (f", {len(NOTES)} validated against an older published schema version" if NOTES else ""))
+    print(
+        f"{len(files)} files checked, {len(errors)} schema errors"
+        + (f", {len(NOTES)} validated against an older published schema version" if NOTES else "")
+    )
     return 1 if errors else 0
 
 

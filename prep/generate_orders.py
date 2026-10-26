@@ -17,6 +17,7 @@ import math
 import random
 from datetime import date, timedelta
 from pathlib import Path
+from typing import Any
 
 from paths import data_dir_from_args
 
@@ -44,7 +45,7 @@ CATEGORIES = (
 BASE_MISSING_CATEGORY = 0.02
 
 # Controlled scenarios. Each is applied by the code below exactly as described.
-SCENARIOS = [
+SCENARIOS: list[dict[str, Any]] = [
     {
         "id": "S1_volume_decline",
         "kind": "genuine_business_change",
@@ -155,8 +156,13 @@ def generate() -> tuple[list[dict], dict]:
                 cents = max(1, round(median * math.exp(sigma * _normal(rng)) * 100))
                 label = None if rng.random() < p_missing else category
                 generated.append(
-                    {"order_date": d, "region": region, "true_category": category,
-                     "category": label, "revenue_cents": cents}
+                    {
+                        "order_date": d,
+                        "region": region,
+                        "true_category": category,
+                        "category": label,
+                        "revenue_cents": cents,
+                    }
                 )
         d += timedelta(days=1)
 
@@ -210,8 +216,15 @@ def write_orders(rows: list[dict], path: Path) -> None:
         w = csv.writer(f, lineterminator="\n")
         w.writerow(ORDER_FIELDS)
         for r in rows:
-            w.writerow([r["order_id"], r["order_date"].isoformat(), r["region"],
-                        r["category"] or "", _money(r["revenue_cents"])])
+            w.writerow(
+                [
+                    r["order_id"],
+                    r["order_date"].isoformat(),
+                    r["region"],
+                    r["category"] or "",
+                    _money(r["revenue_cents"]),
+                ]
+            )
 
 
 def write_dimensions(out: Path) -> None:
@@ -232,13 +245,20 @@ def write_dimensions(out: Path) -> None:
     # cutoff exist as dates with no orders rather than silently disappearing.
     with (out / "dim_date.csv").open("w", newline="", encoding="utf-8") as f:
         w = csv.writer(f, lineterminator="\n")
-        w.writerow(["date", "month_key", "month_start", "month_label", "month_short",
-                    "day_of_month", "in_snapshot"])
+        w.writerow(["date", "month_key", "month_start", "month_label", "month_short", "day_of_month", "in_snapshot"])
         d = COVERAGE_START
         while d <= COVERAGE_END:
-            w.writerow([d.isoformat(), d.year * 100 + d.month, d.replace(day=1).isoformat(),
-                        f"{MONTH_ABBR[d.month - 1]} {d.year}", MONTH_ABBR[d.month - 1], d.day,
-                        "true" if d <= SNAPSHOT_CUTOFF else "false"])
+            w.writerow(
+                [
+                    d.isoformat(),
+                    d.year * 100 + d.month,
+                    d.replace(day=1).isoformat(),
+                    f"{MONTH_ABBR[d.month - 1]} {d.year}",
+                    MONTH_ABBR[d.month - 1],
+                    d.day,
+                    "true" if d <= SNAPSHOT_CUTOFF else "false",
+                ]
+            )
             d += timedelta(days=1)
 
 
@@ -253,8 +273,10 @@ def main() -> None:
     manifest["orders_sha256"] = hashlib.sha256(orders_path.read_bytes()).hexdigest()
     (out / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
     c = manifest["counts"]
-    print(f"orders.csv: {c['rows_in_snapshot']} rows in snapshot "
-          f"({c['rows_withheld_after_cutoff']} generated after the cutoff were withheld)")
+    print(
+        f"orders.csv: {c['rows_in_snapshot']} rows in snapshot "
+        f"({c['rows_withheld_after_cutoff']} generated after the cutoff were withheld)"
+    )
     print(f"sha256 {manifest['orders_sha256']}")
 
 

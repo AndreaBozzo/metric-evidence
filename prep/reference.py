@@ -25,7 +25,8 @@ ALL = "ALL"
 
 def to_cents(text: str) -> int:
     d = Decimal(text)
-    if d < 0 or d.as_tuple().exponent < -2:
+    exponent = d.as_tuple().exponent  # a letter for NaN and infinity
+    if not isinstance(exponent, int) or d < 0 or exponent < -2:
         raise ValueError(f"not a nonnegative two-decimal amount: {text!r}")
     return int(d * 100)
 
@@ -86,9 +87,7 @@ def build(orders: list[dict], manifest: dict) -> dict:
     def total(mk: int, region: str, max_day: int = 31, category: str | None = None) -> dict:
         out = {"orders": 0, "cents": 0}
         for (m, r, d, c), v in cell.items():
-            if m == mk and (region == ALL or r == region) and d <= max_day and (
-                category is None or c == category
-            ):
+            if m == mk and (region == ALL or r == region) and d <= max_day and (category is None or c == category):
                 out["orders"] += v["orders"]
                 out["cents"] += v["cents"]
         return out
@@ -110,26 +109,26 @@ def build(orders: list[dict], manifest: dict) -> dict:
             comp_cur = total(mk, region, end_day)
             prior = total(pmk, region, prior_end) if has_prior else None
             change = comp_cur["cents"] - prior["cents"] if prior else None
-            slices.append({
-                "month_key": mk,
-                "region": region,
-                "coverage_status": status,
-                "comparison_end_day": end_day,
-                "orders": cur["orders"],
-                "revenue_cents": cur["cents"],
-                "unknown_category_orders": unknown["orders"],
-                "unknown_category_revenue_cents": unknown["cents"],
-                "category_revenue_cents": {
-                    c: total(mk, region, category=c)["cents"] for c in categories
-                },
-                "category_completeness": pct(cur["orders"] - unknown["orders"], cur["orders"]),
-                "comparable_revenue_cents": comp_cur["cents"],
-                "prior_month_key": pmk if has_prior else None,
-                "prior_window": f"{pmk}: days 1-{prior_end}" if has_prior else None,
-                "prior_revenue_cents": prior["cents"] if prior else None,
-                "revenue_change_cents": change,
-                "revenue_change_pct": pct(change, prior["cents"]) if prior else None,
-            })
+            slices.append(
+                {
+                    "month_key": mk,
+                    "region": region,
+                    "coverage_status": status,
+                    "comparison_end_day": end_day,
+                    "orders": cur["orders"],
+                    "revenue_cents": cur["cents"],
+                    "unknown_category_orders": unknown["orders"],
+                    "unknown_category_revenue_cents": unknown["cents"],
+                    "category_revenue_cents": {c: total(mk, region, category=c)["cents"] for c in categories},
+                    "category_completeness": pct(cur["orders"] - unknown["orders"], cur["orders"]),
+                    "comparable_revenue_cents": comp_cur["cents"],
+                    "prior_month_key": pmk if has_prior else None,
+                    "prior_window": f"{pmk}: days 1-{prior_end}" if has_prior else None,
+                    "prior_revenue_cents": prior["cents"] if prior else None,
+                    "revenue_change_cents": change,
+                    "revenue_change_pct": pct(change, prior["cents"]) if prior and change is not None else None,
+                }
+            )
 
     # What a naive full-month comparison would claim for the partial month.
     pm = month_key(cutoff)
@@ -170,11 +169,13 @@ def main() -> None:
     print(f"{'month':>6} {'region':>8} {'cover':>8} {'revenue':>12} {'prior':>12} {'chg%':>8} {'catcompl':>8}")
     for s in ref["slices"]:
         chg = s["revenue_change_pct"]
-        print(f"{s['month_key']:>6} {s['region']:>8} {s['coverage_status']:>8} "
-              f"{Decimal(s['revenue_cents']) / 100:>12} "
-              f"{'-' if s['prior_revenue_cents'] is None else Decimal(s['prior_revenue_cents']) / 100:>12} "
-              f"{'-' if chg is None else f'{Decimal(chg) * 100:.1f}':>8} "
-              f"{Decimal(s['category_completeness']) * 100:>7.1f}%")
+        print(
+            f"{s['month_key']:>6} {s['region']:>8} {s['coverage_status']:>8} "
+            f"{Decimal(s['revenue_cents']) / 100:>12} "
+            f"{'-' if s['prior_revenue_cents'] is None else Decimal(s['prior_revenue_cents']) / 100:>12} "
+            f"{'-' if chg is None else f'{Decimal(chg) * 100:.1f}':>8} "
+            f"{Decimal(s['category_completeness']) * 100:>7.1f}%"
+        )
     n = ref["naive_partial_month_comparison"]
     print(f"naive Sep(1-20) vs full Aug: {Decimal(n['change_pct']) * 100:.1f}% (not used)")
 

@@ -30,6 +30,7 @@ uv run python prep/generate_orders.py     # data/orders.csv + manifest.json + di
 uv run python prep/build_evidence.py      # dataprof evidence tables + native JSON
 uv run python prep/reference.py           # independent reference results (integer cents)
 uv run pytest -q
+uv run ruff format --check . && uv run ruff check . && uv run ty check
 ```
 
 Point the report at this clone's data, then open it:

@@ -8,11 +8,10 @@ import json
 from datetime import date
 from pathlib import Path
 
-import dataprof as dp
-import pytest
-
 import build_evidence
+import dataprof as dp
 import generate_orders
+import pytest
 import reference
 
 DATA = Path(__file__).resolve().parent.parent / "data"
@@ -39,6 +38,7 @@ def _slice(ref, mk, region):
 
 # --- determinism -----------------------------------------------------------------
 
+
 def test_generation_is_deterministic_and_matches_checked_in_manifest(built):
     checked_in = json.loads((DATA / "manifest.json").read_text(encoding="utf-8"))
     assert built["manifest"]["orders_sha256"] == checked_in["orders_sha256"]
@@ -46,6 +46,7 @@ def test_generation_is_deterministic_and_matches_checked_in_manifest(built):
 
 
 # --- comparison boundaries -------------------------------------------------------
+
 
 def test_partial_month_window_and_boundaries():
     cutoff = date(2026, 9, 20)
@@ -70,6 +71,7 @@ def test_comparison_policy_on_built_snapshot(built):
 
 # --- reconciliation --------------------------------------------------------------
 
+
 def test_unknown_category_revenue_is_retained(built):
     ref = built["ref"]
     for s in ref["slices"]:
@@ -86,11 +88,9 @@ def test_region_contributions_sum_to_total_change(built):
 
 def test_dataprof_null_counts_match_independent_counts(built):
     ref, stats = built["ref"], built["evidence"]["stats"]
-    cat = {(r["scope_kind"], r["month_key"], r["region_key"]): r for r in stats
-           if r["column_name"] == "category"}
+    cat = {(r["scope_kind"], r["month_key"], r["region_key"]): r for r in stats if r["column_name"] == "category"}
     for s in ref["slices"]:
-        key = ("month", s["month_key"], None) if s["region"] == "ALL" else (
-            "month_region", s["month_key"], s["region"])
+        key = ("month", s["month_key"], None) if s["region"] == "ALL" else ("month_region", s["month_key"], s["region"])
         assert cat[key]["null_count"] == s["unknown_category_orders"]
         assert cat[key]["observed_rows"] == s["orders"]
     assert cat[("dataset", None, None)]["null_count"] == ref["totals"]["unknown_category_orders"]
@@ -120,6 +120,7 @@ def test_scenarios_are_visible_in_evidence_and_reference(built):
 
 
 # --- adapter honesty -------------------------------------------------------------
+
 
 def test_unevaluated_checks_stay_unevaluated(tmp_path):
     report = dp.profile({"a": ["1", None], "b": ["x", "y"]})
@@ -180,7 +181,8 @@ def test_configure_report_rewrites_only_the_data_folder(tmp_path):
     assert (old, new) == (configure_report.PLACEHOLDER, target)
     changed = copy.read_text(encoding="utf-8")
     assert f'expression DataFolder = "{target}" meta' in changed
-    assert [line for line in changed.splitlines() if "DataFolder =" not in line] == \
-        [line for line in shipped.splitlines() if "DataFolder =" not in line]
+    assert [line for line in changed.splitlines() if "DataFolder =" not in line] == [
+        line for line in shipped.splitlines() if "DataFolder =" not in line
+    ]
     configure_report.set_data_folder(configure_report.PLACEHOLDER, copy)
     assert copy.read_text(encoding="utf-8") == shipped

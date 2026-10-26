@@ -51,7 +51,7 @@ def main() -> None:
 
     def refresh_and_read() -> str:
         cmd = model.conn.CreateCommand()
-        cmd.CommandText = '{"refresh": {"type": "full", "objects": [{"database": "%s", "table": "Orders"}]}}' % db
+        cmd.CommandText = json.dumps({"refresh": {"type": "full", "objects": [{"database": db, "table": "Orders"}]}})
         cmd.ExecuteNonQuery()
         return model.query('EVALUATE ROW ( "s", [Snapshot Consistency] )')[0]["s"]
 
@@ -67,8 +67,9 @@ def main() -> None:
     finally:
         path.write_bytes(original)
         message = refresh_and_read()
-        results.append({"mutation": "none (restored)", "message": message,
-                        "ok": message.startswith("Loaded orders match")})
+        results.append(
+            {"mutation": "none (restored)", "message": message, "ok": message.startswith("Loaded orders match")}
+        )
 
     out = REPO_ROOT / "verification" / "snapshot_mutations.json"
     out.write_text(json.dumps(results, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")

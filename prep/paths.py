@@ -29,4 +29,3 @@ def data_dir_from_args(parser: argparse.ArgumentParser) -> Path:
 def desktop_bin() -> Path:
     """Power BI Desktop's bin folder (standard installer location unless PBI_DESKTOP_BIN is set)."""
     return Path(os.environ.get("PBI_DESKTOP_BIN", r"C:\Program Files\Microsoft Power BI Desktop\bin"))
-
