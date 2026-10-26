@@ -379,7 +379,7 @@ def page_what_changed(region: str | None = None) -> tuple[dict, list[dict]]:
         value_size=13, callout_size=40.0,
         refs={0: [("Means:", m("Completeness Means", E)), ("Does not mean:", m("Completeness Not Means", E))]})))
     v.append(container("cardCheck", 792, 528, 464, 176, z=next(z), background=PANEL, visual=card(
-        "cardCheck", [(m("Check Status Text", E), "dataprof 0.12.0 check · missing labels ≤ 5%")], value_size=13, callout_size=40.0,
+        "cardCheck", [(m("Check Status Text", E), "dataprof 0.13.0 check · missing labels ≤ 5%")], value_size=13, callout_size=40.0,
         value_color=mexpr(E, "Check Status Color")["expr"],
         refs={0: [("Means:", m("Check Means", E)), ("Does not mean:", m("Check Not Means", E))]})))
 

@@ -5,6 +5,15 @@ noticed in practice, not a wish list.
 
 ## dataprof (0.12.0)
 
+Status on 0.13.0 (2026-10-26), where it changed: 1 no longer warns for a
+`dict`. 2 is tracked as dataprof#904 (`check()` key uniqueness) and #1068 (a
+`key_duplicates` finding). 3 also applies to the verdict now: absolute rules
+decide on the two-decimal value (dataprof#1090). 4: `profile(path, name=...)`
+accepts `name` for a file and drops it, so the report carries only the path
+(commented on dataprof#866). 6 is dataprof#903. 7 is commented on dataprof#651
+(composable state). 5 is not filed: the schema README names the volatile
+fields (`id`, `timestamp`, execution measurements).
+
 1. **Sampling warning names the wrong source type.** Passing `sampling=` with a
    plain `dict` of columns warns "Config kwargs ['sampling'] are ignored for
    DataFrame/Arrow sources". The source was neither. Naming the actual input

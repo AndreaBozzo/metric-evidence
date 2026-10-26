@@ -28,7 +28,7 @@
               },
               "queryRef": "Evidence Column Stats.Check Status Text",
               "nativeQueryRef": "Check Status Text",
-              "displayName": "dataprof 0.12.0 check · missing labels ≤ 5%"
+              "displayName": "dataprof 0.13.0 check · missing labels ≤ 5%"
             }
           ]
         }
