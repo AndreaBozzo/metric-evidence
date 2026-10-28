@@ -7,7 +7,7 @@ license = "MIT OR Apache-2.0"
 license-files = ["LICENSE", "LICENSE-APACHE"]
 keywords = ["power-bi", "data-quality", "dataprof", "pbip", "data-visualization"]
 dependencies = [
-    "dataprof==0.13.0",
+    "dataprof==0.13.1",
 ]
 
 [dependency-groups]

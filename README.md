@@ -25,7 +25,7 @@ Needs Power BI Desktop (tested 2.158, Sep 2026), Python 3.12 and
 [uv](https://docs.astral.sh/uv/).
 
 ```powershell
-uv sync                                   # dataprof==0.13.0, pytest, jsonschema, pythonnet
+uv sync                                   # dataprof==0.13.1, pytest, jsonschema, pythonnet
 uv run python prep/generate_orders.py     # data/orders.csv + manifest.json + dimensions
 uv run python prep/build_evidence.py      # dataprof evidence tables + native JSON
 uv run python prep/reference.py           # independent reference results (integer cents)
